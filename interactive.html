@@ -1,0 +1,147 @@
+<style>
+.bm-wrap { padding: 1rem 0; }
+.ctrl-row { display:flex; align-items:center; gap:12px; margin-bottom:10px; font-size:13px; color:var(--color-text-secondary); }
+.ctrl-row label { min-width:28px; font-size:15px; font-weight:500; color:var(--color-text-primary); }
+.ctrl-row input[type=range] { flex:1; }
+.ctrl-val { min-width:52px; font-size:13px; font-weight:500; color:var(--color-text-primary); }
+.stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:14px 0; }
+.stat-card { background:var(--color-background-secondary); border-radius:var(--border-radius-md); padding:10px 14px; }
+.stat-card .lbl { font-size:11px; color:var(--color-text-secondary); margin-bottom:4px; }
+.stat-card .val { font-size:18px; font-weight:500; color:var(--color-text-primary); }
+.verdict { font-size:13px; padding:8px 14px; border-radius:var(--border-radius-md); margin-top:4px; border:0.5px solid; }
+.v-hard { background:var(--color-background-danger); color:var(--color-text-danger); border-color:var(--color-border-danger); }
+.v-ok   { background:var(--color-background-success); color:var(--color-text-success); border-color:var(--color-border-success); }
+</style>
+<div class="bm-wrap">
+<div class="ctrl-row">
+  <label>ㅔ</label>
+  <input type="range" id="f1a" min="200" max="900" step="1" value="539">
+  <span class="ctrl-val"><span id="va">539</span> Hz</span>
+</div>
+<div class="ctrl-row">
+  <label>ㅐ</label>
+  <input type="range" id="f1b" min="200" max="900" step="1" value="549">
+  <span class="ctrl-val"><span id="vb">549</span> Hz</span>
+</div>
+
+<div style="position:relative;width:100%;height:110px;margin:8px 0;">
+  <canvas id="bm" role="img" aria-label="기저막 위 두 주파수의 위치와 임계대역 표시">기저막 위 주파수 위치 시각화</canvas>
+</div>
+
+<div class="stat-row">
+  <div class="stat-card"><div class="lbl">주파수 차이</div><div class="val" id="s-diff">10 Hz</div></div>
+  <div class="stat-card"><div class="lbl">ERB 임계대역폭</div><div class="val" id="s-erb">63 Hz</div></div>
+  <div class="stat-card"><div class="lbl">기저막 거리</div><div class="val" id="s-dist">0.09 mm</div></div>
+</div>
+<div class="verdict" id="verdict"></div>
+
+<div style="margin-top:14px;font-size:11px;color:var(--color-text-tertiary);">
+  ERB(f) = 24.7 × (4.37f/1000 + 1) · Moore &amp; Glasberg(1983) / 기저막 거리: 1 ERB ≈ 0.9 mm · Moore(2013)
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+function erb(f) { return 24.7 * (4.37 * f / 1000 + 1); }
+function erbRate(f) { return 21.4 * Math.log10(4.37 * f / 1000 + 1); }
+function mmOnBM(f) { return erbRate(f) * 0.9; }
+
+const canvas = document.getElementById('bm');
+const ctx = canvas.getContext('2d');
+
+function draw(fa, fb) {
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+
+  const fMin = 200, fMax = 1000;
+  const toX = f => 40 + (erbRate(f) - erbRate(fMin)) / (erbRate(fMax) - erbRate(fMin)) * (W - 80);
+
+  ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--color-background-secondary') || '#f5f5f0';
+  ctx.beginPath();
+  ctx.roundRect(20, 35, W - 40, 40, 6);
+  ctx.fill();
+  ctx.strokeStyle = '#b4b2a9';
+  ctx.lineWidth = 0.5;
+  ctx.stroke();
+
+  ctx.fillStyle = '#888780';
+  ctx.font = '11px sans-serif';
+  ctx.textAlign = 'center';
+  [200, 300, 400, 500, 600, 700, 800, 1000].forEach(f => {
+    const x = toX(f);
+    ctx.fillText(f, x, 90);
+    ctx.fillRect(x - 0.5, 73, 1, 5);
+  });
+  ctx.textAlign = 'left';
+  ctx.fillText('Hz (F1)', W - 60, 90);
+
+  const xa = toX(fa), xb = toX(fb);
+  const erbW = erb((fa + fb) / 2);
+  const avgF = (fa + fb) / 2;
+  const cbHalfPx = (erbW / 2) / (fMax - fMin) * (W - 80) * 0.6;
+  const xcenter = (xa + xb) / 2;
+
+  ctx.fillStyle = 'rgba(215,90,48,0.13)';
+  ctx.beginPath();
+  ctx.roundRect(xcenter - cbHalfPx, 33, cbHalfPx * 2, 44, 4);
+  ctx.fill();
+  ctx.strokeStyle = '#D85A30';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([3, 3]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.fillStyle = '#185FA5';
+  ctx.beginPath(); ctx.arc(xa, 55, 7, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('ㅔ', xa, 59);
+
+  ctx.fillStyle = '#993C1D';
+  ctx.beginPath(); ctx.arc(xb, 55, 7, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.fillText('ㅐ', xb, 59);
+
+  ctx.fillStyle = '#D85A30';
+  ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('임계대역', xcenter, 28);
+}
+
+function update() {
+  const fa = +document.getElementById('f1a').value;
+  const fb = +document.getElementById('f1b').value;
+  document.getElementById('va').textContent = fa;
+  document.getElementById('vb').textContent = fb;
+
+  const diff = Math.abs(fa - fb);
+  const avgF = (fa + fb) / 2;
+  const erbW = erb(avgF);
+  const mmA = mmOnBM(fa), mmB = mmOnBM(fb);
+  const distMM = Math.abs(mmA - mmB);
+
+  document.getElementById('s-diff').textContent = diff + ' Hz';
+  document.getElementById('s-erb').textContent = Math.round(erbW) + ' Hz';
+  document.getElementById('s-dist').textContent = distMM.toFixed(2) + ' mm';
+
+  const v = document.getElementById('verdict');
+  if (diff < erbW * 0.3) {
+    v.className = 'verdict v-hard';
+    v.textContent = '두 소리가 같은 임계대역 안에 있어 — 귀가 구별하기 매우 어려움';
+  } else if (diff < erbW) {
+    v.className = 'verdict v-hard';
+    v.textContent = '임계대역 폭보다 차이가 작아 — 구별 단서가 약함';
+  } else {
+    v.className = 'verdict v-ok';
+    v.textContent = '임계대역을 넘는 차이 — 귀가 비교적 잘 구별함';
+  }
+
+  canvas.width = canvas.offsetWidth || 640;
+  canvas.height = 110;
+  draw(fa, fb);
+}
+
+document.getElementById('f1a').addEventListener('input', update);
+document.getElementById('f1b').addEventListener('input', update);
+window.addEventListener('resize', update);
+setTimeout(update, 100);
+</script>
