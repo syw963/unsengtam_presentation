@@ -349,6 +349,9 @@ html, body {
 .content-zone.dense .stat-value { font-size: 38px; }
 .content-zone.dense .stat-label,
 .content-zone.dense .stat-unit  { font-size: 24px; }
+/* Canvas cols: don't stretch — canvas height is intrinsic, stretching creates dead space */
+.content-zone.dense .graph-wrap { flex: 0 0 auto; }
+.content-zone.dense .cols > .col:has(.graph-wrap) { align-self: flex-start; }
 
 /* ─── Display math ──────────────────────────────────────── */
 .display-math    { font-size: 40px; text-align: center; padding: 14px; }
