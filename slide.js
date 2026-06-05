@@ -17,7 +17,7 @@ window.addEventListener('resize', scaleViewport);
 scaleViewport();
 
 // ── Navigation ───────────────────────────────────────────
-const TOTAL = 30;
+const TOTAL = 21;
 let current = 1;
 
 function showSlide(n) {
@@ -136,8 +136,8 @@ const C_BORDER  = '#d9e2ec';
 // ── Korean vowel data ────────────────────────────────────
 const VOWELS = [
   { label: 'ㅣ', f1: 280,  f2: 2300, base: true },
-  { label: 'ㅔ', f1: 530,  f2: 1950, merge: true },
-  { label: 'ㅐ', f1: 540,  f2: 1926, merge: true },
+  { label: 'ㅔ', f1: 539,  f2: 2078, merge: true },
+  { label: 'ㅐ', f1: 549,  f2: 2054, merge: true },
   { label: 'ㅡ', f1: 400,  f2: 1400, base: false },
   { label: 'ㅏ', f1: 800,  f2: 1200, base: true },
   { label: 'ㅓ', f1: 600,  f2: 1100, base: false },
@@ -355,7 +355,7 @@ function drawVowelZoom() {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const W = canvas.width, H = canvas.height;
-  const mg = { left: 80, right: 30, top: 60, bottom: 50 };
+  const mg = { left: 80, right: 30, top: 60, bottom: 90 };
   const drawW = W - mg.left - mg.right;
   const drawH = H - mg.top - mg.bottom;
 
@@ -396,9 +396,11 @@ function drawVowelZoom() {
   ctx.fillText('F1 (Hz) ↓', 0, 0); ctx.restore();
 
   // ERB region around the two vowels — show a critical band ellipse
-  const eF1 = 530, eF2 = 1950;
-  const aF1 = 540, aF2 = 1926;
-  const erb = 24.7 * (4.37 * 535 / 1000 + 1); // ~83Hz around F1=535
+  const eV = VOWELS.find(v => v.label === 'ㅔ');
+  const aV = VOWELS.find(v => v.label === 'ㅐ');
+  const eF1 = eV.f1, eF2 = eV.f2;
+  const aF1 = aV.f1, aF2 = aV.f2;
+  const erb = 24.7 * (4.37 * ((eF1 + aF1) / 2) / 1000 + 1);
 
   // Shade ERB band (horizontal band of ±ERB/2 around F1 midpoint)
   const midF1 = (eF1 + aF1) / 2;
@@ -451,9 +453,9 @@ function drawVowelZoom() {
   ctx.fillStyle = C_ACCENT;
   ctx.font = '20px "IBM Plex Sans",sans-serif';
   ctx.textAlign = 'left';
-  ctx.fillText(`ㅔ  F1=${eF1} Hz, F2=${eF2} Hz`, mg.left + 8, mg.top + drawH + 38);
+  ctx.fillText(`ㅔ  F1=${eF1} Hz, F2=${eF2} Hz`, mg.left + 8, H - 42);
   ctx.fillStyle = C_ORANGE;
-  ctx.fillText(`ㅐ  F1=${aF1} Hz, F2=${aF2} Hz`, mg.left + 8, mg.top + drawH + 60);
+  ctx.fillText(`ㅐ  F1=${aF1} Hz, F2=${aF2} Hz`, mg.left + 8, H - 18);
 }
 
 // ── Slide 15: Contrast vowel chart ──────────────────────
@@ -622,7 +624,7 @@ function drawERB() {
   ctx.fillText('ERB 대역폭 (Hz)', 0, 0);
   ctx.restore();
 
-  // Box: 10Hz << 83Hz
+  // Box: 10Hz is much smaller than ERB width
   ctx.fillStyle = 'rgba(180,35,24,0.07)';
   const bx = g.wx(1400), by = g.wy(230), bw = 500, bh = 70;
   roundRect(ctx, bx, by, bw, bh, 10); ctx.fill();
@@ -630,7 +632,7 @@ function drawERB() {
   ctx.fillStyle = C_RED;
   ctx.font = `bold ${fs}px "IBM Plex Sans",sans-serif`;
   ctx.textAlign = 'center';
-  ctx.fillText(`10 Hz << ${e0} Hz  →  구별 불능`, bx + bw / 2, by + bh / 2 + 8);
+  ctx.fillText(`10 Hz << ${e0} Hz  →  단서 약함`, bx + bw / 2, by + bh / 2 + 8);
 }
 
 function roundRect(ctx, x, y, w, h, r) {
@@ -752,13 +754,13 @@ function updateSlide19() {
   const v = document.getElementById('s19-verdict');
   if (diff < erbW * 0.3) {
     v.style.color = C_RED;
-    v.textContent = `⚠ ${diff} Hz 차이는 임계대역(${Math.round(erbW)} Hz)의 ${Math.round(diff/erbW*100)}% — 같은 임계대역 안, 귀가 구별하기 매우 어려움`;
+    v.textContent = `${diff} Hz 차이는 임계대역(${Math.round(erbW)} Hz)의 ${Math.round(diff/erbW*100)}% — 독립적인 지각 단서로 매우 약함`;
   } else if (diff < erbW) {
     v.style.color = C_ORANGE;
-    v.textContent = `⚠ ${diff} Hz 차이는 임계대역(${Math.round(erbW)} Hz) 이내 — 구별 단서가 약함`;
+    v.textContent = `${diff} Hz 차이는 임계대역(${Math.round(erbW)} Hz) 이내 — 구별 단서가 약함`;
   } else {
     v.style.color = C_GREEN;
-    v.textContent = `✓ ${diff} Hz 차이가 임계대역(${Math.round(erbW)} Hz)을 초과 — 귀가 비교적 잘 구별함`;
+    v.textContent = `${diff} Hz 차이가 임계대역(${Math.round(erbW)} Hz)을 초과 — 비교적 안정적 구별 가능`;
   }
 
   drawCritical(fa, fb);
