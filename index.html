@@ -473,7 +473,7 @@
           </table>
           <div class="box box-blue">
             <div class="box-title">녹음 문장</div>
-            <div class="box-body sm">"제가 말한 단어는 <strong>바</strong>입니다." / "…<strong>파</strong>입니다." / "…<strong>빠</strong>입니다."</div>
+            <div class="box-body sm">"단어는 <strong>바</strong>입니다." / "…<strong>파</strong>입니다." / "…<strong>빠</strong>입니다."</div>
           </div>
         </div>
         <div class="col">
@@ -611,28 +611,26 @@
       <span class="page-num">15 / 19</span>
     </div>
     <div class="title-zone">
-      <h1 class="slide-title">모음은 F1/F2 좌표로 비교할 수 있다</h1>
+      <h1 class="slide-title">모음: F1/F2 좌표로 비교</h1>
     </div>
     <div class="content-zone top-210">
-      <div class="cols grow">
-        <div class="col col-6">
-          <div class="graph-wrap grow">
-            <canvas id="cv-vowel" width="980" height="620"></canvas>
-            <div class="legend">
-              <div class="legend-item"><div class="legend-dot" style="background:var(--c-red)"></div><span class="txt-sm">TTS</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:var(--c-accent)"></div><span class="txt-sm">인간1</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:var(--c-green)"></div><span class="txt-sm">인간2</span></div>
-            </div>
-          </div>
+      <div class="quad-grid grow">
+
+        <!-- 좌상: TTS 산점도 -->
+        <div class="quad-cell">
+          <div class="quad-label" style="color:var(--c-red)">TTS</div>
+          <canvas id="cv-vowel-tts" width="900" height="350"></canvas>
         </div>
-        <div class="col">
+
+        <!-- 우상: 모음체계표 -->
+        <div class="quad-cell">
           <p class="label-sm" style="margin-bottom:6px">측정 모음 분류 (8개)</p>
           <table class="vowel-sys-table">
             <thead>
               <tr>
                 <th rowspan="2" class="vst-corner"></th>
-                <th colspan="2">전설(前舌)</th>
-                <th colspan="2">후설(後舌)</th>
+                <th colspan="2">전설(F2↑)</th>
+                <th colspan="2">후설(F2↓)</th>
               </tr>
               <tr>
                 <th>평순</th><th>원순</th><th>평순</th><th>원순</th>
@@ -640,29 +638,36 @@
             </thead>
             <tbody>
               <tr>
-                <th>고(高)</th>
+                <th>고(F1↓)</th>
                 <td class="vst-v">이</td><td class="vst-empty">—</td>
                 <td class="vst-v">으</td><td class="vst-v">우</td>
               </tr>
               <tr>
-                <th>중(中)</th>
+                <th>중</th>
                 <td class="vst-v">에</td><td class="vst-empty">—</td>
                 <td class="vst-v">어</td><td class="vst-v">오</td>
               </tr>
               <tr>
-                <th>저(低)</th>
+                <th>저(F1↑))</th>
                 <td class="vst-v">애</td><td class="vst-empty">—</td>
                 <td class="vst-v">아</td><td class="vst-empty">—</td>
               </tr>
             </tbody>
           </table>
-          <div class="box box-gray" style="margin-top:14px">
-            <div class="box-body sm">
-              인간과 TTS는 성도 길이가 달라 절대값이 다를 수 있으므로,
-              <strong>모음 공간의 상대적 배치(모양)</strong>를 비교.
-            </div>
-          </div>
         </div>
+
+        <!-- 좌하: 인간1 산점도 -->
+        <div class="quad-cell">
+          <div class="quad-label" style="color:var(--c-accent)">인간1</div>
+          <canvas id="cv-vowel-h1" width="900" height="350"></canvas>
+        </div>
+
+        <!-- 우하: 인간2 산점도 -->
+        <div class="quad-cell">
+          <div class="quad-label" style="color:var(--c-green)">인간2</div>
+          <canvas id="cv-vowel-h2" width="900" height="350"></canvas>
+        </div>
+
       </div>
     </div>
   </div>

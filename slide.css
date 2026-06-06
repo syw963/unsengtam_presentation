@@ -289,6 +289,31 @@ html, body {
   color: var(--c-muted);
 }
 
+/* ---------- 2×2 quad grid (슬라이드 15) ---------- */
+.quad-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 18px 24px;
+}
+.quad-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+  min-width: 0;
+}
+.quad-cell canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.quad-label {
+  font-size: 27px;
+  font-weight: 700;
+  line-height: 1;
+}
+
 /* ---------- Flow diagram ---------- */
 .flow-row {
   display: flex;

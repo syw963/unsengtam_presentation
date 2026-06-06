@@ -281,14 +281,14 @@ const f0 = {
 
 // TODO: 실제 측정값으로 교체 (단위: Hz, [F1, F2])
 const vowels = {
-  "이": { TTS: [293.6, 1966.8], 인간1: [239.8, 2542.6], 인간2: [245.0, 2534.3] },
-  "에": { TTS: [405.9, 1931.0], 인간1: [509.4, 1950.6], 인간2: [499.5, 1927.9] },
-  "애": { TTS: [408.5, 1923.2], 인간1: [531.1, 2047.4], 인간2: [527.2, 2054.9] },
-  "아": { TTS: [748.4, 1346.7], 인간1: [746.9, 1155.0], 인간2: [749.7, 1148.3] },
-  "어": { TTS: [562.4,  938.7], 인간1: [510.4,  853.2], 인간2: [508.0,  848.1] },
-  "오": { TTS: [430.2,  593.0], 인간1: [369.6,  641.1], 인간2: [365.4,  631.9] },
-  "우": { TTS: [416.0,  440.2], 인간1: [303.8,  751.4], 인간2: [299.9,  744.3] },
-  "으": { TTS: [365.0, 1827.5], 인간1: [365.4, 1591.7], 인간2: [361.4, 1585.7] },
+  "이": { TTS: [293.6, 1966.8], 인간1: [239.8, 2542.6], 인간2: [270.0, 2107.9] },
+  "에": { TTS: [405.9, 1931.0], 인간1: [509.4, 1950.6], 인간2: [432.7, 1858.8] },
+  "애": { TTS: [408.5, 1923.2], 인간1: [531.1, 2047.4], 인간2: [444.8, 1743.9] },
+  "아": { TTS: [748.4, 1346.7], 인간1: [746.9, 1155.0], 인간2: [742.2, 1218.9] },
+  "어": { TTS: [562.4,  938.7], 인간1: [510.4,  853.2], 인간2: [517.2,  870.2] },
+  "오": { TTS: [430.2,  593.0], 인간1: [369.6,  641.1], 인간2: [350.3,  713.0] },
+  "우": { TTS: [416.0,  440.2], 인간1: [303.8,  751.4], 인간2: [362.9,  774.4] },
+  "으": { TTS: [365.0, 1827.5], 인간1: [365.4, 1591.7], 인간2: [338.3, 1428.7] },
 };
 
 const SPEAKERS = [
@@ -387,6 +387,43 @@ function drawVowelScatter(canvasId, data) {
   ctx.fillText('F1 (Hz) — 높을수록 아래', 0, 0); ctx.restore();
 }
 
+// 단일 화자 산점도 — 세 차트 공통 축 범위 사용 (비교 가능)
+const VOWEL_PLOT = { xMin: 2720, xMax: 300, yMin: 840, yMax: 185 };
+function drawVowelScatterSingle(canvasId, data, speakerKey, color, labelOverrides = {}) {
+  if (!document.getElementById(canvasId)) return;
+  const g = new Graph(canvasId, {
+    xMin: VOWEL_PLOT.xMin, xMax: VOWEL_PLOT.xMax,
+    yMin: VOWEL_PLOT.yMin, yMax: VOWEL_PLOT.yMax,
+    pad: { l: 66, r: 26, t: 26, b: 52 },
+  });
+  g.clear();
+  g.grid(
+    [500, 700, 900, 1100, 1300, 1500, 1700, 1900, 2100, 2300, 2500],
+    [250, 350, 450, 550, 650, 750]
+  );
+  g.frame();
+  const defaultOffset = {
+    '애': { dx: -28, dy: 22, align: 'right' },
+    '에': { dx:  13, dy: 22 },
+  };
+  const labelOffset = Object.assign({}, defaultOffset, labelOverrides);
+  for (const [name, d] of Object.entries(data)) {
+    const [f1, f2] = d[speakerKey];
+    g.dot(f2, f1, color, 9);
+    const off = labelOffset[name] || { dx: 13, dy: -8 };
+    g.text(f2, f1, name, { color: C.ink, dx: off.dx, dy: off.dy, size: 22, weight: 700, align: off.align || 'left' });
+  }
+  g.pxText(g.pad.l + g.PW / 2, g.H - 10, 'F2 (Hz) ↓', { color: C.tick, size: 19 });
+  const { ctx } = g;
+  ctx.save();
+  ctx.translate(18, g.pad.t + g.PH / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillStyle = C.tick; ctx.textAlign = 'center';
+  ctx.font = '19px "IBM Plex Sans KR",sans-serif';
+  ctx.fillText('F1 (Hz) ↓', 0, 0);
+  ctx.restore();
+}
+
 /* ============================================================
    초기화
    ============================================================ */
@@ -411,7 +448,13 @@ document.addEventListener('DOMContentLoaded', () => {
     drawMel();
     drawBarChart('cv-vot-bar', votTable, { yMax: 120, yTicks: [20, 40, 60, 80, 100], yLabel: 'VOT (ms)' });
     drawBarChart('cv-f0', f0, { yMin: 80, yMax: 140, yTicks: [90, 100, 110, 120, 130, 140], yLabel: 'f₀ (Hz)' });
-    drawVowelScatter('cv-vowel', vowels);
+    drawVowelScatterSingle('cv-vowel-tts', vowels, 'TTS',  C.red);
+    drawVowelScatterSingle('cv-vowel-h1',  vowels, '인간1', C.accent);
+    drawVowelScatterSingle('cv-vowel-h2',  vowels, '인간2', C.green, {
+      '애': { dx:  13, dy: 22 },
+      '에': { dx: -28, dy: 22, align: 'right' },
+      '우': { dx: -28, dy: -8, align: 'right' },
+    });
     const aeData = Object.fromEntries(['에', '애'].map(k => [k, vowels[k]]));
     drawVowelScatter('cv-aee', aeData);
   });
