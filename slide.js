@@ -2,7 +2,7 @@
    언생탐 발표 — 내비게이션 / 스케일링 / KaTeX / 그래프
    ============================================================ */
 
-const TOTAL = 19;
+const TOTAL = 18;
 let current = 1;
 
 /* ---------- 뷰포트 스케일링 (1920×1080 고정 → 화면 맞춤) ---------- */
@@ -36,6 +36,120 @@ document.addEventListener('keydown', e => {
 });
 document.getElementById('btn-prev').addEventListener('click', () => navigate(-1));
 document.getElementById('btn-next').addEventListener('click', () => navigate(1));
+
+/* 길게 눌러 드래그하면 내비게이션 바 위치를 임시로 이동한다. */
+function setupDraggableNav() {
+  const nav = document.getElementById('nav-bar');
+  if (!nav) return;
+
+  const holdMs = 450;
+  let holdTimer = null;
+  let activePointer = null;
+  let isDragging = false;
+  let suppressNextClick = false;
+  let suppressResetTimer = null;
+  let dragOffsetX = 0;
+  let dragOffsetY = 0;
+  let lastClientX = 0;
+  let lastClientY = 0;
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  function clearHoldTimer() {
+    if (!holdTimer) return;
+    clearTimeout(holdTimer);
+    holdTimer = null;
+  }
+
+  function clearSuppressResetTimer() {
+    if (!suppressResetTimer) return;
+    clearTimeout(suppressResetTimer);
+    suppressResetTimer = null;
+  }
+
+  function scheduleSuppressReset() {
+    clearSuppressResetTimer();
+    suppressResetTimer = window.setTimeout(() => {
+      suppressNextClick = false;
+      suppressResetTimer = null;
+    }, 150);
+  }
+
+  function startDrag() {
+    const rect = nav.getBoundingClientRect();
+    isDragging = true;
+    suppressNextClick = true;
+    clearSuppressResetTimer();
+    dragOffsetX = lastClientX - rect.left;
+    dragOffsetY = lastClientY - rect.top;
+    nav.classList.add('is-dragging');
+    nav.style.left = `${rect.left}px`;
+    nav.style.top = `${rect.top}px`;
+    nav.style.right = 'auto';
+    nav.style.bottom = 'auto';
+  }
+
+  function moveNav(e) {
+    const maxLeft = window.innerWidth - nav.offsetWidth;
+    const maxTop = window.innerHeight - nav.offsetHeight;
+    const nextLeft = clamp(e.clientX - dragOffsetX, 0, maxLeft);
+    const nextTop = clamp(e.clientY - dragOffsetY, 0, maxTop);
+    nav.style.left = `${nextLeft}px`;
+    nav.style.top = `${nextTop}px`;
+  }
+
+  nav.addEventListener('pointerdown', e => {
+    if (!e.isPrimary) return;
+    clearHoldTimer();
+    activePointer = e.pointerId;
+    lastClientX = e.clientX;
+    lastClientY = e.clientY;
+    holdTimer = window.setTimeout(startDrag, holdMs);
+  });
+
+  document.addEventListener('pointermove', e => {
+    if (e.pointerId !== activePointer) return;
+    lastClientX = e.clientX;
+    lastClientY = e.clientY;
+    if (!isDragging) return;
+    e.preventDefault();
+    moveNav(e);
+  });
+
+  document.addEventListener('pointerup', e => {
+    if (e.pointerId !== activePointer) return;
+    clearHoldTimer();
+    if (isDragging) {
+      e.preventDefault();
+      nav.classList.remove('is-dragging');
+      scheduleSuppressReset();
+    }
+    isDragging = false;
+    activePointer = null;
+  });
+
+  document.addEventListener('pointercancel', e => {
+    if (e.pointerId !== activePointer) return;
+    clearHoldTimer();
+    nav.classList.remove('is-dragging');
+    suppressNextClick = false;
+    clearSuppressResetTimer();
+    isDragging = false;
+    activePointer = null;
+  });
+
+  nav.addEventListener('click', e => {
+    if (!suppressNextClick) return;
+    e.preventDefault();
+    e.stopPropagation();
+    suppressNextClick = false;
+    clearSuppressResetTimer();
+  }, true);
+}
+
+setupDraggableNav();
 
 /* ---------- 준비된 이미지 placeholder 처리 ----------
    이미지 파일이 없으면 깔끔한 자리표시(placeholder)로 대체한다. */
@@ -448,7 +562,9 @@ document.addEventListener('DOMContentLoaded', () => {
     drawMel();
     drawBarChart('cv-vot-bar', votTable, { yMax: 120, yTicks: [20, 40, 60, 80, 100], yLabel: 'VOT (ms)' });
     drawBarChart('cv-f0', f0, { yMin: 80, yMax: 140, yTicks: [90, 100, 110, 120, 130, 140], yLabel: 'f₀ (Hz)' });
-    drawVowelScatterSingle('cv-vowel-tts', vowels, 'TTS',  C.red);
+    drawVowelScatterSingle('cv-vowel-tts', vowels, 'TTS',  C.red, {
+      '오': { dx: -28, dy: -8, align: 'right' },
+    });
     drawVowelScatterSingle('cv-vowel-h1',  vowels, '인간1', C.accent);
     drawVowelScatterSingle('cv-vowel-h2',  vowels, '인간2', C.green, {
       '애': { dx:  13, dy: 22 },

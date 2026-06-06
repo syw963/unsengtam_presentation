@@ -116,9 +116,9 @@
     </div>
     <div class="content-zone top-210">
       <div class="cols grow">
-        <div class="col col-45">
+        <div class="col" style="flex: 0 0 38%">
           <table class="class-table">
-            <thead><tr><th style="width:26%">단계</th><th>설명</th></tr></thead>
+            <thead><tr><th style="width:20%">단계</th><th>설명</th></tr></thead>
             <tbody>
               <tr><td class="row-label">성대</td><td>공기를 주기적으로 끊어 기본 진동 생성</td></tr>
               <tr><td class="row-label">성도</td><td>입·혀·입술·목구멍이 특정 주파수를 강조</td></tr>
@@ -200,7 +200,7 @@
     </div>
     <div class="content-zone top-210">
       <div class="cols grow">
-        <div class="col col-45">
+        <div class="col col-6">
           <ul class="bullet-list">
             <li>포먼트는 성도에서 특정 주파수 대역이 <strong>강하게 나타나는 현상</strong>.</li>
             <li>/아/, /이/, /우/가 다르게 들리는 것은 입 모양과 혀 위치에 따라 강조 주파수 대역이 달라지기 때문.</li>
@@ -258,7 +258,7 @@
     </div>
     <div class="content-zone top-210">
       <div class="cols grow">
-        <div class="col col-45">
+        <div class="col col-4">
           <table class="class-table">
             <thead><tr><th style="width:32%">축 / 색</th><th>의미</th></tr></thead>
             <tbody>
@@ -272,11 +272,10 @@
             <div class="box-body sm">Praat으로 음성을 <strong>시간–주파수 관점</strong>에서 비교 가능.</div>
           </div>
           <div class="box box-blue">
-            <div class="box-title">비교 포인트</div>
+            <div class="box-title">간단 설명</div>
             <ul class="bullet-list sm" style="margin-top:4px;">
               <li>배음 간격 — \(f_0\) 일정하면 등간격</li>
               <li>포먼트 띠 위치 — 모음 구별</li>
-              <li>고주파 성분 — 기식·마찰 구간</li>
               <li>pitch contour — 억양 형태</li>
             </ul>
           </div>
@@ -303,7 +302,7 @@
       <span class="page-num">8 / 19</span>
     </div>
     <div class="title-zone">
-      <h1 class="slide-title">한국어 파열음은 시간 구조가 중요하다</h1>
+      <h1 class="slide-title">한국어 파열음에서 시간 구조와 기본 주파수</h1>
     </div>
     <div class="content-zone top-210" style="gap:25px;">
       <div class="note">한국어에는 <strong class="txt-accent">평음 · 격음 · 경음</strong>의 3중 대립이 있다.</div>
@@ -345,18 +344,18 @@
     </div>
     <div class="content-zone top-210">
       <div class="cols grow">
-        <div class="col col-6">
+        <div class="col col-45">
           <div class="box box-blue">
             <div class="box-body sm">
               VOT = 파열이 터지는 순간과 뒤따르는 모음에서 성대 진동이 시작되는 순간 사이의 시간.
             </div>
           </div>
-          <div class="display-math-sm" style="text-align:left;">
+          <div class="display-math-sm" style="text-align:left; margin-top: -15px; margin-bottom: -15px;">
             \[ \text{VOT} = t_{\text{성대 진동 시작}} - t_{\text{파열 개방}} \]
           </div>
           <ul class="bullet-list sm">
-            <li>예: 파열 개방 0.520초, 성대 진동 시작 0.565초 → <strong>0.045초 = 45 ms</strong></li>
-            <li>참고 근사 범위: 경음 ~10–20 ms · 평음 ~30–50 ms · 격음 ~70 ms 이상</li>
+            <li>예: 파열 개방 0.520초, 성대 진동 시작 0.565초<br> → <strong>0.045초 = 45 ms</strong></li>
+            <li>참고 범위: <br>경음 10–20 ms · 평음 30–50 ms · 격음 70 ms 이상</li>
           </ul>
           <div class="box box-gray">
             <div class="box-title">Praat 측정 절차</div>
@@ -364,7 +363,7 @@
               <li>WAV 파일을 Praat에서 열기</li>
               <li>파형에서 버스트(파열) 지점 선택</li>
               <li>성대 진동 시작 지점 선택</li>
-              <li>두 시간값의 차이를 ms 단위로 기록</li>
+              <li>두 시간값의 차이를 기록</li>
             </ol>
           </div>
         </div>
@@ -555,9 +554,9 @@
       <div class="box box-blue" style="width:70%">
         <div class="box-title">결과 해석</div>
         <div class="box-body sm">
-          평음(ㅂ)는 두 명의 인간, TTS 모두 어느정도 차이 존재<br>
-          격음(ㅍ)은 두 명의 인간은 비슷한 VOT를 보였지만, TTS는 거의 절반에 가까운 값을 보임<br>
-          경음(ㅃ)의 VOT는 인간과 TTS가 거의 일치
+          • 평음(ㅂ)는 두 명의 인간, TTS 모두 어느정도 차이 존재<br>
+          • 격음(ㅍ)은 두 명의 인간은 비슷한 VOT를 보였지만, TTS는 거의 절반에 가까운 값을 보임<br>
+          • 경음(ㅃ)의 VOT는 인간과 TTS가 거의 일치
           
         </div>
       </div>
@@ -623,111 +622,63 @@
   <div class="slide" id="slide-15">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">15 / 19</span>
+      <span class="page-num">15 / 18</span>
     </div>
     <div class="title-zone">
-      <h1 class="slide-title">모음: F1/F2 좌표로 비교</h1>
+      <h1 class="slide-title">모음 공간 비교: TTS vs 인간</h1>
     </div>
     <div class="content-zone top-210">
-      <div class="quad-grid grow">
-
-        <!-- 좌상: TTS 산점도 -->
-        <div class="quad-cell">
+      <!-- 상단: 산점도 3개 -->
+      <div class="cols" style="justify-content:center;gap:24px">
+        <div style="width:33%;display:flex;flex-direction:column;gap:8px">
           <div class="quad-label" style="color:var(--c-red)">TTS</div>
-          <canvas id="cv-vowel-tts" width="900" height="350"></canvas>
+          <canvas id="cv-vowel-tts" width="540" height="400"></canvas>
         </div>
-
-        <!-- 우상: 모음체계표 -->
-        <div class="quad-cell">
-          <p class="label-sm" style="margin-bottom:6px">측정 모음 분류 (8개)</p>
-          <table class="vowel-sys-table">
+        <div style="width:33%;display:flex;flex-direction:column;gap:8px">
+          <div class="quad-label" style="color:var(--c-accent)">인간1</div>
+          <canvas id="cv-vowel-h1" width="540" height="400"></canvas>
+        </div>
+        <div style="width:33%;display:flex;flex-direction:column;gap:8px">
+          <div class="quad-label" style="color:var(--c-green)">인간2</div>
+          <canvas id="cv-vowel-h2" width="540" height="400"></canvas>
+        </div>
+      </div>
+      <!-- 하단: 결과 해석 + 모음체계표 -->
+      <div class="cols" style="gap:22px;align-items:flex-start">
+        <div class="box box-blue" style="flex:0 0 60%">
+          <div class="box-title">결과 해석</div>
+          <div class="box-body sm"></div>
+        </div>
+        <div style="flex:1;min-width:0">
+          <p class="label-sm" style="margin-bottom:5px">모음 분류 </p>
+          <table class="vowel-sys-table" style="font-size:22px">
             <thead>
               <tr>
                 <th rowspan="2" class="vst-corner"></th>
-                <th colspan="2">전설(F2↑)</th>
-                <th colspan="2">후설(F2↓)</th>
+                <th colspan="2" style="font-size:20px">전설(F2↑)</th>
+                <th colspan="2" style="font-size:20px">후설(F2↓)</th>
               </tr>
               <tr>
-                <th>평순</th><th>원순</th><th>평순</th><th>원순</th>
+                <th style="font-size:19px">평순</th><th style="font-size:19px">원순</th>
+                <th style="font-size:19px">평순</th><th style="font-size:19px">원순</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th>고(F1↓)</th>
-                <td class="vst-v">이</td><td class="vst-empty">—</td>
-                <td class="vst-v">으</td><td class="vst-v">우</td>
+                <th style="font-size:20px">고(F1↓)</th>
+                <td class="vst-v" style="font-size:26px">이</td><td class="vst-empty">—</td>
+                <td class="vst-v" style="font-size:26px">으</td><td class="vst-v" style="font-size:26px">우</td>
               </tr>
               <tr>
-                <th>중</th>
-                <td class="vst-v">에</td><td class="vst-empty">—</td>
-                <td class="vst-v">어</td><td class="vst-v">오</td>
+                <th style="font-size:20px">중</th>
+                <td class="vst-v" style="font-size:26px">에</td><td class="vst-empty">—</td>
+                <td class="vst-v" style="font-size:26px">어</td><td class="vst-v" style="font-size:26px">오</td>
               </tr>
               <tr>
-                <th>저(F1↑)</th>
-                <td class="vst-v">애</td><td class="vst-empty">—</td>
-                <td class="vst-v">아</td><td class="vst-empty">—</td>
+                <th style="font-size:20px">저(F2↑)</th>
+                <td class="vst-v" style="font-size:26px">애</td><td class="vst-empty">—</td>
+                <td class="vst-v" style="font-size:26px">아</td><td class="vst-empty">—</td>
               </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- 좌하: 인간1 산점도 -->
-        <div class="quad-cell">
-          <div class="quad-label" style="color:var(--c-accent)">인간1</div>
-          <canvas id="cv-vowel-h1" width="900" height="350"></canvas>
-        </div>
-
-        <!-- 우하: 인간2 산점도 -->
-        <div class="quad-cell">
-          <div class="quad-label" style="color:var(--c-green)">인간2</div>
-          <canvas id="cv-vowel-h2" width="900" height="350"></canvas>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== 슬라이드 16 — ㅐ/ㅔ 단일화 ===================== -->
-  <div class="slide" id="slide-16">
-    <div class="slide-header">
-      <span class="chapter-label">비교 분석</span>
-      <span class="page-num">16 / 19</span>
-    </div>
-    <div class="title-zone">
-      <h1 class="slide-title">포먼트로 보는 ㅐ/ㅔ 단일화</h1>
-    </div>
-    <div class="content-zone top-210">
-      <div class="cols grow">
-        <div class="col col-5">
-          <div class="graph-wrap grow">
-            <canvas id="cv-aee" width="900" height="600"></canvas>
-            <div class="legend">
-              <div class="legend-item"><div class="legend-dot" style="background:var(--c-red)"></div><span class="txt-sm">TTS</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:var(--c-accent)"></div><span class="txt-sm">인간1</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:var(--c-green)"></div><span class="txt-sm">인간2</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="box box-blue">
-            <div class="box-title">실험 질문</div>
-            <div class="box-body sm">TTS는 철자가 다른 ㅐ/ㅔ를 음향적으로도 다르게 합성하는가?</div>
-          </div>
-          <table class="class-table sm">
-            <thead><tr><th>ㅐ</th><th>ㅔ</th></tr></thead>
-            <tbody>
-              <tr><td>배</td><td>베</td></tr>
-              <tr><td>새</td><td>세</td></tr>
-              <tr><td>개</td><td>게</td></tr>
-            </tbody>
-          </table>
-          <table class="class-table sm">
-            <thead><tr><th style="width:42%">결과 패턴</th><th>해석</th></tr></thead>
-            <tbody>
-              <tr><td>3자 모두 겹침</td><td>현대 단일화 경향 반영</td></tr>
-              <tr><td>인간 겹침 / TTS 구분</td><td>TTS가 철자 차이를 과도 반영</td></tr>
-              <tr><td>인간 구분 / TTS 겹침</td><td>TTS의 개별 발음 재현 부족</td></tr>
-              <tr><td>인간1·2 차이 큼</td><td>화자 개인차 확인</td></tr>
             </tbody>
           </table>
         </div>
@@ -736,17 +687,17 @@
   </div>
 
   <!-- ===================== 슬라이드 17 — 비교 4: 스펙트로그램 ===================== -->
-  <div class="slide" id="slide-17">
+  <div class="slide" id="slide-16">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">17 / 19</span>
+      <span class="page-num">16 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">스펙트로그램에서 보이는 인간 음성과 TTS의 차이</h1>
     </div>
     <div class="content-zone top-210">
       <div class="cols grow">
-        <div class="col col-45">
+        <div class="col col-6">
           <table class="class-table">
             <thead><tr><th style="width:36%">항목</th><th>볼 부분</th></tr></thead>
             <tbody>
@@ -798,17 +749,17 @@
   </div>
 
   <!-- ===================== 슬라이드 18 — 문장 단위 확장 ===================== -->
-  <div class="slide" id="slide-18">
+  <div class="slide" id="slide-17">
     <div class="slide-header">
       <span class="chapter-label">확장</span>
-      <span class="page-num">18 / 19</span>
+      <span class="page-num">17 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">단어를 넘어서: 문장 자연성의 문제</h1>
     </div>
     <div class="content-zone top-210">
       <div class="cols grow">
-        <div class="col col-45">
+        <div class="col col-6">
           <ul class="bullet-list">
             <li>짧은 단어에서는 <strong>VOT, \(f_0\), 포먼트</strong>가 중요.</li>
             <li>실제 음성의 자연성은 문장 단위의 <strong>휴지·억양·정보구조</strong>와도 관련.</li>
@@ -848,10 +799,10 @@
   </div>
 
   <!-- ===================== 슬라이드 19 — 결론 ===================== -->
-  <div class="slide" id="slide-19">
+  <div class="slide" id="slide-18">
     <div class="slide-header">
       <span class="chapter-label">결론</span>
-      <span class="page-num">19 / 19</span>
+      <span class="page-num">18 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">AI 음성의 자연성은 물리적 신호 재현의 문제</h1>
