@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 음성 vs 인간 음성 — 음향 신호 분석</title>
+  <link rel="stylesheet" href="slide.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+</head>
+<body>
+
+<div id="slide-viewport">
+
+  <!-- ===================== 슬라이드 1 — 표지/문제 제기 ===================== -->
+  <div class="slide slide-cover active" id="slide-1">
+    <div class="cover-inner">
+      <div class="cover-tag">언어와 생활 탐구 · 음성학 발표</div>
+      <h1 class="cover-title">AI 음성은 사람 목소리와<br>같은 방식으로 만들어질까?</h1>
+      <p class="cover-sub">
+        AI 보이스는 이미 일상에서 널리 쓰인다. 그러나 어떤 AI 음성은 발음이 정확해도
+        미묘하게 어색하게 들린다. 이 발표는 그 어색함을 <strong>인상이 아니라 음향 신호의 차이</strong>로 분석한다.
+      </p>
+      <div class="cover-meta">
+        <div>한국어 파열음 · 모음 포먼트 분석</div>
+        <div>Praat 기반 인간 음성 vs TTS 비교</div>
+      </div>
+    </div>
+    <div class="cover-line"></div>
+  </div>
+
+  <!-- ===================== 슬라이드 2 — 연구 질문 ===================== -->
+  <div class="slide" id="slide-2">
+    <div class="slide-header">
+      <span class="chapter-label">연구 질문</span>
+      <span class="page-num">2 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">연구 질문</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="box box-blue">
+        <div class="box-title">핵심 질문</div>
+        <div class="box-body">
+          TTS 음성은 인간 음성과 비교했을 때 <strong>VOT, \(f_0\), 포먼트, 스펙트로그램 구조</strong>에서
+          어떤 차이를 보이는가?
+        </div>
+      </div>
+      <table class="class-table grow">
+        <thead>
+          <tr><th style="width:22%">항목</th><th style="width:16%">단위</th><th>의미</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-label">VOT</td><td>ms</td><td>자음이 터진 뒤 성대 진동이 시작되기까지의 시간</td></tr>
+          <tr><td class="row-label">\(f_0\)</td><td>Hz</td><td>성대 진동의 기본주파수, 목소리 높낮이</td></tr>
+          <tr><td class="row-label">포먼트 F1/F2</td><td>Hz</td><td>성도 공명으로 생기는 모음의 음향적 위치</td></tr>
+          <tr><td class="row-label">스펙트로그램</td><td>시간 × 주파수</td><td>주파수 성분이 시간에 따라 변하는 모습</td></tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <strong class="txt-accent">Praat</strong> 은 스펙트로그램, pitch, 포먼트, intensity, jitter, shimmer 등을 분석하는 음성학 도구이다.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 3 — 소리는 무엇인가 ===================== -->
+  <div class="slide" id="slide-3">
+    <div class="slide-header">
+      <span class="chapter-label">음성학 기초</span>
+      <span class="page-num">3 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">소리 = 공기의 진동</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-45">
+          <ul class="bullet-list">
+            <li>소리는 <strong>공기 압력의 변화</strong>가 전달되는 파동이다.</li>
+            <li>마이크는 이 압력 변화를 전기 신호로 바꾼다.</li>
+            <li>컴퓨터는 소리를 시간에 따른 진폭 변화, 즉 <strong>파형</strong>으로 저장한다.</li>
+          </ul>
+          <div class="box box-blue">
+            <div class="box-title">주기와 주파수</div>
+            <div class="box-body">
+              \( f = 1 / T \)<br>
+              <span class="txt-sm txt-muted">예: 한 주기가 0.01초이면 \( f = 100\,\text{Hz} \)</span>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="graph-wrap grow">
+            <canvas id="cv-sine" width="1000" height="520"></canvas>
+            <div class="graph-label">사인파 한 주기 — 가로: 시간, 세로: 진폭</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 4 — 인간 음성 생성 구조 ===================== -->
+  <div class="slide" id="slide-4">
+    <div class="slide-header">
+      <span class="chapter-label">음성학 기초</span>
+      <span class="page-num">4 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">인간 음성 = 성대 진동 + 성도 공명</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-45">
+          <table class="class-table">
+            <thead><tr><th style="width:26%">단계</th><th>설명</th></tr></thead>
+            <tbody>
+              <tr><td class="row-label">성대</td><td>공기를 주기적으로 끊어 기본 진동을 만든다</td></tr>
+              <tr><td class="row-label">성도</td><td>입·혀·입술·목구멍이 특정 주파수를 강조한다</td></tr>
+            </tbody>
+          </table>
+          <div class="box box-blue">
+            <div class="box-title">음원–필터 이론</div>
+            <div class="box-body sm">
+              성대가 소리의 원천(<strong>source</strong>)을 만들고 성도가 이를 거르는
+              필터(<strong>filter</strong>) 역할을 한다.
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="img-frame" data-img="slide04_source_filter.png">
+            <img src="slide04_source_filter.png" alt="음원–필터 합성 도식">
+            <div class="img-ph">
+              <div class="ph-icon">▦</div>
+              <div class="ph-name">slide04_source_filter.png</div>
+              <div class="ph-note">음원–필터 합성 도식 (성대 배음 × 성도 필터 = 출력)</div>
+            </div>
+            <div class="img-caption">성대 배음 스펙트럼 × 성도 필터 곡선 = 출력 스펙트럼</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 5 — \(f_0\)와 배음 ===================== -->
+  <div class="slide" id="slide-5">
+    <div class="slide-header">
+      <span class="chapter-label">음성학 기초</span>
+      <span class="page-num">5 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">\(f_0\)와 배음: 목소리의 높이와 음색</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-45">
+          <ul class="bullet-list">
+            <li><strong>\(f_0\)</strong> : 성대 진동의 기본주파수.</li>
+            <li><strong>배음</strong> : \(f_0\)의 정수배 주파수 성분.</li>
+          </ul>
+          <table class="class-table">
+            <thead><tr><th>성분</th><th>주파수 (예: \(f_0\) = 100 Hz)</th></tr></thead>
+            <tbody>
+              <tr><td class="row-label">기본주파수</td><td>100 Hz</td></tr>
+              <tr><td>2배음</td><td>200 Hz</td></tr>
+              <tr><td>3배음</td><td>300 Hz</td></tr>
+              <tr><td>4배음</td><td>400 Hz</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col">
+          <div class="graph-wrap grow">
+            <canvas id="cv-spectrum" width="1000" height="520"></canvas>
+            <div class="graph-label">라인 스펙트럼 — 가로: 주파수(Hz), 세로: 진폭</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 6 — 포먼트 ===================== -->
+  <div class="slide" id="slide-6">
+    <div class="slide-header">
+      <span class="chapter-label">음성학 기초</span>
+      <span class="page-num">6 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">포먼트: 모음을 구별하게 하는 공명 주파수</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-45">
+          <ul class="bullet-list">
+            <li>포먼트는 성도에서 특정 주파수 대역이 <strong>강하게 나타나는 현상</strong>이다.</li>
+            <li>/아/, /이/, /우/가 다르게 들리는 것은 입 모양과 혀 위치에 따라 강조되는 주파수 대역이 달라지기 때문이다.</li>
+          </ul>
+          <table class="class-table">
+            <thead><tr><th style="width:22%">포먼트</th><th>주로 관련되는 요소</th></tr></thead>
+            <tbody>
+              <tr><td class="row-label">F1</td><td>혀의 높이, 입의 벌어짐</td></tr>
+              <tr><td class="row-label">F2</td><td>혀의 앞뒤 위치</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col">
+          <div class="img-frame" data-img="slide06_formant_vowels.png">
+            <img src="slide06_formant_vowels.png" alt="모음 스펙트럼 비교">
+            <div class="img-ph">
+              <div class="ph-icon">▦</div>
+              <div class="ph-name">slide06_formant_vowels.png</div>
+              <div class="ph-note">/이/와 /아/ 스펙트럼 비교, F1·F2 봉우리 위치</div>
+            </div>
+            <div class="img-caption">/이/ 와 /아/ 스펙트럼 비교 — F1·F2 봉우리 위치 표시</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 7 — 스펙트로그램 읽는 법 ===================== -->
+  <div class="slide" id="slide-7">
+    <div class="slide-header">
+      <span class="chapter-label">음성학 기초</span>
+      <span class="page-num">7 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">스펙트로그램: 소리를 그림으로 보는 방법</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-45">
+          <table class="class-table">
+            <thead><tr><th style="width:32%">축 / 색</th><th>의미</th></tr></thead>
+            <tbody>
+              <tr><td class="row-label">x축</td><td>시간</td></tr>
+              <tr><td class="row-label">y축</td><td>주파수</td></tr>
+              <tr><td class="row-label">어두운 부분</td><td>에너지가 강한 주파수 대역</td></tr>
+            </tbody>
+          </table>
+          <div class="box box-gray">
+            <div class="box-title">Praat</div>
+            <div class="box-body sm">Praat으로 음성을 <strong>시간–주파수 관점</strong>에서 비교할 수 있다.</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="img-frame" data-img="slide07_spectrogram_labeled.png">
+            <img src="slide07_spectrogram_labeled.png" alt="라벨링된 스펙트로그램">
+            <div class="img-ph">
+              <div class="ph-icon">▦</div>
+              <div class="ph-name">slide07_spectrogram_labeled.png</div>
+              <div class="ph-note">본인 음성 Praat 캡처 (파형 + 스펙트로그램 + 포먼트/pitch)</div>
+            </div>
+            <div class="img-caption">위 파형 · 아래 스펙트로그램 · 포먼트(빨강) · pitch(파랑)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 8 — 한국어 파열음 바/파/빠 ===================== -->
+  <div class="slide" id="slide-8">
+    <div class="slide-header">
+      <span class="chapter-label">한국어 파열음</span>
+      <span class="page-num">8 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">한국어 파열음은 시간 구조가 중요하다</h1>
+    </div>
+    <div class="content-zone top-210" style="gap:20px;">
+      <div class="note">한국어에는 <strong class="txt-accent">평음 · 격음 · 경음</strong>의 3중 대립이 있다.</div>
+      <div class="cols top grow">
+        <div class="col col-45">
+          <table class="class-table sm">
+            <thead><tr><th>분류</th><th>예</th><th>VOT</th><th>뒤 모음 \(f_0\)</th></tr></thead>
+            <tbody>
+              <tr><td class="row-label">평음</td><td>바·다·가</td><td>중간</td><td>낮음</td></tr>
+              <tr><td class="row-label">격음</td><td>파·타·카</td><td>김</td><td>높음</td></tr>
+              <tr><td class="row-label">경음</td><td>빠·따·까</td><td>짧음</td><td>높음</td></tr>
+            </tbody>
+          </table>
+          <div class="box box-gray">
+            <div class="box-body sm">
+              VOT와 \(f_0\)가 함께 단서로 작용하며, 현대 서울 한국어에서는 평음·격음 구별에서
+              <strong>\(f_0\)의 중요성</strong>이 커졌다는 논의가 있다.
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="graph-wrap grow">
+            <canvas id="cv-vot" width="1020" height="460"></canvas>
+            <div class="graph-label">VOT 타임라인 — 버스트(파열) 정렬, 성대 진동 시작까지의 구간</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 9 — VOT란 무엇인가 ===================== -->
+  <div class="slide" id="slide-9">
+    <div class="slide-header">
+      <span class="chapter-label">한국어 파열음</span>
+      <span class="page-num">9 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">VOT: 자음이 터지고 성대가 울리기까지의 시간</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-6">
+          <div class="box box-blue">
+            <div class="box-body sm">
+              VOT는 파열이 터지는 순간과 뒤따르는 모음에서 성대 진동이 시작되는 순간 사이의 시간이다.
+            </div>
+          </div>
+          <div class="display-math-sm" style="text-align:left;">
+            \[ \text{VOT} = t_{\text{성대 진동 시작}} - t_{\text{파열 개방}} \]
+          </div>
+          <ul class="bullet-list sm">
+            <li>예: 파열 개방 0.520초, 성대 진동 시작 0.565초 → <strong>0.045초 = 45 ms</strong></li>
+            <li>참고 근사 범위: 경음 ~10–20 ms · 평음 ~30–50 ms · 격음 ~70 ms 이상</li>
+          </ul>
+        </div>
+        <div class="col">
+          <div class="img-frame" data-img="slide09_vot_diagram.png">
+            <img src="slide09_vot_diagram.png" alt="VOT 측정 도식">
+            <div class="img-ph">
+              <div class="ph-icon">▦</div>
+              <div class="ph-name">slide09_vot_diagram.png</div>
+              <div class="ph-note">파형 위 버스트·voicing onset 표시, VOT 구간 화살표</div>
+            </div>
+            <div class="img-caption">파형 위 버스트 지점 · voicing onset 지점 · VOT 구간</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 10 — TTS는 어떻게 만드는가 ===================== -->
+  <div class="slide" id="slide-10">
+    <div class="slide-header">
+      <span class="chapter-label">TTS 음성 합성</span>
+      <span class="page-num">10 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">TTS: 텍스트를 음향 신호로 바꾸는 과정</h1>
+    </div>
+    <div class="content-zone top-210 center" style="gap:46px;">
+      <div class="note txt-center">
+        현대 신경망 TTS는 대체로 텍스트에서 음향 표현을 예측하고, 그 표현을 다시 파형으로 복원한다.
+      </div>
+      <div class="flow-row">
+        <div class="flow-node">텍스트</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">발음·음향<br>특징 예측</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node accent">멜<br>스펙트로그램</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">보코더</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node dark">음성 파형</div>
+      </div>
+      <div class="box box-gray">
+        <div class="box-body sm">
+          <strong>Tacotron 2</strong> 는 문자 임베딩을 멜 스펙트로그램으로 예측하고,
+          <strong>WaveNet · HiFi-GAN</strong> 계열 보코더가 이를 파형으로 합성하는 구조를 제시했다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 11 — 멜 스펙트로그램 ===================== -->
+  <div class="slide" id="slide-11">
+    <div class="slide-header">
+      <span class="chapter-label">TTS 음성 합성</span>
+      <span class="page-num">11 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">AI는 음성을 주파수 그림으로 다룬다</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-45">
+          <ul class="bullet-list">
+            <li><strong>멜 스펙트로그램</strong>은 음성을 시간–주파수 정보로 바꾼 표현이다.</li>
+            <li>인간 청각은 모든 주파수를 똑같이 민감하게 듣지 않으므로, 청각 특성에 맞춘 <strong>멜 스케일</strong>이 자주 쓰인다.</li>
+          </ul>
+          <div class="box box-blue">
+            <div class="box-title">멜 스케일</div>
+            <div class="box-body sm">\( m = 2595\,\log_{10}\!\left(1 + \dfrac{f}{700}\right) \)</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="graph-wrap grow">
+            <canvas id="cv-mel" width="1000" height="520"></canvas>
+            <div class="graph-label">멜 스케일 곡선 — 가로: 주파수(Hz), 세로: 멜(mel)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 12 — 실험 설계 ===================== -->
+  <div class="slide" id="slide-12">
+    <div class="slide-header">
+      <span class="chapter-label">실험 설계</span>
+      <span class="page-num">12 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">인간 음성과 TTS 음성 비교 실험</h1>
+    </div>
+    <div class="content-zone top-210" style="gap:20px;">
+      <div class="cols top grow">
+        <div class="col">
+          <table class="class-table sm">
+            <thead><tr><th style="width:30%">구분</th><th>내용</th></tr></thead>
+            <tbody>
+              <tr><td class="row-label">인간 음성</td><td>본인 또는 2~3명 녹음</td></tr>
+              <tr><td class="row-label">TTS 음성</td><td>CLOVA, Google TTS, ElevenLabs 등 중 1~2개</td></tr>
+              <tr><td class="row-label">분석 도구</td><td>Praat</td></tr>
+              <tr><td class="row-label">파일 형식</td><td>WAV</td></tr>
+              <tr><td class="row-label">반복</td><td>각 단어 3회 이상</td></tr>
+            </tbody>
+          </table>
+          <div class="box box-blue">
+            <div class="box-title">녹음 문장</div>
+            <div class="box-body sm">"제가 말한 단어는 <strong>바</strong>입니다." / "…<strong>파</strong>입니다." / "…<strong>빠</strong>입니다."</div>
+          </div>
+        </div>
+        <div class="col">
+          <table class="class-table sm">
+            <thead><tr><th style="width:38%">목적</th><th>단어</th></tr></thead>
+            <tbody>
+              <tr><td class="row-label">파열음 VOT/\(f_0\)</td><td>바, 파, 빠</td></tr>
+              <tr><td class="row-label">추가 파열음</td><td>다·타·따, 가·카·까</td></tr>
+              <tr><td class="row-label">모음 포먼트</td><td>비, 베, 배, 바, 버, 보, 부, 브</td></tr>
+              <tr><td class="row-label">ㅐ / ㅔ</td><td>배/베, 새/세, 개/게</td></tr>
+            </tbody>
+          </table>
+          <div class="flow-row" style="margin-top:6px;">
+            <div class="pipe-inputs">
+              <div class="flow-node" style="min-width:200px;">인간 녹음</div>
+              <div class="flow-node" style="min-width:200px;">TTS 생성</div>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node accent">Praat 측정</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node dark">비교 / 분석</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 13 — 비교 1: VOT ===================== -->
+  <div class="slide" id="slide-13">
+    <div class="slide-header">
+      <span class="chapter-label">비교 분석</span>
+      <span class="page-num">13 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">인간 음성과 TTS의 VOT 비교</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-45">
+          <table class="class-table">
+            <thead>
+              <tr><th>음성</th><th>바 VOT</th><th>파 VOT</th><th>빠 VOT</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="row-label col-human">인간</td>
+                <td id="vot-h-ba"></td><td id="vot-h-pa"></td><td id="vot-h-ppa"></td>
+              </tr>
+              <tr>
+                <td class="row-label col-tts">TTS</td>
+                <td id="vot-t-ba"></td><td id="vot-t-pa"></td><td id="vot-t-ppa"></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note">단위: ms · 측정값은 코드 상단 데이터 객체에서 채움 (<span class="txt-muted">현재 더미값</span>)</div>
+          <div class="legend" style="justify-content:flex-start;">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--c-accent)"></div><span class="txt-sm">인간</span></div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--c-red)"></div><span class="txt-sm">TTS</span></div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="cols" style="gap:24px;">
+            <div class="img-frame" data-img="slide13_vot_human.png">
+              <img src="slide13_vot_human.png" alt="인간 파 VOT">
+              <div class="img-ph">
+                <div class="ph-icon">▦</div>
+                <div class="ph-name">slide13_vot_human.png</div>
+                <div class="ph-note">인간 "파" Praat 캡처</div>
+              </div>
+              <div class="img-caption">인간 "파"</div>
+            </div>
+            <div class="img-frame" data-img="slide13_vot_tts.png">
+              <img src="slide13_vot_tts.png" alt="TTS 파 VOT">
+              <div class="img-ph">
+                <div class="ph-icon">▦</div>
+                <div class="ph-name">slide13_vot_tts.png</div>
+                <div class="ph-note">TTS "파" Praat 캡처</div>
+              </div>
+              <div class="img-caption">TTS "파"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 14 — 비교 2: \(f_0\) ===================== -->
+  <div class="slide" id="slide-14">
+    <div class="slide-header">
+      <span class="chapter-label">비교 분석</span>
+      <span class="page-num">14 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">VOT만으로 충분하지 않다: \(f_0\) 비교</h1>
+    </div>
+    <div class="content-zone top-210" style="gap:18px;">
+      <div class="note">
+        평음·격음·경음 구별에서 VOT와 \(f_0\)가 함께 작용하며, 현대 서울 한국어에서는
+        <strong class="txt-accent">\(f_0\)</strong>가 평음·격음 구별의 중요한 단서로 논의된다.
+      </div>
+      <div class="cols top grow">
+        <div class="col col-6">
+          <div class="graph-wrap grow">
+            <canvas id="cv-f0" width="1020" height="430"></canvas>
+            <div class="graph-label">단어별 모음 초반 \(f_0\) (Hz) — 인간 vs TTS</div>
+          </div>
+        </div>
+        <div class="col">
+          <table class="class-table sm">
+            <thead><tr><th>음성</th><th>바 \(f_0\)</th><th>파 \(f_0\)</th><th>빠 \(f_0\)</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="row-label col-human">인간</td>
+                <td id="f0-h-ba"></td><td id="f0-h-pa"></td><td id="f0-h-ppa"></td>
+              </tr>
+              <tr>
+                <td class="row-label col-tts">TTS</td>
+                <td id="f0-t-ba"></td><td id="f0-t-pa"></td><td id="f0-t-ppa"></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="box box-gray">
+            <div class="box-title">측정 방법</div>
+            <div class="box-body sm">모음 시작 후 약 20~40 ms 지점의 \(f_0\), 또는 모음 초반 50 ms 평균 \(f_0\).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 15 — 비교 3: 모음 포먼트 ===================== -->
+  <div class="slide" id="slide-15">
+    <div class="slide-header">
+      <span class="chapter-label">비교 분석</span>
+      <span class="page-num">15 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">모음은 F1/F2 좌표로 비교할 수 있다</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-6">
+          <div class="graph-wrap grow">
+            <canvas id="cv-vowel" width="980" height="540"></canvas>
+            <div class="legend">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--c-accent)"></div><span class="txt-sm">인간</span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--c-red)"></div><span class="txt-sm">TTS</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <table class="class-table sm">
+            <thead><tr><th style="width:42%">모음</th><th>예시 단어</th></tr></thead>
+            <tbody>
+              <tr><td class="row-label">/i/</td><td>비</td></tr>
+              <tr><td class="row-label">/e/ 또는 /ɛ/</td><td>베 / 배</td></tr>
+              <tr><td class="row-label">/a/</td><td>바</td></tr>
+              <tr><td class="row-label">/ʌ/</td><td>버</td></tr>
+              <tr><td class="row-label">/o/</td><td>보</td></tr>
+              <tr><td class="row-label">/u/</td><td>부</td></tr>
+              <tr><td class="row-label">/ɯ/</td><td>브</td></tr>
+            </tbody>
+          </table>
+          <div class="box box-gray">
+            <div class="box-body sm">
+              인간과 TTS는 성도 길이가 달라 절대값이 다를 수 있으므로,
+              <strong>모음 공간의 상대적 배치(모양)</strong>를 비교한다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 16 — ㅐ/ㅔ 단일화 ===================== -->
+  <div class="slide" id="slide-16">
+    <div class="slide-header">
+      <span class="chapter-label">비교 분석</span>
+      <span class="page-num">16 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">포먼트로 보는 ㅐ/ㅔ 단일화</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-5">
+          <div class="graph-wrap grow">
+            <canvas id="cv-aee" width="900" height="520"></canvas>
+            <div class="legend">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--c-accent)"></div><span class="txt-sm">인간</span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--c-red)"></div><span class="txt-sm">TTS</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box box-blue">
+            <div class="box-title">실험 질문</div>
+            <div class="box-body sm">TTS는 철자가 다른 ㅐ/ㅔ를 음향적으로도 다르게 합성하는가?</div>
+          </div>
+          <table class="class-table sm">
+            <thead><tr><th>ㅐ</th><th>ㅔ</th></tr></thead>
+            <tbody>
+              <tr><td>배</td><td>베</td></tr>
+              <tr><td>새</td><td>세</td></tr>
+              <tr><td>개</td><td>게</td></tr>
+            </tbody>
+          </table>
+          <table class="class-table sm">
+            <thead><tr><th style="width:42%">결과</th><th>해석</th></tr></thead>
+            <tbody>
+              <tr><td>인간·TTS 모두 겹침</td><td>현대 발화 경향과 유사</td></tr>
+              <tr><td>인간 겹침 / TTS 구분</td><td>TTS가 철자 차이를 강하게 반영</td></tr>
+              <tr><td>인간 구분 / TTS 겹침</td><td>TTS가 개별 발음 반영 부족</td></tr>
+              <tr><td>둘 다 구분</td><td>단일화가 강하게 나타나지 않음</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 17 — 비교 4: 스펙트로그램 ===================== -->
+  <div class="slide" id="slide-17">
+    <div class="slide-header">
+      <span class="chapter-label">비교 분석</span>
+      <span class="page-num">17 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">스펙트로그램에서 보이는 인간 음성과 TTS의 차이</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-45">
+          <table class="class-table">
+            <thead><tr><th style="width:36%">항목</th><th>볼 부분</th></tr></thead>
+            <tbody>
+              <tr><td class="row-label">배음 구조</td><td>일정한 간격의 가로 줄</td></tr>
+              <tr><td class="row-label">고주파 성분</td><td>마찰음·기식·파열음 주변</td></tr>
+              <tr><td class="row-label">포먼트</td><td>어두운 에너지 띠</td></tr>
+              <tr><td class="row-label">피치 변화</td><td>pitch contour</td></tr>
+            </tbody>
+          </table>
+          <div class="box box-red">
+            <div class="box-title">유의</div>
+            <div class="box-body sm">
+              차이는 TTS 엔진·설정·압축·파일 형식에 따라 달라질 수 있다.
+              "AI 음성은 무조건 고주파가 부족하다"고 단정하지 않는다.
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="img-frame" data-img="slide17_spectrogram_compare.png">
+            <img src="slide17_spectrogram_compare.png" alt="인간/TTS 스펙트로그램 비교">
+            <div class="img-ph">
+              <div class="ph-icon">▦</div>
+              <div class="ph-name">slide17_spectrogram_compare.png</div>
+              <div class="ph-note">인간 / TTS 스펙트로그램 나란히 (협대역 설정)</div>
+            </div>
+            <div class="img-caption">인간 / TTS 스펙트로그램 비교 — 배음 비교 시 협대역</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 18 — 문장 단위 확장 ===================== -->
+  <div class="slide" id="slide-18">
+    <div class="slide-header">
+      <span class="chapter-label">확장</span>
+      <span class="page-num">18 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">단어를 넘어서: 문장 자연성의 문제</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-45">
+          <ul class="bullet-list">
+            <li>짧은 단어에서는 <strong>VOT, \(f_0\), 포먼트</strong>가 중요하다.</li>
+            <li>실제 음성의 자연성은 문장 단위의 <strong>휴지·억양·정보구조</strong>와도 관련된다.</li>
+            <li>한국어 TTS 연구에서는 문장 내 휴지 형성이 중요하며, 휴지 오류가 발화 해석과 품질에 영향을 준다고 보고된다.</li>
+          </ul>
+        </div>
+        <div class="col">
+          <div class="img-frame" data-img="slide18_pitch_contour.png">
+            <img src="slide18_pitch_contour.png" alt="문장 단위 pitch contour">
+            <div class="img-ph">
+              <div class="ph-icon">▦</div>
+              <div class="ph-name">slide18_pitch_contour.png</div>
+              <div class="ph-note">문장 단위 pitch contour (휴지·억양 표시)</div>
+            </div>
+            <div class="img-caption">문장 단위 pitch contour — 휴지 · 억양</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 19 — 결론 ===================== -->
+  <div class="slide" id="slide-19">
+    <div class="slide-header">
+      <span class="chapter-label">결론</span>
+      <span class="page-num">19 / 19</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">AI 음성의 자연성은 물리적 신호 재현의 문제다</h1>
+    </div>
+    <div class="content-zone top-210">
+      <div class="cols top grow">
+        <div class="col col-6">
+          <div class="box box-green">
+            <div class="box-title">결론</div>
+            <ul class="bullet-list sm" style="margin-top:6px;">
+              <li>인간 음성과 TTS 음성은 모두 <strong>파형과 스펙트로그램으로 분석할 수 있는 물리적 신호</strong>다.</li>
+              <li>한국어에서는 VOT, \(f_0\), 포먼트 같은 음향 단서가 자음·모음 구별에 중요하다.</li>
+              <li>AI 음성의 자연성은 "발음을 맞게 읽는가"를 넘어, <strong>한국어의 세밀한 음향 단서를 얼마나 정밀하게 재현하는가</strong>의 문제다.</li>
+            </ul>
+          </div>
+          <div class="box box-red">
+            <div class="box-title">한계</div>
+            <div class="box-body sm">소규모 사례 분석이며, 화자 수가 적어 일반화에는 한계가 있다.</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="flow-col grow" style="justify-content:center;">
+            <div class="flow-node">소리는 파동이다</div>
+            <div class="flow-arrow-v">↓</div>
+            <div class="flow-node">성대 진동 + 성도 공명으로 음성 생성</div>
+            <div class="flow-arrow-v">↓</div>
+            <div class="flow-node">\(f_0\) · 배음 · 포먼트 · VOT로 측정</div>
+            <div class="flow-arrow-v">↓</div>
+            <div class="flow-node">TTS도 최종적으로 음성 파형을 만든다</div>
+            <div class="flow-arrow-v">↓</div>
+            <div class="flow-node accent">같은 물리적 기준으로 비교 가능</div>
+            <div class="flow-arrow-v">↓</div>
+            <div class="flow-node dark">한국어: 바/파/빠, ㅐ/ㅔ가 좋은 분석 대상</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation Bar -->
+<div id="nav-bar">
+  <button id="btn-prev">◀</button>
+  <span id="slide-counter">1 / 19</span>
+  <button id="btn-next">▶</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="slide.js"></script>
+</body>
+</html>
