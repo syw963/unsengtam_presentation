@@ -527,6 +527,19 @@ html, body {
 }
 .outro-main { font-size: 96px; font-weight: 700; letter-spacing: -0.03em; }
 .outro-sub  { font-size: 38px; font-weight: 300; color: rgba(255,255,255,0.7); line-height: 1.5; max-width: 1300px; }
+.secret-syllable {
+  position: relative;
+  display: inline-block;
+}
+.secret-deep-dive-link {
+  position: absolute;
+  top: 0.02em;
+  right: 0.03em;
+  width: 0.28em;
+  height: 0.26em;
+  opacity: 0;
+  cursor: pointer;
+}
 
 /* ---------- Nav bar ---------- */
 #nav-bar {

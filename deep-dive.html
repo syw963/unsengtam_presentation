@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>심화 자료 — AI 음성 vs 인간 음성</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #162033;
+      --panel-2: #101827;
+      --line: rgba(226, 232, 240, 0.16);
+      --ink: #f8fafc;
+      --muted: #cbd5e1;
+      --soft: #94a3b8;
+      --accent: #7dd3fc;
+      --accent-2: #a7f3d0;
+      --warn: #fecaca;
+      --radius: 8px;
+      --shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
+      font-family: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 1)),
+        radial-gradient(circle at 12% 0%, rgba(125, 211, 252, 0.22), transparent 34%),
+        radial-gradient(circle at 88% 8%, rgba(167, 243, 208, 0.16), transparent 30%),
+        var(--bg);
+      line-height: 1.62;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      padding: 14px clamp(18px, 4vw, 56px);
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .top-note {
+      color: var(--soft);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    main {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 56px 0 72px;
+    }
+
+    .hero {
+      padding: 40px 0 28px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 34px;
+    }
+
+    .eyebrow {
+      color: var(--accent-2);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 960px;
+      font-size: clamp(36px, 5vw, 68px);
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 900px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 23px);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin: 24px 0 34px;
+    }
+
+    .card, .panel {
+      background: linear-gradient(180deg, rgba(22, 32, 51, 0.96), rgba(16, 24, 39, 0.96));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .card { padding: 24px; }
+    .panel { padding: 28px; margin-bottom: 22px; }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 25px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: var(--accent);
+      letter-spacing: 0;
+    }
+
+    p { margin: 0 0 12px; color: var(--muted); }
+
+    ul, ol {
+      margin: 10px 0 0;
+      padding-left: 22px;
+      color: var(--muted);
+    }
+
+    li { margin: 8px 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(15, 23, 42, 0.45);
+    }
+
+    th, td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      color: var(--ink);
+      background: rgba(125, 211, 252, 0.09);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+    td { color: var(--muted); }
+    .tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border: 1px solid rgba(125, 211, 252, 0.32);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      margin-right: 6px;
+    }
+
+    .qa {
+      display: grid;
+      gap: 12px;
+    }
+
+    .qa-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      background: rgba(15, 23, 42, 0.36);
+    }
+
+    .q {
+      margin-bottom: 7px;
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .a {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .reference-list {
+      columns: 2;
+      column-gap: 34px;
+    }
+
+    .reference-list li {
+      break-inside: avoid;
+      margin: 0 0 14px;
+    }
+
+    .small {
+      color: var(--soft);
+      font-size: 13px;
+    }
+
+    @media (max-width: 820px) {
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .top-note { text-align: left; }
+      .grid { grid-template-columns: 1fr; }
+      .reference-list { columns: 1; }
+      th { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="back-link" href="index.html#18">← 발표로 돌아가기</a>
+    <div class="top-note">청중 질문 대응용 심화 자료 · 발표 중 일반 경로에는 포함되지 않음</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Deep Dive Appendix</div>
+      <h1>AI 음성 vs 인간 음성 분석의 근거 자료</h1>
+      <p class="lead">
+        질문이 들어왔을 때 바로 펼쳐볼 수 있도록, 발표에서 사용한 음향 지표와 관련 논문·도구·한계를 한 페이지에 모았다.
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2>발표 주장과 근거 연결</h2>
+      <table>
+        <thead>
+          <tr><th>발표 내용</th><th>심화 근거</th><th>질문이 나오면 답할 말</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag">Source-filter</span>음성은 성대 진동과 성도 공명의 결합이다.</td>
+            <td>Fant의 acoustic theory와 source-filter model은 \(f_0\), 배음, 포먼트를 분리해서 설명하는 기본 틀이다.</td>
+            <td>그래서 목소리의 높이는 주로 성대 진동, 모음의 차이는 성도 공명 위치로 해석할 수 있다.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">VOT</span>한국어 파열음은 시간 구조가 중요하다.</td>
+            <td>VOT는 파열 해제와 성대 진동 시작 사이의 시간이며, 한국어 평음·격음·경음 구별에서 핵심 단서로 다뤄진다.</td>
+            <td>단순히 소리가 크거나 세다는 문제가 아니라, 터진 뒤 성대가 언제 울리기 시작하는지가 구별 단서가 된다.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">f0</span>현대 서울 한국어에서는 VOT만 보면 부족할 수 있다.</td>
+            <td>서울 한국어 파열음 연구는 VOT 차이가 약해지는 흐름과 함께 뒤따르는 모음의 \(f_0\) 차이가 커지는 현상을 보고한다.</td>
+            <td>그래서 이 발표에서 VOT와 모음 초반 \(f_0\)를 같이 본 것은 한국어 음성 변화와 맞는 분석 방향이다.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">F1/F2</span>모음은 포먼트 좌표로 비교할 수 있다.</td>
+            <td>F1은 주로 혀의 높이·입 벌림, F2는 혀의 앞뒤 위치와 관련된다. F1/F2 산점도는 모음 공간을 보는 표준적 방법이다.</td>
+            <td>절대값만 비교하기보다 각 화자 안에서 모음들이 이루는 상대적 배치를 보는 것이 더 안전하다.</td>
+          </tr>
+          <tr>
+            <td><span class="tag">TTS</span>AI 음성도 최종적으로 파형을 만든다.</td>
+            <td>WaveNet, Tacotron 2 계열 연구는 텍스트에서 mel-spectrogram 같은 중간 표현을 만들고 vocoder로 파형을 합성하는 흐름을 보인다.</td>
+            <td>그래서 TTS도 결국 \(f_0\), 포먼트, 스펙트로그램, VOT 같은 물리적 기준으로 비교할 수 있다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <h3>측정값 해석에서 조심할 점</h3>
+        <ul>
+          <li>화자 수가 적으면 일반화보다 사례 분석으로 제시해야 한다.</li>
+          <li>마이크, 녹음 환경, 발화 속도, TTS 엔진 설정이 모두 결과에 영향을 줄 수 있다.</li>
+          <li>포먼트는 성별·성도 길이에 따라 절대값이 달라지므로, 같은 화자 내부의 상대 위치도 같이 봐야 한다.</li>
+          <li>스펙트로그램 차이를 보고 “AI는 항상 이런 특성을 가진다”고 단정하면 안 된다.</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3>추가 분석을 한다면</h3>
+        <ul>
+          <li>화자 수를 늘리고 남녀·연령대를 나누어 VOT와 \(f_0\) 평균을 비교한다.</li>
+          <li>각 단어를 여러 번 녹음해 평균과 표준편차를 같이 제시한다.</li>
+          <li>F1/F2는 Bark 또는 Lobanov 정규화를 적용해 화자 차이를 줄인다.</li>
+          <li>문장 단위에서는 억양 곡선, 휴지 길이, 강세 위치를 추가로 본다.</li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="panel">
+      <h2>청중 질문 대비</h2>
+      <div class="qa">
+        <div class="qa-item">
+          <div class="q">Q. 왜 음성의 자연성을 사람 귀가 아니라 숫자로 분석하나요?</div>
+          <p class="a">사람 귀의 판단이 최종적으로 중요하지만, 왜 어색한지 설명하려면 \(f_0\), VOT, 포먼트, 스펙트럼처럼 반복 측정 가능한 물리량이 필요하다.</p>
+        </div>
+        <div class="qa-item">
+          <div class="q">Q. TTS 엔진이 다르면 결과도 달라지지 않나요?</div>
+          <p class="a">맞다. 그래서 이 발표의 결론은 “모든 AI 음성”에 대한 일반화가 아니라, 특정 TTS 출력과 인간 음성을 같은 음향 기준으로 비교한 사례 분석이다.</p>
+        </div>
+        <div class="qa-item">
+          <div class="q">Q. ㅐ/ㅔ는 왜 굳이 언급할 수 있나요?</div>
+          <p class="a">현대 서울 한국어에서 /ɛ/와 /e/의 합류는 연구된 주제이고, F1/F2 공간에서 두 모음이 얼마나 가까운지 보면 철자와 실제 발음의 차이를 논의할 수 있다.</p>
+        </div>
+        <div class="qa-item">
+          <div class="q">Q. Praat 측정은 믿을 수 있나요?</div>
+          <p class="a">Praat은 음성학 연구에서 널리 쓰이는 도구지만, 자동 측정값은 경계 표시와 파라미터 설정에 민감하다. 그래서 가능한 경우 파형·스펙트로그램을 눈으로 확인해 보정해야 한다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>읽어볼 논문·자료</h2>
+      <ol class="reference-list">
+        <li>
+          Boersma, P. & Weenink, D. <a href="https://praat.org/praat" target="_blank" rel="noopener">Praat: doing phonetics by computer</a>.
+          <div class="small">발표의 측정 도구인 Praat 공식 페이지.</div>
+        </li>
+        <li>
+          Fant, G. (1960). <a href="https://books.google.com/books/about/Acoustic_theory_of_speech_production.html?id=ESJgAAAAMAAJ" target="_blank" rel="noopener">Acoustic Theory of Speech Production</a>.
+          <div class="small">성대 진동과 성도 공명으로 음성을 설명하는 source-filter 관점의 고전.</div>
+        </li>
+        <li>
+          Lisker, L. & Abramson, A. S. (1964). <a href="https://www.tandfonline.com/doi/pdf/10.1080/00437956.1964.11659830" target="_blank" rel="noopener">A Cross-Language Study of Voicing in Initial Stops</a>.
+          <div class="small">VOT 개념을 폭넓게 사용하게 만든 고전적 연구.</div>
+        </li>
+        <li>
+          Cho, T. & Ladefoged, P. (1999). <a href="https://cir.nii.ac.jp/crid/1362262945896509184" target="_blank" rel="noopener">Variation and universals in VOT: evidence from 18 languages</a>.
+          <div class="small">언어별 VOT 차이와 보편성을 비교한 연구.</div>
+        </li>
+        <li>
+          Kang, Y. (2014). <a href="https://www.yoonjungkang.com/uploads/1/1/6/2/11625099/vot_merger_in_seoul_korean_revised_final.pdf" target="_blank" rel="noopener">Voice Onset Time merger and development of tonal contrast in Seoul Korean stops</a>.
+          <div class="small">서울 한국어 파열음에서 VOT와 \(f_0\) 단서의 변화에 관한 대규모 말뭉치 연구.</div>
+        </li>
+        <li>
+          Lee, Y.-C. (2023). <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002992684" target="_blank" rel="noopener">Revisiting the merger of mid front vowels in Seoul Korean</a>.
+          <div class="small">서울 한국어 ㅐ/ㅔ 합류를 F2, 성별, 위치 차이와 함께 다시 검토한 연구.</div>
+        </li>
+        <li>
+          van den Oord, A. et al. (2016). <a href="https://arxiv.org/abs/1609.03499" target="_blank" rel="noopener">WaveNet: A Generative Model for Raw Audio</a>.
+          <div class="small">raw waveform 생성을 다룬 대표적 신경망 음성 합성 연구.</div>
+        </li>
+        <li>
+          Shen, J. et al. (2018). <a href="https://arxiv.org/abs/1712.05884" target="_blank" rel="noopener">Natural TTS Synthesis by Conditioning WaveNet on Mel Spectrogram Predictions</a>.
+          <div class="small">Tacotron 2 구조와 mel-spectrogram 기반 TTS 흐름을 설명하는 연구.</div>
+        </li>
+      </ol>
+    </section>
+  </main>
+</body>
+</html>

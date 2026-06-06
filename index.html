@@ -31,7 +31,7 @@
   <div class="slide" id="slide-2">
     <div class="slide-header">
       <span class="chapter-label">발표 개요</span>
-      <span class="page-num">2 / 19</span>
+      <span class="page-num">2 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">의문점</h1>
@@ -74,7 +74,7 @@
   <div class="slide" id="slide-3">
     <div class="slide-header">
       <span class="chapter-label">음성학 기초</span>
-      <span class="page-num">3 / 19</span>
+      <span class="page-num">3 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">소리 = 공기의 진동</h1>
@@ -109,7 +109,7 @@
   <div class="slide" id="slide-4">
     <div class="slide-header">
       <span class="chapter-label">음성학 기초</span>
-      <span class="page-num">4 / 19</span>
+      <span class="page-num">4 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">인간 음성 = 성대 진동 + 성도 공명</h1>
@@ -157,7 +157,7 @@
   <div class="slide" id="slide-5">
     <div class="slide-header">
       <span class="chapter-label">음성학 기초</span>
-      <span class="page-num">5 / 19</span>
+      <span class="page-num">5 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">\(f_0\)와 배음: 목소리의 높이와 음색</h1>
@@ -193,7 +193,7 @@
   <div class="slide" id="slide-6">
     <div class="slide-header">
       <span class="chapter-label">음성학 기초</span>
-      <span class="page-num">6 / 19</span>
+      <span class="page-num">6 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">포먼트: 모음을 구별하게 하는 공명 주파수</h1>
@@ -251,7 +251,7 @@
   <div class="slide" id="slide-7">
     <div class="slide-header">
       <span class="chapter-label">음성학 기초</span>
-      <span class="page-num">7 / 19</span>
+      <span class="page-num">7 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">스펙트로그램: 소리를 그림으로 보는 방법</h1>
@@ -299,7 +299,7 @@
   <div class="slide" id="slide-8">
     <div class="slide-header">
       <span class="chapter-label">한국어 파열음</span>
-      <span class="page-num">8 / 19</span>
+      <span class="page-num">8 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">한국어 파열음에서 시간 구조와 기본 주파수</h1>
@@ -337,7 +337,7 @@
   <div class="slide" id="slide-9">
     <div class="slide-header">
       <span class="chapter-label">한국어 파열음</span>
-      <span class="page-num">9 / 19</span>
+      <span class="page-num">9 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">VOT: 자음이 터지고 성대가 울리기까지의 시간</h1>
@@ -382,75 +382,75 @@
     </div>
   </div>
 
-  <!-- ===================== 슬라이드 10 — TTS는 어떻게 만드는가 ===================== -->
+  <!-- ===================== 슬라이드 10 — TTS는 음성을 어떻게 만드는가 ===================== -->
   <div class="slide" id="slide-10">
     <div class="slide-header">
       <span class="chapter-label">TTS 음성 합성</span>
-      <span class="page-num">10 / 19</span>
+      <span class="page-num">10 / 18</span>
     </div>
     <div class="title-zone">
-      <h1 class="slide-title">TTS: 텍스트를 음향 신호로 바꾸는 과정</h1>
+      <h1 class="slide-title">TTS의 음성 합성 방식과 특성</h1>
     </div>
-    <div class="content-zone top-210" style="gap:46px;">
-      <div class="note txt-center">
-        현대 신경망 TTS: 텍스트에서 음향 표현 예측 후 파형으로 복원.
-      </div>
-      <div class="flow-row">
-        <div class="flow-node">텍스트</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node">발음·음향<br>특징 예측</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node accent">멜<br>스펙트로그램</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node">보코더</div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-node dark">음성 파형</div>
-      </div>
-      <div class="box box-gray">
-        <div class="box-body sm">
-          <strong>Tacotron 2</strong>: 문자 임베딩 → 멜 스펙트로그램 예측.
-          <strong>WaveNet · HiFi-GAN</strong> 계열 보코더가 파형으로 합성하는 구조를 제시.
+    <div class="content-zone top-210" style="gap:24px;">
+
+      <!-- 도입 + 표 (전체 너비) -->
+      <p class="note">
+        TTS는 텍스트를 곧바로 소리로 바꾸지 않고 중간 음향 표현을 거쳐 음성 파형을 생성.<br>
+        출력이 인간 음성과 동일한 물리적 파형이므로 동일한 음향 도구로의 비교가 가능.
+      </p>
+      <table class="class-table">
+        <thead>
+          <tr>
+            <th style="width:20%">방식</th>
+            <th style="width:30%">원리</th>
+            <th>특성</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-label">연결 합성</td>
+            <td>녹음된 실제 음성 조각을 이어 붙임</td>
+            <td>조각 음질은 깨끗하나 연결부·억양이 부자연스러움</td>
+          </tr>
+          <tr>
+            <td class="row-label">통계적 파라미터 합성</td>
+            <td>음성 특징을 통계 모델로 예측</td>
+            <td>부드럽게 이어지나 전반적으로 뭉개지고 둔탁함</td>
+          </tr>
+          <tr>
+            <td class="row-label" style="color:var(--c-accent);font-weight:700;">신경망 합성<br><span style="font-size:0.8em;font-weight:500;color:var(--c-muted);">(현재 주류)</span></td>
+            <td>딥러닝으로 텍스트에서 음향 표현 예측</td>
+            <td>자연성 높음. 학습 데이터의 발음 경향·편향을 반영</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="cols" style="gap:32px;align-items:center;">
+        <div class="box box-blue" style="flex:1;margin:0;">
+          <div class="box-title">분석 대상</div>
+          <div class="box-body sm">본 분석의 TTS(CLOVA)는 <strong>신경망 합성 방식</strong><br>대량의 한국어 음성 학습으로 인해, 학습 데이터에 담긴 현대 한국어 발음 경향이 합성 음성에 반영될 가능성 존재</div>
+        </div>
+      </div>  
+      <!-- 하단: 흐름도 + 분석 대상 박스 가로 배치 -->
+      <div class="cols" style="gap:32px;align-items:center;">
+        <div class="flow-row" style="flex:0 0 100%;">
+          <div class="flow-node">텍스트</div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node accent">음향 표현<br><span style="font-size:0.78em;font-weight:400;">(중간 단계)</span></div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-node dark">음성 파형</div>
         </div>
       </div>
+
+
     </div>
   </div>
 
-  <!-- ===================== 슬라이드 11 — 멜 스펙트로그램 ===================== -->
+  <!-- ===================== 슬라이드 11 — 실험 설계 ===================== -->
   <div class="slide" id="slide-11">
     <div class="slide-header">
-      <span class="chapter-label">TTS 음성 합성</span>
-      <span class="page-num">11 / 19</span>
-    </div>
-    <div class="title-zone">
-      <h1 class="slide-title">AI는 음성을 주파수 그림으로 다룬다</h1>
-    </div>
-    <div class="content-zone top-210">
-      <div class="cols grow">
-        <div class="col col-45">
-          <ul class="bullet-list">
-            <li><strong>멜 스펙트로그램</strong>은 음성을 시간–주파수 정보로 바꾼 표현.</li>
-            <li>인간 청각은 모든 주파수를 똑같이 민감하게 듣지 않으므로, 청각 특성에 맞춘 <strong>멜 스케일</strong>이 자주 쓰임.</li>
-          </ul>
-          <div class="box box-blue">
-            <div class="box-title">멜 스케일</div>
-            <div class="box-body sm">\( m = 2595\,\log_{10}\!\left(1 + \dfrac{f}{700}\right) \)</div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="graph-wrap grow">
-            <canvas id="cv-mel" width="1000" height="620"></canvas>
-            <div class="graph-label">멜 스케일 곡선 — 가로: 주파수(Hz), 세로: 멜(mel)</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== 슬라이드 12 — 실험 설계 ===================== -->
-  <div class="slide" id="slide-12">
-    <div class="slide-header">
       <span class="chapter-label">실험 설계</span>
-      <span class="page-num">12 / 19</span>
+      <span class="page-num">11 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">인간 음성과 TTS 음성 비교 실험</h1>
@@ -458,15 +458,14 @@
     <div class="content-zone top-210" style="gap:20px;">
       <div class="cols grow">
         <div class="col">
-          <table class="class-table sm">
+          <table class="class-table">
             <thead><tr><th style="width:30%">구분</th><th>내용</th></tr></thead>
             <tbody>
               <tr><td class="row-label col-human">인간1</td><td>직접 녹음 (화자 A)</td></tr>
               <tr><td class="row-label col-human2">인간2</td><td>직접 녹음 (화자 B)</td></tr>
-              <tr><td class="row-label col-tts">TTS</td><td>1개 TTS 엔진</td></tr>
+              <tr><td class="row-label col-tts">TTS</td><td>1개 TTS 엔진(NAVER CLOVA)</td></tr>
               <tr><td class="row-label">분석 도구</td><td>Praat</td></tr>
-              <tr><td class="row-label">파일 형식</td><td>WAV</td></tr>
-              <tr><td class="row-label">반복</td><td>각 단어 3회 이상</td></tr>
+              <tr><td class="row-label">반복 측정</td><td>2명이 각 단어 3회 측정</td></tr>
             </tbody>
           </table>
           <div class="box box-blue">
@@ -475,7 +474,7 @@
           </div>
         </div>
         <div class="col">
-          <table class="class-table sm">
+          <table class="class-table">
             <thead><tr><th style="width:38%">분석 항목</th><th>단어</th></tr></thead>
             <tbody>
               <tr><td class="row-label">파열음 — VOT · \(f_0\)</td><td>바, 파, 빠</td></tr>
@@ -500,11 +499,11 @@
     </div>
   </div>
 
-  <!-- ===================== 슬라이드 13 — 비교 1: VOT ===================== -->
-  <div class="slide" id="slide-13">
+  <!-- ===================== 슬라이드 12 — 비교 1: VOT ===================== -->
+  <div class="slide" id="slide-12">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">13 / 19</span>
+      <span class="page-num">12 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">인간 음성과 TTS의 VOT 비교</h1>
@@ -563,11 +562,11 @@
     </div>
   </div>
 
-  <!-- ===================== 슬라이드 14 — 비교 2: \(f_0\) ===================== -->
-  <div class="slide" id="slide-14">
+  <!-- ===================== 슬라이드 13 — 비교 2: \(f_0\) ===================== -->
+  <div class="slide" id="slide-13">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">14 / 19</span>
+      <span class="page-num">13 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">인간 음성과 TTS의 \(f_0\) 비교</h1>
@@ -619,10 +618,10 @@
   </div>
 
   <!-- ===================== 슬라이드 15 — 비교 3: 모음 포먼트 ===================== -->
-  <div class="slide" id="slide-15">
+  <div class="slide" id="slide-14">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">15 / 18</span>
+      <span class="page-num">14 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">모음 공간 비교: TTS vs 인간</h1>
@@ -687,10 +686,10 @@
   </div>
 
   <!-- ===================== 슬라이드 17 — 비교 4: 스펙트로그램 ===================== -->
-  <div class="slide" id="slide-16">
+  <div class="slide" id="slide-15">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">16 / 18</span>
+      <span class="page-num">15 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">스펙트로그램에서 보이는 인간 음성과 TTS의 차이</h1>
@@ -749,10 +748,10 @@
   </div>
 
   <!-- ===================== 슬라이드 18 — 문장 단위 확장 ===================== -->
-  <div class="slide" id="slide-17">
+  <div class="slide" id="slide-16">
     <div class="slide-header">
       <span class="chapter-label">확장</span>
-      <span class="page-num">17 / 18</span>
+      <span class="page-num">16 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">단어를 넘어서: 문장 자연성의 문제</h1>
@@ -799,10 +798,10 @@
   </div>
 
   <!-- ===================== 슬라이드 19 — 결론 ===================== -->
-  <div class="slide" id="slide-18">
+  <div class="slide" id="slide-17">
     <div class="slide-header">
       <span class="chapter-label">결론</span>
-      <span class="page-num">18 / 18</span>
+      <span class="page-num">17 / 18</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">AI 음성의 자연성은 물리적 신호 재현의 문제</h1>
@@ -842,12 +841,22 @@
     </div>
   </div>
 
+  <div class="slide slide-outro" id="slide-18">
+    <div class="outro-inner">
+      <div class="outro-main" aria-label="감사합니다">
+        <span>감</span><span class="secret-syllable">사<a class="secret-deep-dive-link" href="deep-dive.html" aria-label="심화 자료 페이지로 이동"></a></span><span>합니다</span>
+      </div>
+    </div>
+    <div class="cover-line"></div>
+  </div>
+
+
 </div>
 
 <!-- Navigation Bar -->
 <div id="nav-bar">
   <button id="btn-prev">◀</button>
-  <span id="slide-counter">1 / 19</span>
+  <span id="slide-counter">1 / 18</span>
   <button id="btn-next">▶</button>
 </div>
 
