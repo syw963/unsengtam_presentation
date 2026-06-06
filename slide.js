@@ -192,69 +192,51 @@ function drawSpectrum() {
 /* ============================================================
    슬라이드 8 — VOT 타임라인 (바/파/빠)
    ============================================================ */
-function drawVotTimeline() {
-  const cv = document.getElementById('cv-vot');
-  if (!cv) return;
-  const ctx = cv.getContext('2d');
-  const W = cv.width, H = cv.height;
-  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
-
-  const padL = 110, padR = 40, padT = 50, padB = 50;
-  const burstX = padL + 150;                 // 버스트(파열) — 세 줄 정렬
-  const rightX = W - padR;
-  const rows = [
-    { name: '경음 (빠)', vot: 0.13, color: C.green },
-    { name: '평음 (바)', vot: 0.38, color: C.accent },
-    { name: '격음 (파)', vot: 0.72, color: C.red },
+function drawF0Contour() {
+  // 수렴값: 바 93, 파 126, 빠 122 Hz (tau=80ms → t=250ms에서 ~96% 수렴)
+  const contours = [
+    { name: '경음 (빠)', color: C.green,  f: t =>  122 + 46 * Math.exp(-t / 80) },  // 168→122
+    { name: '격음 (파)', color: C.red,    f: t =>  126 + 52 * Math.exp(-t / 80) },  // 178→126
+    { name: '평음 (바)', color: C.accent, f: t =>   93 - 15 * Math.exp(-t / 80) },  //  78→93
   ];
-  const rowH = (H - padT - padB) / rows.length;
-  const span = rightX - burstX;
 
-  // 버스트 정렬 세로선
-  ctx.strokeStyle = '#9aa7b8'; ctx.lineWidth = 2; ctx.setLineDash([5, 5]);
-  ctx.beginPath(); ctx.moveTo(burstX, padT - 14); ctx.lineTo(burstX, H - padB + 6); ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle = '#5b6675'; ctx.textAlign = 'center';
-  ctx.font = '600 21px "IBM Plex Sans KR",sans-serif';
-  ctx.fillText('버스트(파열)', burstX, padT - 22);
-
-  rows.forEach((r, i) => {
-    const cy = padT + rowH * i + rowH / 2;
-    const onsetX = burstX + span * 0.16 + (span * 0.78) * r.vot;
-    // 라벨
-    ctx.fillStyle = C.ink; ctx.textAlign = 'left';
-    ctx.font = '600 23px "IBM Plex Sans KR",sans-serif';
-    ctx.fillText(r.name, 16, cy + 8);
-    // 기준선
-    ctx.strokeStyle = '#dde4ee'; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(burstX, cy); ctx.lineTo(rightX, cy); ctx.stroke();
-    // 폐쇄/기식 구간 (버스트~onset)
-    ctx.strokeStyle = r.color; ctx.lineWidth = 5; ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.moveTo(burstX, cy); ctx.lineTo(onsetX, cy); ctx.stroke();
-    // 성대 진동 시작 표시 (작은 파형)
-    ctx.strokeStyle = r.color; ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    for (let x = onsetX; x <= rightX; x += 2) {
-      const yy = cy + Math.sin((x - onsetX) / 7) * 11;
-      x === onsetX ? ctx.moveTo(x, yy) : ctx.lineTo(x, yy);
-    }
-    ctx.stroke();
-    // onset 세로 표식
-    ctx.strokeStyle = r.color; ctx.lineWidth = 2; ctx.setLineDash([4, 4]);
-    ctx.beginPath(); ctx.moveTo(onsetX, cy - 20); ctx.lineTo(onsetX, cy + 20); ctx.stroke();
-    ctx.setLineDash([]);
-    // VOT 화살표 (버스트~onset, 위쪽)
-    const ay = cy - 26;
-    ctx.strokeStyle = r.color; ctx.fillStyle = r.color; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(burstX, ay); ctx.lineTo(onsetX, ay); ctx.stroke();
-    const ar = (xx, d) => { ctx.beginPath(); ctx.moveTo(xx, ay); ctx.lineTo(xx + d * 9, ay - 5); ctx.lineTo(xx + d * 9, ay + 5); ctx.closePath(); ctx.fill(); };
-    ar(burstX, 1); ar(onsetX, -1);
-    ctx.textAlign = 'center'; ctx.font = '600 19px "IBM Plex Sans KR",sans-serif';
-    ctx.fillText('VOT', (burstX + onsetX) / 2, ay - 8);
+  const g = new Graph('cv-f0-contour', {
+    xMin: 0, xMax: 250, yMin: 65, yMax: 195,
+    pad: { l: 80, r: 140, t: 44, b: 68 },
   });
-  // 시간축
-  ctx.fillStyle = C.tick; ctx.textAlign = 'right'; ctx.font = '21px "IBM Plex Sans KR",sans-serif';
-  ctx.fillText('시간 →', rightX, H - 16);
+  if (!g.canvas) return;
+  g.clear();
+  g.grid([50, 100, 150, 200, 250], [80, 100, 120, 140, 160, 180]);
+  g.frame();
+
+  const { ctx } = g;
+
+  // x축 틱
+  ctx.fillStyle = C.tick; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  ctx.font = '19px "IBM Plex Sans KR",sans-serif';
+  [0, 50, 100, 150, 200, 250].forEach(x => ctx.fillText(x, g.wx(x), g.pad.t + g.PH + 8));
+
+  // y축 틱
+  ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  [80, 100, 120, 140, 160, 180].forEach(y => ctx.fillText(y, g.pad.l - 8, g.wy(y)));
+
+  // 축 제목
+  g.pxText(g.pad.l + g.PW / 2, g.H - 14, '버스트 이후 시간 (ms)', { size: 20 });
+  ctx.save();
+  ctx.translate(16, g.pad.t + g.PH / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillStyle = C.tick; ctx.font = '20px "IBM Plex Sans KR",sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('f₀ (Hz)', 0, 0);
+  ctx.restore();
+
+  contours.forEach(({ name, color, f }) => {
+    g.curve(f, color, 3.5);
+    g.text(250, f(250), name, { color, size: 21, weight: 600, dx: 12, dy: 7 });
+  });
+
+  // 시작점 강조
+  contours.forEach(({ color, f }) => g.dot(0, f(0), color, 7));
 }
 
 /* ============================================================
@@ -426,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
   requestAnimationFrame(() => {
     drawSine();
     drawSpectrum();
-    drawVotTimeline();
+    drawF0Contour();
     drawMel();
     drawF0Bars();
     drawVowelScatter('cv-vowel', vowels);

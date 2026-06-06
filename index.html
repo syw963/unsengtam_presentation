@@ -222,15 +222,24 @@
           </table>
           <div class="note txt-sm" style="margin-top:6px;">참고 근사값 — 화자·녹음 환경에 따라 다름</div>
         </div>
-        <div class="col">
-          <div class="img-frame" data-img="slide06_formant_vowels.png">
-            <img src="slide06_formant_vowels.png" alt="모음 스펙트럼 비교">
-            <div class="img-ph">
+        <div class="col" style="gap:20px;">
+          <div class="img-frame" data-img="slide6_a.png" style="max-height:360px;">
+            <img src="slide6_a.png" alt="/아/ 스펙트럼" style="max-height:312px;object-fit:contain;">
+            <div class="img-ph" style="min-height:0;height:312px;">
               <div class="ph-icon">▦</div>
-              <div class="ph-name">slide06_formant_vowels.png</div>
-              <div class="ph-note">/이/와 /아/ 스펙트럼 비교, F1·F2 봉우리 위치</div>
+              <div class="ph-name">slide6_a.png</div>
+              <div class="ph-note">/아/ 스펙트럼 — F1 높음, F2 낮음</div>
             </div>
-            <div class="img-caption">/이/ 와 /아/ 스펙트럼 비교 — F1·F2 봉우리 위치 표시</div>
+            <div class="img-caption">/아/ — F1↑ F2↓</div>
+          </div>
+          <div class="img-frame" data-img="slide6_i.png" style="max-height:360px;">
+            <img src="slide6_i.png" alt="/이/ 스펙트럼" style="max-height:312px;object-fit:contain;">
+            <div class="img-ph" style="min-height:0;height:312px;">
+              <div class="ph-icon">▦</div>
+              <div class="ph-name">slide6_i.png</div>
+              <div class="ph-note">/이/ 스펙트럼 — F1 낮음, F2 높음</div>
+            </div>
+            <div class="img-caption">/이/ — F1↓ F2↑</div>
           </div>
         </div>
       </div>
@@ -295,7 +304,7 @@
     <div class="title-zone">
       <h1 class="slide-title">한국어 파열음은 시간 구조가 중요하다</h1>
     </div>
-    <div class="content-zone top-210" style="gap:20px;">
+    <div class="content-zone top-210" style="gap:25px;">
       <div class="note">한국어에는 <strong class="txt-accent">평음 · 격음 · 경음</strong>의 3중 대립이 있다.</div>
       <div class="cols grow">
         <div class="col col-45">
@@ -316,8 +325,8 @@
         </div>
         <div class="col">
           <div class="graph-wrap grow">
-            <canvas id="cv-vot" width="1020" height="560"></canvas>
-            <div class="graph-label">VOT 타임라인 — 버스트(파열) 정렬, 성대 진동 시작까지의 구간</div>
+            <canvas id="cv-f0-contour" width="950" height="590"></canvas>
+            <div class="graph-label">버스트 이후 f₀ 윤곽 — 평음·격음·경음 비교 (모식도)</div>
           </div>
         </div>
       </div>
