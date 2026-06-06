@@ -182,7 +182,7 @@
         </div>
         <div class="col">
           <div class="graph-wrap grow">
-            <canvas id="cv-spectrum" width="1000" height="620"></canvas>
+            <canvas id="cv-spectrum" width="1000" height="650"></canvas>
             <div class="graph-label">라인 스펙트럼 — 가로: 주파수(Hz), 세로: 진폭</div>
           </div>
         </div>
@@ -533,7 +533,6 @@
               </tr>
             </tbody>
           </table>
-          <div class="note">단위: ms · 측정값은 코드 상단 데이터 객체에서 채움 (<span class="txt-muted">현재 더미값</span>)</div>
           <div class="legend" style="justify-content:flex-start;">
             <div class="legend-item"><div class="legend-dot" style="background:var(--c-red)"></div><span class="txt-sm">TTS</span></div>
             <div class="legend-item"><div class="legend-dot" style="background:var(--c-accent)"></div><span class="txt-sm">인간1</span></div>
@@ -549,7 +548,7 @@
         </div>
         <div class="col">
           <div class="graph-wrap grow">
-            <canvas id="cv-vot-bar" width="1020" height="560"></canvas>
+            <canvas id="cv-vot-bar" width="950" height="560"></canvas>
             <div class="graph-label">단어별 VOT (ms) — TTS · 인간1 · 인간2 비교</div>
           </div>
         </div>
@@ -627,14 +626,37 @@
           </div>
         </div>
         <div class="col">
-          <table class="class-table sm">
-            <thead><tr><th>측정 모음 (8개)</th></tr></thead>
+          <p class="label-sm" style="margin-bottom:6px">측정 모음 분류 (8개)</p>
+          <table class="vowel-sys-table">
+            <thead>
+              <tr>
+                <th rowspan="2" class="vst-corner"></th>
+                <th colspan="2">전설(前舌)</th>
+                <th colspan="2">후설(後舌)</th>
+              </tr>
+              <tr>
+                <th>평순</th><th>원순</th><th>평순</th><th>원순</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td class="row-label">이 · 에 · 애 · 아</td></tr>
-              <tr><td class="row-label">어 · 오 · 우 · 으</td></tr>
+              <tr>
+                <th>고(高)</th>
+                <td class="vst-v">이</td><td class="vst-empty">—</td>
+                <td class="vst-v">으</td><td class="vst-v">우</td>
+              </tr>
+              <tr>
+                <th>중(中)</th>
+                <td class="vst-v">에</td><td class="vst-empty">—</td>
+                <td class="vst-v">어</td><td class="vst-v">오</td>
+              </tr>
+              <tr>
+                <th>저(低)</th>
+                <td class="vst-v">애</td><td class="vst-empty">—</td>
+                <td class="vst-v">아</td><td class="vst-empty">—</td>
+              </tr>
             </tbody>
           </table>
-          <div class="box box-gray">
+          <div class="box box-gray" style="margin-top:14px">
             <div class="box-body sm">
               인간과 TTS는 성도 길이가 달라 절대값이 다를 수 있으므로,
               <strong>모음 공간의 상대적 배치(모양)</strong>를 비교.
@@ -711,14 +733,13 @@
               <tr><td class="row-label">배음 구조</td><td>일정한 간격의 가로 줄</td></tr>
               <tr><td class="row-label">고주파 성분</td><td>마찰음·기식·파열음 주변</td></tr>
               <tr><td class="row-label">포먼트</td><td>어두운 에너지 띠</td></tr>
-              <tr><td class="row-label">피치 변화</td><td>pitch contour</td></tr>
             </tbody>
           </table>
           <div class="box box-red">
             <div class="box-title">유의</div>
             <div class="box-body sm">
-              차이는 TTS 엔진·설정·압축·파일 형식에 따라 달라질 수 있음.
-              "AI 음성은 무조건 고주파가 부족하다"고 단정하지 않음.
+              차이는 TTS엔진·설정·압축에 따라 달라질 수 있음.
+              "AI 음성은 무조건 고주파가 부족하다"고 단정 못함.
             </div>
           </div>
           <div class="box box-gray">

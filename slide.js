@@ -267,30 +267,28 @@ function drawMel() {
    화자 3인: TTS / 인간1 / 인간2
    ============================================================ */
 
-// TODO: 실제 측정값으로 교체 (단위: ms)
 const votTable = {
-  "바": { TTS: 22,  인간1: 18,  인간2: 20  },
-  "파": { TTS: 65,  인간1: 78,  인간2: 74  },
-  "빠": { TTS: 15,  인간1: 12,  인간2: 13  },
+  "바": { TTS: 29,  인간1: 55,  인간2: 40  },
+  "파": { TTS: 47,  인간1: 89,  인간2: 91  },
+  "빠": { TTS:  9,  인간1:  9,  인간2:  8  },
 };
 
-// TODO: 실제 측정값으로 교체 (단위: Hz, 모음 초반 f0)
 const f0 = {
-  "바": { TTS: 125, 인간1: 118, 인간2: 112 },
-  "파": { TTS: 148, 인간1: 155, 인간2: 151 },
-  "빠": { TTS: 152, 인간1: 150, 인간2: 148 },
+  "바": { TTS:  93.8, 인간1:  90.3, 인간2: 102.2 },
+  "파": { TTS: 126.0, 인간1: 113.0, 인간2: 129.7 },
+  "빠": { TTS: 121.7, 인간1: 111.9, 인간2: 121.8 },
 };
 
 // TODO: 실제 측정값으로 교체 (단위: Hz, [F1, F2])
 const vowels = {
-  "이": { TTS: [300, 2150], 인간1: [290, 2200], 인간2: [285, 2220] },
-  "에": { TTS: [440, 1950], 인간1: [450, 1900], 인간2: [445, 1920] },
-  "애": { TTS: [570, 1800], 인간1: [560, 1750], 인간2: [555, 1760] },
-  "아": { TTS: [730, 1350], 인간1: [750, 1300], 인간2: [745, 1280] },
-  "어": { TTS: [620, 1100], 인간1: [600, 1050], 인간2: [610, 1070] },
-  "오": { TTS: [440, 850],  인간1: [430, 800],  인간2: [425, 810]  },
-  "우": { TTS: [340, 800],  인간1: [330, 750],  인간2: [325, 760]  },
-  "으": { TTS: [360, 1400], 인간1: [350, 1450], 인간2: [355, 1440] },
+  "이": { TTS: [293.6, 1966.8], 인간1: [239.8, 2542.6], 인간2: [245.0, 2534.3] },
+  "에": { TTS: [405.9, 1931.0], 인간1: [509.4, 1950.6], 인간2: [499.5, 1927.9] },
+  "애": { TTS: [408.5, 1923.2], 인간1: [531.1, 2047.4], 인간2: [527.2, 2054.9] },
+  "아": { TTS: [748.4, 1346.7], 인간1: [746.9, 1155.0], 인간2: [749.7, 1148.3] },
+  "어": { TTS: [562.4,  938.7], 인간1: [510.4,  853.2], 인간2: [508.0,  848.1] },
+  "오": { TTS: [430.2,  593.0], 인간1: [369.6,  641.1], 인간2: [365.4,  631.9] },
+  "우": { TTS: [416.0,  440.2], 인간1: [303.8,  751.4], 인간2: [299.9,  744.3] },
+  "으": { TTS: [365.0, 1827.5], 인간1: [365.4, 1591.7], 인간2: [361.4, 1585.7] },
 };
 
 const SPEAKERS = [
@@ -322,10 +320,10 @@ function fillF0Table() {
 }
 
 /* ---------- 공통 3-bar 차트 (슬라이드 13·14) ---------- */
-function drawBarChart(canvasId, data, { yMax, yTicks, yLabel }) {
+function drawBarChart(canvasId, data, { yMin = 0, yMax, yTicks, yLabel }) {
   const words = Object.keys(data);
   const g = new Graph(canvasId, {
-    xMin: 0, xMax: words.length, yMin: 0, yMax,
+    xMin: 0, xMax: words.length, yMin, yMax,
     pad: { l: 78, r: 30, t: 36, b: 66 },
   });
   if (!g.canvas) return;
@@ -340,7 +338,7 @@ function drawBarChart(canvasId, data, { yMax, yTicks, yLabel }) {
     const cx = g.pad.l + groupW * (i + 0.5);
     SPEAKERS.forEach((sp, j) => {
       const v = data[w][sp.key];
-      const bx = cx + offsets[j], by = g.wy(v), base = g.wy(0);
+      const bx = cx + offsets[j], by = g.wy(v), base = g.wy(yMin);
       ctx.fillStyle = sp.color;
       ctx.fillRect(bx - barW / 2, by, barW, base - by);
       ctx.fillStyle = sp.color;
@@ -412,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
     drawF0Contour();
     drawMel();
     drawBarChart('cv-vot-bar', votTable, { yMax: 120, yTicks: [20, 40, 60, 80, 100], yLabel: 'VOT (ms)' });
-    drawBarChart('cv-f0', f0, { yMax: 200, yTicks: [40, 80, 120, 160], yLabel: 'f₀ (Hz)' });
+    drawBarChart('cv-f0', f0, { yMin: 80, yMax: 140, yTicks: [90, 100, 110, 120, 130, 140], yLabel: 'f₀ (Hz)' });
     drawVowelScatter('cv-vowel', vowels);
     const aeData = Object.fromEntries(['에', '애'].map(k => [k, vowels[k]]));
     drawVowelScatter('cv-aee', aeData);

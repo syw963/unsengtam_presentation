@@ -234,6 +234,61 @@ html, body {
 .class-table .col-tts    { color: var(--c-red);    font-weight: 600; }
 .class-table .row-label { font-weight: 600; }
 
+/* ---------- 모음체계표 ---------- */
+.vowel-sys-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 30px;
+}
+.vowel-sys-table thead tr:first-child th {
+  background: var(--c-accent);
+  color: #fff;
+  padding: 10px 16px;
+  text-align: center;
+  font-size: 27px;
+  font-weight: 600;
+}
+.vowel-sys-table thead tr:last-child th {
+  background: rgba(30,79,143,0.12);
+  color: var(--c-accent);
+  padding: 9px 14px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 600;
+  border: 1px solid var(--c-border);
+}
+.vowel-sys-table th.vst-corner { background: #f0f4fa; }
+.vowel-sys-table tbody th {
+  background: rgba(30,79,143,0.07);
+  color: var(--c-ink);
+  font-size: 26px;
+  font-weight: 600;
+  padding: 13px 18px;
+  text-align: center;
+  border: 1px solid var(--c-border);
+}
+.vowel-sys-table td {
+  text-align: center;
+  padding: 13px 14px;
+  border: 1px solid var(--c-border);
+}
+.vowel-sys-table td.vst-v {
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--c-accent);
+  background: rgba(30,79,143,0.05);
+}
+.vowel-sys-table td.vst-empty {
+  color: var(--c-muted);
+  font-size: 26px;
+  background: #f8f9fb;
+}
+.label-sm {
+  font-size: 27px;
+  font-weight: 600;
+  color: var(--c-muted);
+}
+
 /* ---------- Flow diagram ---------- */
 .flow-row {
   display: flex;
