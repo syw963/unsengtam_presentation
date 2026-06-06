@@ -264,128 +264,129 @@ function drawMel() {
 
 /* ============================================================
    데이터 객체 (슬라이드 13·14·15·16)
+   화자 3인: TTS / 인간1 / 인간2
    ============================================================ */
 
 // TODO: 실제 측정값으로 교체 (단위: ms)
 const votTable = {
-  "바": { 인간: 18, TTS: 22 },
-  "파": { 인간: 78, TTS: 65 },
-  "빠": { 인간: 12, TTS: 15 },
+  "바": { TTS: 22,  인간1: 18,  인간2: 20  },
+  "파": { TTS: 65,  인간1: 78,  인간2: 74  },
+  "빠": { TTS: 15,  인간1: 12,  인간2: 13  },
 };
 
 // TODO: 실제 측정값으로 교체 (단위: Hz, 모음 초반 f0)
 const f0 = {
-  "바": { 인간: 118, TTS: 125 },   // 평음 → 낮음
-  "파": { 인간: 155, TTS: 148 },   // 격음 → 높음
-  "빠": { 인간: 150, TTS: 152 },   // 경음 → 높음
+  "바": { TTS: 125, 인간1: 118, 인간2: 112 },
+  "파": { TTS: 148, 인간1: 155, 인간2: 151 },
+  "빠": { TTS: 152, 인간1: 150, 인간2: 148 },
 };
 
 // TODO: 실제 측정값으로 교체 (단위: Hz, [F1, F2])
 const vowels = {
-  "이": { 인간: [290, 2200], TTS: [300, 2150] },
-  "에": { 인간: [450, 1900], TTS: [440, 1950] },
-  "애": { 인간: [560, 1750], TTS: [570, 1800] },
-  "아": { 인간: [750, 1300], TTS: [730, 1350] },
-  "어": { 인간: [600, 1050], TTS: [620, 1100] },
-  "오": { 인간: [430, 800],  TTS: [440, 850] },
-  "우": { 인간: [330, 750],  TTS: [340, 800] },
-  "으": { 인간: [350, 1450], TTS: [360, 1400] },
+  "이": { TTS: [300, 2150], 인간1: [290, 2200], 인간2: [285, 2220] },
+  "에": { TTS: [440, 1950], 인간1: [450, 1900], 인간2: [445, 1920] },
+  "애": { TTS: [570, 1800], 인간1: [560, 1750], 인간2: [555, 1760] },
+  "아": { TTS: [730, 1350], 인간1: [750, 1300], 인간2: [745, 1280] },
+  "어": { TTS: [620, 1100], 인간1: [600, 1050], 인간2: [610, 1070] },
+  "오": { TTS: [440, 850],  인간1: [430, 800],  인간2: [425, 810]  },
+  "우": { TTS: [340, 800],  인간1: [330, 750],  인간2: [325, 760]  },
+  "으": { TTS: [360, 1400], 인간1: [350, 1450], 인간2: [355, 1440] },
 };
 
-// TODO: 실제 측정값으로 교체 (단위: Hz, [F1, F2])
-const aeE = {
-  "배(ㅐ)": { 인간: [560, 1750], TTS: [575, 1720] },
-  "베(ㅔ)": { 인간: [470, 1880], TTS: [455, 1960] },
-  "새(ㅐ)": { 인간: [555, 1770], TTS: [580, 1700] },
-  "세(ㅔ)": { 인간: [465, 1900], TTS: [450, 1970] },
-  "개(ㅐ)": { 인간: [565, 1740], TTS: [585, 1710] },
-  "게(ㅔ)": { 인간: [475, 1870], TTS: [460, 1950] },
-};
+const SPEAKERS = [
+  { key: 'TTS',  color: C.red,    cls: 'col-tts'    },
+  { key: '인간1', color: C.accent, cls: 'col-human'  },
+  { key: '인간2', color: C.green,  cls: 'col-human2' },
+];
 
-/* ---------- 슬라이드 13: VOT 표 채우기 (그래프 없음) ---------- */
+/* ---------- 슬라이드 13: VOT 표 채우기 ---------- */
 function fillVotTable() {
-  const key = { ba: '바', pa: '파', ppa: '빠' };
-  for (const [abbr, word] of Object.entries(key)) {
-    const h = document.getElementById(`vot-h-${abbr}`);
-    const t = document.getElementById(`vot-t-${abbr}`);
-    if (h) h.textContent = `${votTable[word].인간} ms`;
-    if (t) t.textContent = `${votTable[word].TTS} ms`;
-  }
+  const words = { ba: '바', pa: '파', ppa: '빠' };
+  const spAbr = { TTS: 't', 인간1: 'h1', 인간2: 'h2' };
+  for (const [abbr, word] of Object.entries(words))
+    for (const [sp, a] of Object.entries(spAbr)) {
+      const el = document.getElementById(`vot-${a}-${abbr}`);
+      if (el) el.textContent = `${votTable[word][sp]} ms`;
+    }
 }
 
-/* ---------- 슬라이드 14: f0 표 + 막대그래프 ---------- */
+/* ---------- 슬라이드 14: f0 표 채우기 ---------- */
 function fillF0Table() {
-  const key = { ba: '바', pa: '파', ppa: '빠' };
-  for (const [abbr, word] of Object.entries(key)) {
-    const h = document.getElementById(`f0-h-${abbr}`);
-    const t = document.getElementById(`f0-t-${abbr}`);
-    if (h) h.textContent = `${f0[word].인간} Hz`;
-    if (t) t.textContent = `${f0[word].TTS} Hz`;
-  }
+  const words = { ba: '바', pa: '파', ppa: '빠' };
+  const spAbr = { TTS: 't', 인간1: 'h1', 인간2: 'h2' };
+  for (const [abbr, word] of Object.entries(words))
+    for (const [sp, a] of Object.entries(spAbr)) {
+      const el = document.getElementById(`f0-${a}-${abbr}`);
+      if (el) el.textContent = `${f0[word][sp]} Hz`;
+    }
 }
-function drawF0Bars() {
-  const cv = document.getElementById('cv-f0');
-  if (!cv) return;
-  const words = Object.keys(f0);
-  const g = new Graph('cv-f0', { xMin: 0, xMax: words.length, yMin: 0, yMax: 180, pad: { l: 78, r: 30, t: 36, b: 66 } });
+
+/* ---------- 공통 3-bar 차트 (슬라이드 13·14) ---------- */
+function drawBarChart(canvasId, data, { yMax, yTicks, yLabel }) {
+  const words = Object.keys(data);
+  const g = new Graph(canvasId, {
+    xMin: 0, xMax: words.length, yMin: 0, yMax,
+    pad: { l: 78, r: 30, t: 36, b: 66 },
+  });
+  if (!g.canvas) return;
   g.clear(); g.frame();
-  const ys = [40, 80, 120, 160];
-  g.grid([], ys);
-  ys.forEach(y => g.pxText(g.pad.l - 12, g.wy(y), String(y), { color: C.tick, size: 20, align: 'right' }));
-  const ctx = g.ctx;
+  g.grid([], yTicks);
+  yTicks.forEach(y => g.pxText(g.pad.l - 12, g.wy(y), String(y), { color: C.tick, size: 20, align: 'right' }));
+  const { ctx } = g;
   const groupW = g.PW / words.length;
-  const barW = groupW * 0.30;
+  const barW = groupW * 0.20;
+  const offsets = [-barW * 1.2, 0, barW * 1.2];
   words.forEach((w, i) => {
     const cx = g.pad.l + groupW * (i + 0.5);
-    const pairs = [{ v: f0[w].인간, c: C.accent, off: -barW * 0.58 }, { v: f0[w].TTS, c: C.red, off: barW * 0.58 }];
-    pairs.forEach(p => {
-      const bx = cx + p.off, by = g.wy(p.v), base = g.wy(0);
-      ctx.fillStyle = p.c;
+    SPEAKERS.forEach((sp, j) => {
+      const v = data[w][sp.key];
+      const bx = cx + offsets[j], by = g.wy(v), base = g.wy(0);
+      ctx.fillStyle = sp.color;
       ctx.fillRect(bx - barW / 2, by, barW, base - by);
-      ctx.fillStyle = p.c; ctx.font = '600 19px "IBM Plex Sans KR",sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText(p.v, bx, by - 8);
+      ctx.fillStyle = sp.color;
+      ctx.font = '600 17px "IBM Plex Sans KR",sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(v, bx, by - 7);
     });
     ctx.fillStyle = C.ink; ctx.font = '600 24px "IBM Plex Sans KR",sans-serif'; ctx.textAlign = 'center';
     ctx.fillText(w, cx, g.pad.t + g.PH + 32);
   });
-  g.ctx.save();
-  g.ctx.translate(20, g.pad.t + g.PH / 2); g.ctx.rotate(-Math.PI / 2);
-  g.ctx.fillStyle = C.tick; g.ctx.textAlign = 'center'; g.ctx.font = '21px "IBM Plex Sans KR",sans-serif';
-  g.ctx.fillText('f0 (Hz)', 0, 0); g.ctx.restore();
+  ctx.save();
+  ctx.translate(20, g.pad.t + g.PH / 2); ctx.rotate(-Math.PI / 2);
+  ctx.fillStyle = C.tick; ctx.textAlign = 'center'; ctx.font = '21px "IBM Plex Sans KR",sans-serif';
+  ctx.fillText(yLabel, 0, 0); ctx.restore();
 }
 
 /* ---------- 모음 공간 산점도 공통 (축 뒤집기: F2 ←, F1 ↓) ---------- */
 function drawVowelScatter(canvasId, data) {
-  const cv = document.getElementById(canvasId);
-  if (!cv) return;
-  // 데이터 범위에서 축 결정 (여유 포함)
+  if (!document.getElementById(canvasId)) return;
   let f1s = [], f2s = [];
-  Object.values(data).forEach(d => { f1s.push(d.인간[0], d.TTS[0]); f2s.push(d.인간[1], d.TTS[1]); });
+  Object.values(data).forEach(d =>
+    SPEAKERS.forEach(sp => { f1s.push(d[sp.key][0]); f2s.push(d[sp.key][1]); })
+  );
   const pad1 = 60, pad2 = 120;
   const f1lo = Math.min(...f1s) - pad1, f1hi = Math.max(...f1s) + pad1;
   const f2lo = Math.min(...f2s) - pad2, f2hi = Math.max(...f2s) + pad2;
-  // 축 뒤집기: x(F2) 높을수록 왼쪽 → xMin=f2hi, xMax=f2lo ; y(F1) 높을수록 아래 → yMin=f1hi, yMax=f1lo
   const g = new Graph(canvasId, { xMin: f2hi, xMax: f2lo, yMin: f1hi, yMax: f1lo, pad: { l: 78, r: 40, t: 46, b: 62 } });
   g.clear(); g.frame();
-  const ctx = g.ctx;
-  // 같은 모음의 인간–TTS 점을 가는 선으로 연결
-  for (const [name, d] of Object.entries(data)) {
+  const { ctx } = g;
+  // 같은 모음의 3점을 삼각형으로 연결
+  for (const d of Object.values(data)) {
     ctx.strokeStyle = '#c4cedb'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
-    ctx.beginPath(); ctx.moveTo(g.wx(d.인간[1]), g.wy(d.인간[0])); ctx.lineTo(g.wx(d.TTS[1]), g.wy(d.TTS[0])); ctx.stroke();
-    ctx.setLineDash([]);
+    const pts = SPEAKERS.map(sp => [g.wx(d[sp.key][1]), g.wy(d[sp.key][0])]);
+    ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+    pts.slice(1).forEach(p => ctx.lineTo(p[0], p[1]));
+    ctx.closePath(); ctx.stroke(); ctx.setLineDash([]);
   }
   for (const [name, d] of Object.entries(data)) {
-    g.dot(d.인간[1], d.인간[0], C.accent, 8);
-    g.dot(d.TTS[1], d.TTS[0], C.red, 8);
-    // 라벨은 인간 점 옆에
-    g.text(d.인간[1], d.인간[0], name, { color: C.ink, dx: 12, dy: -10, size: 21, weight: 600 });
+    SPEAKERS.forEach(sp => g.dot(d[sp.key][1], d[sp.key][0], sp.color, 8));
+    g.text(d['인간1'][1], d['인간1'][0], name, { color: C.ink, dx: 12, dy: -10, size: 21, weight: 600 });
   }
-  // 축 제목
   g.pxText(g.pad.l + g.PW / 2, g.H - 12, 'F2 (Hz) — 높을수록 왼쪽', { color: C.tick, size: 21 });
-  g.ctx.save();
-  g.ctx.translate(20, g.pad.t + g.PH / 2); g.ctx.rotate(-Math.PI / 2);
-  g.ctx.fillStyle = C.tick; g.ctx.textAlign = 'center'; g.ctx.font = '21px "IBM Plex Sans KR",sans-serif';
-  g.ctx.fillText('F1 (Hz) — 높을수록 아래', 0, 0); g.ctx.restore();
+  ctx.save();
+  ctx.translate(20, g.pad.t + g.PH / 2); ctx.rotate(-Math.PI / 2);
+  ctx.fillStyle = C.tick; ctx.textAlign = 'center'; ctx.font = '21px "IBM Plex Sans KR",sans-serif';
+  ctx.fillText('F1 (Hz) — 높을수록 아래', 0, 0); ctx.restore();
 }
 
 /* ============================================================
@@ -410,8 +411,10 @@ document.addEventListener('DOMContentLoaded', () => {
     drawSpectrum();
     drawF0Contour();
     drawMel();
-    drawF0Bars();
+    drawBarChart('cv-vot-bar', votTable, { yMax: 120, yTicks: [20, 40, 60, 80, 100], yLabel: 'VOT (ms)' });
+    drawBarChart('cv-f0', f0, { yMax: 200, yTicks: [40, 80, 120, 160], yLabel: 'f₀ (Hz)' });
     drawVowelScatter('cv-vowel', vowels);
-    drawVowelScatter('cv-aee', aeE);
+    const aeData = Object.fromEntries(['에', '애'].map(k => [k, vowels[k]]));
+    drawVowelScatter('cv-aee', aeData);
   });
 });

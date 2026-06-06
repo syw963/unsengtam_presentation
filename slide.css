@@ -229,8 +229,9 @@ html, body {
 .class-table td.cnt     { color: var(--c-accent); font-weight: 600; }
 .class-table td.cnt-red { color: var(--c-red); font-weight: 600; }
 .class-table td.highlight { color: var(--c-accent); font-weight: 600; }
-.class-table .col-human { color: var(--c-accent); font-weight: 600; }
-.class-table .col-tts   { color: var(--c-red); font-weight: 600; }
+.class-table .col-human  { color: var(--c-accent); font-weight: 600; }
+.class-table .col-human2 { color: var(--c-green);  font-weight: 600; }
+.class-table .col-tts    { color: var(--c-red);    font-weight: 600; }
 .class-table .row-label { font-weight: 600; }
 
 /* ---------- Flow diagram ---------- */

@@ -58,6 +58,8 @@
       </table>
       <div class="note">
         <strong class="txt-accent">Praat</strong> — 스펙트로그램, pitch, 포먼트, intensity, jitter, shimmer 등을 분석하는 음성학 도구.
+        화자 구성: <span class="txt-accent" style="font-weight:600;">인간1 · 인간2</span> (직접 녹음)
+        vs <span style="color:var(--c-red);font-weight:600;">TTS</span> (1개 엔진).
       </div>
       <div class="box box-gray">
         <div class="box-title">측정 전략</div>
@@ -461,8 +463,9 @@
           <table class="class-table sm">
             <thead><tr><th style="width:30%">구분</th><th>내용</th></tr></thead>
             <tbody>
-              <tr><td class="row-label">인간 음성</td><td>본인 또는 2~3명 녹음</td></tr>
-              <tr><td class="row-label">TTS 음성</td><td>CLOVA, Google TTS, ElevenLabs 등 중 1~2개</td></tr>
+              <tr><td class="row-label col-human">인간1</td><td>직접 녹음 (화자 A)</td></tr>
+              <tr><td class="row-label col-human2">인간2</td><td>직접 녹음 (화자 B)</td></tr>
+              <tr><td class="row-label col-tts">TTS</td><td>1개 TTS 엔진</td></tr>
               <tr><td class="row-label">분석 도구</td><td>Praat</td></tr>
               <tr><td class="row-label">파일 형식</td><td>WAV</td></tr>
               <tr><td class="row-label">반복</td><td>각 단어 3회 이상</td></tr>
@@ -475,17 +478,15 @@
         </div>
         <div class="col">
           <table class="class-table sm">
-            <thead><tr><th style="width:38%">목적</th><th>단어</th></tr></thead>
+            <thead><tr><th style="width:38%">분석 항목</th><th>단어</th></tr></thead>
             <tbody>
-              <tr><td class="row-label">파열음 VOT/\(f_0\)</td><td>바, 파, 빠</td></tr>
-              <tr><td class="row-label">추가 파열음</td><td>다·타·따, 가·카·까</td></tr>
-              <tr><td class="row-label">모음 포먼트</td><td>비, 베, 배, 바, 버, 보, 부, 브</td></tr>
-              <tr><td class="row-label">ㅐ / ㅔ</td><td>배/베, 새/세, 개/게</td></tr>
+              <tr><td class="row-label">파열음 — VOT · \(f_0\)</td><td>바, 파, 빠</td></tr>
+              <tr><td class="row-label">모음 — F1 · F2</td><td>이, 에, 애, 아, 어, 오, 우, 으</td></tr>
             </tbody>
           </table>
           <div class="flow-row" style="margin-top:6px;">
             <div class="pipe-inputs">
-              <div class="flow-node" style="min-width:200px;">인간 녹음</div>
+              <div class="flow-node" style="min-width:200px;">인간1 · 인간2 녹음</div>
               <div class="flow-node" style="min-width:200px;">TTS 생성</div>
             </div>
             <div class="flow-arrow">→</div>
@@ -515,23 +516,28 @@
         <div class="col col-45">
           <table class="class-table">
             <thead>
-              <tr><th>음성</th><th>바 VOT</th><th>파 VOT</th><th>빠 VOT</th></tr>
+              <tr><th>화자</th><th>바 VOT</th><th>파 VOT</th><th>빠 VOT</th></tr>
             </thead>
             <tbody>
               <tr>
-                <td class="row-label col-human">인간</td>
-                <td id="vot-h-ba"></td><td id="vot-h-pa"></td><td id="vot-h-ppa"></td>
-              </tr>
-              <tr>
                 <td class="row-label col-tts">TTS</td>
                 <td id="vot-t-ba"></td><td id="vot-t-pa"></td><td id="vot-t-ppa"></td>
+              </tr>
+              <tr>
+                <td class="row-label col-human">인간1</td>
+                <td id="vot-h1-ba"></td><td id="vot-h1-pa"></td><td id="vot-h1-ppa"></td>
+              </tr>
+              <tr>
+                <td class="row-label col-human2">인간2</td>
+                <td id="vot-h2-ba"></td><td id="vot-h2-pa"></td><td id="vot-h2-ppa"></td>
               </tr>
             </tbody>
           </table>
           <div class="note">단위: ms · 측정값은 코드 상단 데이터 객체에서 채움 (<span class="txt-muted">현재 더미값</span>)</div>
           <div class="legend" style="justify-content:flex-start;">
-            <div class="legend-item"><div class="legend-dot" style="background:var(--c-accent)"></div><span class="txt-sm">인간</span></div>
             <div class="legend-item"><div class="legend-dot" style="background:var(--c-red)"></div><span class="txt-sm">TTS</span></div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--c-accent)"></div><span class="txt-sm">인간1</span></div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--c-green)"></div><span class="txt-sm">인간2</span></div>
           </div>
           <div class="box box-gray" style="margin-top:10px;">
             <div class="box-title">해석 기준</div>
@@ -542,25 +548,9 @@
           </div>
         </div>
         <div class="col">
-          <div class="cols" style="gap:24px;">
-            <div class="img-frame" data-img="slide13_vot_human.png">
-              <img src="slide13_vot_human.png" alt="인간 파 VOT">
-              <div class="img-ph">
-                <div class="ph-icon">▦</div>
-                <div class="ph-name">slide13_vot_human.png</div>
-                <div class="ph-note">인간 "파" Praat 캡처</div>
-              </div>
-              <div class="img-caption">인간 "파"</div>
-            </div>
-            <div class="img-frame" data-img="slide13_vot_tts.png">
-              <img src="slide13_vot_tts.png" alt="TTS 파 VOT">
-              <div class="img-ph">
-                <div class="ph-icon">▦</div>
-                <div class="ph-name">slide13_vot_tts.png</div>
-                <div class="ph-note">TTS "파" Praat 캡처</div>
-              </div>
-              <div class="img-caption">TTS "파"</div>
-            </div>
+          <div class="graph-wrap grow">
+            <canvas id="cv-vot-bar" width="1020" height="560"></canvas>
+            <div class="graph-label">단어별 VOT (ms) — TTS · 인간1 · 인간2 비교</div>
           </div>
         </div>
       </div>
@@ -585,20 +575,24 @@
         <div class="col col-6">
           <div class="graph-wrap grow">
             <canvas id="cv-f0" width="1020" height="510"></canvas>
-            <div class="graph-label">단어별 모음 초반 \(f_0\) (Hz) — 인간 vs TTS</div>
+            <div class="graph-label">단어별 모음 초반 \(f_0\) (Hz) — TTS · 인간1 · 인간2 비교</div>
           </div>
         </div>
         <div class="col">
           <table class="class-table sm">
-            <thead><tr><th>음성</th><th>바 \(f_0\)</th><th>파 \(f_0\)</th><th>빠 \(f_0\)</th></tr></thead>
+            <thead><tr><th>화자</th><th>바 \(f_0\)</th><th>파 \(f_0\)</th><th>빠 \(f_0\)</th></tr></thead>
             <tbody>
-              <tr>
-                <td class="row-label col-human">인간</td>
-                <td id="f0-h-ba"></td><td id="f0-h-pa"></td><td id="f0-h-ppa"></td>
-              </tr>
               <tr>
                 <td class="row-label col-tts">TTS</td>
                 <td id="f0-t-ba"></td><td id="f0-t-pa"></td><td id="f0-t-ppa"></td>
+              </tr>
+              <tr>
+                <td class="row-label col-human">인간1</td>
+                <td id="f0-h1-ba"></td><td id="f0-h1-pa"></td><td id="f0-h1-ppa"></td>
+              </tr>
+              <tr>
+                <td class="row-label col-human2">인간2</td>
+                <td id="f0-h2-ba"></td><td id="f0-h2-pa"></td><td id="f0-h2-ppa"></td>
               </tr>
             </tbody>
           </table>
@@ -626,22 +620,18 @@
           <div class="graph-wrap grow">
             <canvas id="cv-vowel" width="980" height="620"></canvas>
             <div class="legend">
-              <div class="legend-item"><div class="legend-dot" style="background:var(--c-accent)"></div><span class="txt-sm">인간</span></div>
               <div class="legend-item"><div class="legend-dot" style="background:var(--c-red)"></div><span class="txt-sm">TTS</span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--c-accent)"></div><span class="txt-sm">인간1</span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--c-green)"></div><span class="txt-sm">인간2</span></div>
             </div>
           </div>
         </div>
         <div class="col">
           <table class="class-table sm">
-            <thead><tr><th style="width:42%">모음</th><th>예시 단어</th></tr></thead>
+            <thead><tr><th>측정 모음 (8개)</th></tr></thead>
             <tbody>
-              <tr><td class="row-label">/i/</td><td>비</td></tr>
-              <tr><td class="row-label">/e/ 또는 /ɛ/</td><td>베 / 배</td></tr>
-              <tr><td class="row-label">/a/</td><td>바</td></tr>
-              <tr><td class="row-label">/ʌ/</td><td>버</td></tr>
-              <tr><td class="row-label">/o/</td><td>보</td></tr>
-              <tr><td class="row-label">/u/</td><td>부</td></tr>
-              <tr><td class="row-label">/ɯ/</td><td>브</td></tr>
+              <tr><td class="row-label">이 · 에 · 애 · 아</td></tr>
+              <tr><td class="row-label">어 · 오 · 우 · 으</td></tr>
             </tbody>
           </table>
           <div class="box box-gray">
@@ -670,8 +660,9 @@
           <div class="graph-wrap grow">
             <canvas id="cv-aee" width="900" height="600"></canvas>
             <div class="legend">
-              <div class="legend-item"><div class="legend-dot" style="background:var(--c-accent)"></div><span class="txt-sm">인간</span></div>
               <div class="legend-item"><div class="legend-dot" style="background:var(--c-red)"></div><span class="txt-sm">TTS</span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--c-accent)"></div><span class="txt-sm">인간1</span></div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--c-green)"></div><span class="txt-sm">인간2</span></div>
             </div>
           </div>
         </div>
@@ -689,12 +680,12 @@
             </tbody>
           </table>
           <table class="class-table sm">
-            <thead><tr><th style="width:42%">결과</th><th>해석</th></tr></thead>
+            <thead><tr><th style="width:42%">결과 패턴</th><th>해석</th></tr></thead>
             <tbody>
-              <tr><td>인간·TTS 모두 겹침</td><td>현대 발화 경향과 유사</td></tr>
-              <tr><td>인간 겹침 / TTS 구분</td><td>TTS가 철자 차이를 강하게 반영</td></tr>
-              <tr><td>인간 구분 / TTS 겹침</td><td>TTS가 개별 발음 반영 부족</td></tr>
-              <tr><td>둘 다 구분</td><td>단일화가 강하게 나타나지 않음</td></tr>
+              <tr><td>3자 모두 겹침</td><td>현대 단일화 경향 반영</td></tr>
+              <tr><td>인간 겹침 / TTS 구분</td><td>TTS가 철자 차이를 과도 반영</td></tr>
+              <tr><td>인간 구분 / TTS 겹침</td><td>TTS의 개별 발음 재현 부족</td></tr>
+              <tr><td>인간1·2 차이 큼</td><td>화자 개인차 확인</td></tr>
             </tbody>
           </table>
         </div>
