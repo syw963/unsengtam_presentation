@@ -321,7 +321,7 @@ html, body {
   display: none;
   flex: 1 1 auto;
   width: 100%;
-  min-height: 260px;
+  min-height: 380px;
   border: 2px dashed #b8c4d2;
   border-radius: 12px;
   background:

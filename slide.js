@@ -262,20 +262,17 @@ function drawVotTimeline() {
    ============================================================ */
 function drawMel() {
   const mel = f => 2595 * Math.log10(1 + f / 700);
-  const g = new Graph('cv-mel', { xMin: 0, xMax: 8000, yMin: 0, yMax: mel(8000) * 1.04, pad: { l: 86, r: 36, t: 40, b: 66 } });
+  const g = new Graph('cv-mel', { xMin: 0, xMax: 8000, yMin: 0, yMax: 3200, pad: { l: 86, r: 36, t: 44, b: 66 } });
   if (!g.canvas) return;
   g.clear();
   g.frame();
   const xs = [2000, 4000, 6000, 8000];
-  const ys = [1000, 2000, 3000];
+  const ys = [500, 1000, 1500, 2000, 2500, 3000];
   g.grid(xs, ys);
   g.curve(mel, C.accent, 3.5);
-  // x ticks
   xs.forEach(x => g.pxText(g.wx(x), g.pad.t + g.PH + 26, (x / 1000) + 'k', { color: C.tick, size: 20 }));
   g.pxText(g.wx(0), g.pad.t + g.PH + 26, '0', { color: C.tick, size: 20 });
-  // y ticks
-  ys.forEach(y => g.pxText(g.pad.l - 12, g.wy(y), String(y), { color: C.tick, size: 20, align: 'right' }));
-  // 축 제목
+  [1000, 2000, 3000].forEach(y => g.pxText(g.pad.l - 12, g.wy(y), String(y), { color: C.tick, size: 20, align: 'right' }));
   g.pxText(g.pad.l + g.PW / 2, g.H - 14, '주파수 (Hz)', { color: C.tick, size: 22 });
   g.ctx.save();
   g.ctx.translate(22, g.pad.t + g.PH / 2); g.ctx.rotate(-Math.PI / 2);
