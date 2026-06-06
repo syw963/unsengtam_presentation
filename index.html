@@ -14,11 +14,10 @@
   <!-- ===================== 슬라이드 1 — 표지/문제 제기 ===================== -->
   <div class="slide slide-cover active" id="slide-1">
     <div class="cover-inner">
-      <div class="cover-tag">언어와 생활 탐구 · 음성학 발표</div>
-      <h1 class="cover-title">AI 음성은 사람 목소리와<br>같은 방식으로 만들어질까?</h1>
+      <div class="cover-tag">언어와 생활 탐구 발표</div>
+      <h1 class="cover-title">AI 음성은 사람 목소리와<br>어떤 차이를 보일까?</h1>
       <p class="cover-sub">
-        AI 보이스는 이미 일상에서 널리 쓰인다. 그러나 어떤 AI 음성은 발음이 정확해도
-        미묘하게 어색하게 들린다. 이 발표는 그 어색함을 <strong>인상이 아니라 음향 신호의 차이</strong>로 분석한다.
+        어떤 AI 음성은 발음이 정확해도 어색하게 들린다. 그 이유는 무엇일까?
       </p>
       <div class="cover-meta">
         <div>한국어 파열음 · 모음 포먼트 분석</div>
@@ -31,11 +30,11 @@
   <!-- ===================== 슬라이드 2 — 연구 질문 ===================== -->
   <div class="slide" id="slide-2">
     <div class="slide-header">
-      <span class="chapter-label">연구 질문</span>
+      <span class="chapter-label">발표 개요</span>
       <span class="page-num">2 / 19</span>
     </div>
     <div class="title-zone">
-      <h1 class="slide-title">연구 질문</h1>
+      <h1 class="slide-title">의문점</h1>
     </div>
     <div class="content-zone top-210">
       <div class="box box-blue">
@@ -65,7 +64,7 @@
         <div class="box-title">측정 전략</div>
         <div class="box-body sm">
           각 항목을 <strong>인간 화자</strong>와 <strong>TTS 화자</strong>에서 동일 단어로 녹음·추출 후
-          수치 비교 → 차이가 통계적으로 유의한지 확인.
+          수치 비교 → 차이가 유의미한지 확인.
         </div>
       </div>
     </div>
@@ -548,9 +547,18 @@
         </div>
         <div class="col">
           <div class="graph-wrap grow">
-            <canvas id="cv-vot-bar" width="950" height="560"></canvas>
+            <canvas id="cv-vot-bar" width="950" height="520"></canvas>
             <div class="graph-label">단어별 VOT (ms) — TTS · 인간1 · 인간2 비교</div>
           </div>
+        </div>
+      </div>
+      <div class="box box-blue" style="width:70%">
+        <div class="box-title">결과 해석</div>
+        <div class="box-body sm">
+          평음(ㅂ)는 두 명의 인간, TTS 모두 어느정도 차이 존재<br>
+          격음(ㅍ)은 두 명의 인간은 비슷한 VOT를 보였지만, TTS는 거의 절반에 가까운 값을 보임<br>
+          경음(ㅃ)의 VOT는 인간과 TTS가 거의 일치
+          
         </div>
       </div>
     </div>
@@ -563,7 +571,7 @@
       <span class="page-num">14 / 19</span>
     </div>
     <div class="title-zone">
-      <h1 class="slide-title">VOT만으로 충분하지 않다: \(f_0\) 비교</h1>
+      <h1 class="slide-title">인간 음성과 TTS의 \(f_0\) 비교</h1>
     </div>
     <div class="content-zone top-210" style="gap:18px;">
       <div class="note">
@@ -571,14 +579,14 @@
         <strong class="txt-accent">\(f_0\)</strong>가 평음·격음 구별의 중요한 단서로 논의됨.
       </div>
       <div class="cols grow">
-        <div class="col col-6">
+        <div class="col col-5">
           <div class="graph-wrap grow">
-            <canvas id="cv-f0" width="1020" height="510"></canvas>
+            <canvas id="cv-f0" width="900" height="450"></canvas>
             <div class="graph-label">단어별 모음 초반 \(f_0\) (Hz) — TTS · 인간1 · 인간2 비교</div>
           </div>
         </div>
         <div class="col">
-          <table class="class-table sm">
+          <table class="class-table">
             <thead><tr><th>화자</th><th>바 \(f_0\)</th><th>파 \(f_0\)</th><th>빠 \(f_0\)</th></tr></thead>
             <tbody>
               <tr>
@@ -597,8 +605,15 @@
           </table>
           <div class="box box-gray">
             <div class="box-title">측정 방법</div>
-            <div class="box-body sm">모음 시작 후 약 20~40 ms 지점의 \(f_0\), 또는 모음 초반 50 ms 평균 \(f_0\).</div>
+            <div class="box-body sm">모음 시작 후 약 20~40 ms 지점의 \(f_0\)</div>
           </div>
+        </div>
+      </div>
+      <div class="box box-blue" style="width:70%">
+        <div class="box-title">결과 해석</div>
+        <div class="box-body sm">
+          두 인간과 TTS 모두 음성 자체의 높낮이 차이는 보였지만,<br>
+          평음, 격음, 경음에서 보이는 상대적인 \(f_0\) 차이는 거의 일치
         </div>
       </div>
     </div>
@@ -648,7 +663,7 @@
                 <td class="vst-v">어</td><td class="vst-v">오</td>
               </tr>
               <tr>
-                <th>저(F1↑))</th>
+                <th>저(F1↑)</th>
                 <td class="vst-v">애</td><td class="vst-empty">—</td>
                 <td class="vst-v">아</td><td class="vst-empty">—</td>
               </tr>
@@ -759,14 +774,23 @@
           </div>
         </div>
         <div class="col">
-          <div class="img-frame" data-img="slide17_spectrogram_compare.png">
-            <img src="slide17_spectrogram_compare.png" alt="인간/TTS 스펙트로그램 비교">
-            <div class="img-ph">
+          <div class="img-frame" style="flex:0 0 400px;height:400px;margin-bottom:10px">
+            <img src="human_spec.png" alt="인간 스펙트로그램" style="width:100%;height:360px;object-fit:contain">
+            <div class="img-ph" style="min-height:0;height:360px">
               <div class="ph-icon">▦</div>
-              <div class="ph-name">slide17_spectrogram_compare.png</div>
-              <div class="ph-note">인간 / TTS 스펙트로그램 나란히 (협대역 설정)</div>
+              <div class="ph-name">human_spec.png</div>
+              <div class="ph-note">인간 화자 스펙트로그램</div>
             </div>
-            <div class="img-caption">인간 / TTS 스펙트로그램 비교 — 배음 비교 시 협대역</div>
+            <div class="img-caption">인간 화자</div>
+          </div>
+          <div class="img-frame" style="flex:0 0 400px;height:400px">
+            <img src="tts_spec.png" alt="TTS 스펙트로그램" style="width:100%;height:360px;object-fit:contain">
+            <div class="img-ph" style="min-height:0;height:360px">
+              <div class="ph-icon">▦</div>
+              <div class="ph-name">tts_spec.png</div>
+              <div class="ph-note">TTS 스펙트로그램</div>
+            </div>
+            <div class="img-caption">TTS</div>
           </div>
         </div>
       </div>
@@ -800,14 +824,23 @@
           </div>
         </div>
         <div class="col">
-          <div class="img-frame" data-img="slide18_pitch_contour.png">
-            <img src="slide18_pitch_contour.png" alt="문장 단위 pitch contour">
-            <div class="img-ph">
+          <div class="img-frame" style="flex:0 0 400px;height:400px;margin-bottom:10px">
+            <img src="human_pitch.png" alt="인간 pitch contour" style="width:100%;height:360px;object-fit:contain">
+            <div class="img-ph" style="min-height:0;height:360px">
               <div class="ph-icon">▦</div>
-              <div class="ph-name">slide18_pitch_contour.png</div>
-              <div class="ph-note">문장 단위 pitch contour (휴지·억양 표시)</div>
+              <div class="ph-name">human_pitch.png</div>
+              <div class="ph-note">인간 화자 pitch contour</div>
             </div>
-            <div class="img-caption">문장 단위 pitch contour — 휴지 · 억양</div>
+            <div class="img-caption">인간 화자</div>
+          </div>
+          <div class="img-frame" style="flex:0 0 400px;height:400px">
+            <img src="tts_pitch.png" alt="TTS pitch contour" style="width:100%;height:360px;object-fit:contain">
+            <div class="img-ph" style="min-height:0;height:360px">
+              <div class="ph-icon">▦</div>
+              <div class="ph-name">tts_pitch.png</div>
+              <div class="ph-note">TTS pitch contour</div>
+            </div>
+            <div class="img-caption">TTS</div>
           </div>
         </div>
       </div>
