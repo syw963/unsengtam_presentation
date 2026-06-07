@@ -2,7 +2,7 @@
    언생탐 발표 — 내비게이션 / 스케일링 / KaTeX / 그래프
    ============================================================ */
 
-const TOTAL = 18;
+const TOTAL = 19;
 let current = 1;
 
 /* ---------- 뷰포트 스케일링 (1920×1080 고정 → 화면 맞춤) ---------- */
@@ -153,20 +153,19 @@ setupDraggableNav();
 
 /* ---------- 녹음 문장 오디오 ---------- */
 function setupRecordingAudio() {
-  const trigger = document.querySelector('[data-audio-src]');
-  if (!trigger) return;
+  document.querySelectorAll('[data-audio-src]').forEach(trigger => {
+    const audio = new Audio(trigger.dataset.audioSrc);
+    audio.preload = 'auto';
 
-  const audio = new Audio(trigger.dataset.audioSrc);
-  audio.preload = 'auto';
-
-  trigger.addEventListener('click', async () => {
-    try {
-      audio.pause();
-      audio.currentTime = 0;
-      await audio.play();
-    } catch (error) {
-      console.warn('Audio playback failed:', error);
-    }
+    trigger.addEventListener('click', async () => {
+      try {
+        audio.pause();
+        audio.currentTime = 0;
+        await audio.play();
+      } catch (error) {
+        console.warn('Audio playback failed:', error);
+      }
+    });
   });
 }
 

@@ -199,6 +199,12 @@ html, body {
   opacity: 0;
   cursor: pointer;
 }
+.audio-play-hitbox-side {
+  inset: auto auto auto calc(100% + 6px);
+  top: 0;
+  width: 52px;
+  height: 100%;
+}
 .box-body { font-size: 34px; font-weight: 400; line-height: 1.4; }
 .box-body.sm { font-size: 30px; line-height: 1.45; }
 
