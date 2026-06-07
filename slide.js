@@ -2,7 +2,7 @@
    언생탐 발표 — 내비게이션 / 스케일링 / KaTeX / 그래프
    ============================================================ */
 
-const TOTAL = 19;
+const TOTAL = 21;
 let current = 1;
 
 /* ---------- 뷰포트 스케일링 (1920×1080 고정 → 화면 맞춤) ---------- */
@@ -177,6 +177,29 @@ function setupImagePlaceholders() {
     const markMissing = () => { img.classList.add('missing'); frame.classList.add('is-missing'); };
     if (img.complete && img.naturalWidth === 0) markMissing();
     img.addEventListener('error', markMissing);
+  });
+}
+
+function setupImageLightbox() {
+  const vp = document.getElementById('slide-viewport');
+  const overlay = document.createElement('div');
+  overlay.id = 'img-overlay';
+  const overlayImg = document.createElement('img');
+  overlay.appendChild(overlayImg);
+  vp.appendChild(overlay);
+
+  document.querySelectorAll('.img-frame img').forEach(img => {
+    img.addEventListener('click', e => {
+      e.stopPropagation();
+      if (img.classList.contains('missing')) return;
+      overlayImg.src = img.src;
+      overlay.classList.add('active');
+    });
+  });
+
+  overlay.addEventListener('click', () => overlay.classList.remove('active'));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') overlay.classList.remove('active');
   });
 }
 
@@ -569,6 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
     strict: false,
   });
   setupImagePlaceholders();
+  setupImageLightbox();
   setupRecordingAudio();
   fillVotTable();
   fillF0Table();

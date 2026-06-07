@@ -439,6 +439,27 @@ html, body {
 .img-ph .ph-note { font-size: 22px; }
 .img-caption { font-size: 24px; color: var(--c-muted); text-align: center; }
 
+/* ---------- Image lightbox overlay ---------- */
+#img-overlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+#img-overlay.active { display: flex; }
+#img-overlay img {
+  max-width: 96%;
+  max-height: 96%;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.6);
+}
+.img-frame img { cursor: zoom-in; }
+
 /* ---------- Text helpers ---------- */
 .txt-sm     { font-size: 30px; }
 .txt-md     { font-size: 36px; }
