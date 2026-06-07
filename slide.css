@@ -186,6 +186,19 @@ html, body {
 .box-dark .box-title { color: var(--c-accent-dk); }
 .box-red .box-title   { color: var(--c-red); }
 .box-green .box-title { color: var(--c-green); }
+.audio-title-target {
+  position: relative;
+  width: fit-content;
+}
+.audio-play-hitbox {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
 .box-body { font-size: 34px; font-weight: 400; line-height: 1.4; }
 .box-body.sm { font-size: 30px; line-height: 1.45; }
 

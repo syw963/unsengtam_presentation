@@ -425,23 +425,22 @@
         </tbody>
       </table>
 
-      <div class="cols" style="gap:32px;align-items:center;">
-        <div class="box box-blue" style="flex:1;margin:0;">
-          <div class="box-title">분석 대상</div>
-          <div class="box-body sm">본 분석의 TTS(CLOVA)는 <strong>신경망 합성 방식</strong><br>대량의 한국어 음성 학습으로 인해, 학습 데이터에 담긴 현대 한국어 발음 경향이 합성 음성에 반영될 가능성 존재</div>
-        </div>
-      </div>  
-      <!-- 하단: 흐름도 + 분석 대상 박스 가로 배치 -->
-      <div class="cols" style="gap:32px;align-items:center;">
-        <div class="flow-row" style="flex:0 0 100%;">
-          <div class="flow-node">텍스트</div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-node accent">음향 표현<br><span style="font-size:0.78em;font-weight:400;">(중간 단계)</span></div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-node dark">음성 파형</div>
+      <!-- 하단: 좌(박스+플로우) / 우(이미지) -->
+      <div class="cols" style="gap:32px;align-items:stretch;">
+        <div class="col" style="display:flex;flex-direction:column;gap:18px;">
+          <div class="box box-blue" style="margin:0;">
+            <div class="box-title">분석 대상</div>
+            <div class="box-body sm">본 분석의 TTS(CLOVA)는 <strong>신경망 합성 방식</strong><br>대량의 한국어 음성 학습으로 인해, 학습 데이터에 담긴 현대 한국어 발음 경향이 합성 음성에 반영될 가능성 존재</div>
+          </div>
+          <div class="flow-row">
+            <div class="flow-node">텍스트</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node accent">음향 표현<br><span style="font-size:0.78em;font-weight:400;">(중간 단계)</span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-node dark">음성 파형</div>
+          </div>
         </div>
       </div>
-
 
     </div>
   </div>
@@ -457,7 +456,7 @@
     </div>
     <div class="content-zone top-210" style="gap:20px;">
       <div class="cols grow">
-        <div class="col">
+        <div class="col" style="flex: 0 0 40%;">
           <table class="class-table">
             <thead><tr><th style="width:30%">구분</th><th>내용</th></tr></thead>
             <tbody>
@@ -468,19 +467,22 @@
               <tr><td class="row-label">반복 측정</td><td>2명이 각 단어 3회 측정</td></tr>
             </tbody>
           </table>
-          <div class="box box-blue">
-            <div class="box-title">녹음 문장</div>
-            <div class="box-body sm">"단어는 <strong>바</strong>입니다." / "…<strong>파</strong>입니다." / "…<strong>빠</strong>입니다."</div>
-          </div>
-        </div>
-        <div class="col">
           <table class="class-table">
-            <thead><tr><th style="width:38%">분석 항목</th><th>단어</th></tr></thead>
+            <thead><tr><th style="width:40%">분석 항목</th><th>단어</th></tr></thead>
             <tbody>
               <tr><td class="row-label">파열음 — VOT · \(f_0\)</td><td>바, 파, 빠</td></tr>
               <tr><td class="row-label">모음 — F1 · F2</td><td>이, 에, 애, 아, 어, 오, 우, 으</td></tr>
             </tbody>
           </table>
+          <div class="box box-blue">
+            <div class="box-title audio-title-target">
+              녹음 문장
+              <button class="audio-play-hitbox" type="button" data-audio-src="ZOOM0125.WAV" aria-label="녹음 문장 오디오 재생"></button>
+            </div>
+            <div class="box-body sm">"단어는 <strong>바</strong>입니다." / "…<strong>파</strong>입니다." / "…<strong>빠</strong>입니다."</div>
+          </div>
+        </div>
+        <div class="col" style="gap: 50px;">
           <div class="flow-row" style="margin-top:6px;">
             <div class="pipe-inputs">
               <div class="flow-node" style="min-width:200px;">인간1 · 인간2 녹음</div>
@@ -491,8 +493,11 @@
             <div class="flow-arrow">→</div>
             <div class="flow-node dark">비교 / 분석</div>
           </div>
-          <div class="note sm" style="margin-top:10px;">
-            Praat 기본 설정: pitch range 75–500 Hz, formant max 5500 Hz (여성), 5000 Hz (남성)
+          <div class="col" style="flex:0 0 42%;">
+            <div class="img-frame" style="height:100%;" data-img="praat_page.png">
+              <img src="praat_page.png" alt="Praat 분석 화면" style="width:100%;height:100%;object-fit:contain;">
+            </div>
+            <div class="img-caption">Praat 프로그램 다운로드 페이지</div>
           </div>
         </div>
       </div>

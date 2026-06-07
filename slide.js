@@ -151,6 +151,25 @@ function setupDraggableNav() {
 
 setupDraggableNav();
 
+/* ---------- 녹음 문장 오디오 ---------- */
+function setupRecordingAudio() {
+  const trigger = document.querySelector('[data-audio-src]');
+  if (!trigger) return;
+
+  const audio = new Audio(trigger.dataset.audioSrc);
+  audio.preload = 'auto';
+
+  trigger.addEventListener('click', async () => {
+    try {
+      audio.pause();
+      audio.currentTime = 0;
+      await audio.play();
+    } catch (error) {
+      console.warn('Audio playback failed:', error);
+    }
+  });
+}
+
 /* ---------- 준비된 이미지 placeholder 처리 ----------
    이미지 파일이 없으면 깔끔한 자리표시(placeholder)로 대체한다. */
 function setupImagePlaceholders() {
@@ -551,6 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
     strict: false,
   });
   setupImagePlaceholders();
+  setupRecordingAudio();
   fillVotTable();
   fillF0Table();
   const start = parseInt((location.hash || '').replace('#', ''), 10);
