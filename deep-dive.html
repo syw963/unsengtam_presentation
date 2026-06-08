@@ -3,21 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>심화 자료 — AI 음성 vs 인간 음성</title>
+  <title>심화 자료 — 한국어 음성의 음운 변화 연구</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --panel: #162033;
-      --panel-2: #101827;
-      --line: rgba(226, 232, 240, 0.16);
-      --ink: #f8fafc;
-      --muted: #cbd5e1;
-      --soft: #94a3b8;
-      --accent: #7dd3fc;
-      --accent-2: #a7f3d0;
-      --warn: #fecaca;
-      --radius: 8px;
-      --shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
+      --bg:        #f4f7fb;
+      --bg-2:      #eef3f9;
+      --panel:     #ffffff;
+      --panel-2:   #f8fafc;
+      --line:      #d9e2ec;
+      --line-soft: #e7eef6;
+      --ink:       #111827;
+      --muted:     #4b5563;
+      --soft:      #6b7280;
+      --accent:    #1e4f8f;
+      --accent-2:  #2f6fc4;
+      --accent-bg: #eaf2fc;
+      --red:       #b42318;
+      --green:     #1f7a4d;
+      --amber:     #b45309;
+      --radius: 12px;
+      --shadow: 0 8px 28px rgba(30, 79, 143, 0.08);
+      --shadow-lg: 0 14px 44px rgba(30, 79, 143, 0.12);
       font-family: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
     }
 
@@ -27,11 +33,11 @@
       margin: 0;
       color: var(--ink);
       background:
-        linear-gradient(180deg, rgba(107, 119, 147, 0.92), rgb(165, 175, 198)),
-        radial-gradient(circle at 12% 0%, rgba(125, 211, 252, 0.22), transparent 34%),
-        radial-gradient(circle at 88% 8%, rgba(167, 243, 208, 0.16), transparent 30%),
+        radial-gradient(circle at 12% -4%, rgba(47, 111, 196, 0.10), transparent 36%),
+        radial-gradient(circle at 92% 2%, rgba(31, 122, 77, 0.07), transparent 32%),
         var(--bg);
-      line-height: 1.62;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
     }
 
     a { color: var(--accent); text-decoration: none; }
@@ -46,7 +52,7 @@
       gap: 16px;
       align-items: center;
       padding: 14px clamp(18px, 4vw, 56px);
-      background: rgba(219, 221, 227, 0.82);
+      background: rgba(255, 255, 255, 0.86);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
     }
@@ -55,307 +61,615 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      color: var(--ink);
+      color: var(--accent);
       font-size: 15px;
       font-weight: 700;
     }
 
-    .top-note {
-      color: var(--soft);
-      font-size: 13px;
-      text-align: right;
-    }
+    .top-note { color: var(--soft); font-size: 13px; text-align: right; }
 
     main {
-      width: min(1160px, calc(100% - 40px));
+      width: min(1080px, calc(100% - 40px));
       margin: 0 auto;
-      padding: 56px 0 72px;
+      padding: 48px 0 80px;
     }
 
     .hero {
-      padding: 40px 0 28px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 34px;
+      padding: 24px 0 28px;
+      border-bottom: 2px solid var(--accent);
+      margin-bottom: 14px;
     }
 
     .eyebrow {
       color: var(--accent-2);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     h1 {
       margin: 0;
-      max-width: 960px;
-      font-size: clamp(36px, 5vw, 68px);
-      line-height: 1.12;
-      letter-spacing: 0;
+      max-width: 940px;
+      font-size: clamp(30px, 4.4vw, 50px);
+      line-height: 1.16;
+      letter-spacing: -0.01em;
+      color: var(--ink);
     }
 
     .lead {
-      max-width: 900px;
+      max-width: 880px;
       margin: 18px 0 0;
       color: var(--muted);
-      font-size: clamp(18px, 2vw, 23px);
+      font-size: clamp(16px, 1.8vw, 19px);
     }
 
-    .grid {
+    /* ---- Table of contents ---- */
+    .toc {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-      margin: 24px 0 34px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 26px 0 40px;
     }
-
-    .card, .panel {
-      background: linear-gradient(180deg, rgba(236, 237, 240, 0.96), rgba(186, 190, 198, 0.96));
+    .toc a {
+      display: block;
+      padding: 16px 18px;
+      background: var(--panel);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .toc a:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); text-decoration: none; }
+    .toc .toc-num { color: var(--accent-2); font-weight: 800; font-size: 13px; letter-spacing: .04em; }
+    .toc .toc-title { display: block; color: var(--ink); font-weight: 700; margin-top: 4px; font-size: 15.5px; }
+    .toc .toc-sub { display: block; color: var(--soft); font-size: 12.5px; margin-top: 3px; }
+
+    /* ---- Paper section ---- */
+    .paper {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 34px clamp(22px, 3.4vw, 40px);
+      margin: 0 0 30px;
+      scroll-margin-top: 80px;
     }
 
-    .card { padding: 24px; }
-    .panel { padding: 28px; margin-bottom: 22px; }
-
-    h2 {
-      margin: 0 0 16px;
-      font-size: 25px;
-      letter-spacing: 0;
+    .paper-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line-soft);
+      margin-bottom: 22px;
     }
+    .paper-badge {
+      flex: 0 0 auto;
+      width: 46px; height: 46px;
+      display: grid; place-items: center;
+      background: var(--accent); color: #fff;
+      border-radius: 12px;
+      font-weight: 800; font-size: 20px;
+    }
+    .paper-head h2 { margin: 0; font-size: clamp(20px, 2.4vw, 27px); line-height: 1.25; color: var(--ink); }
+    .paper-head .cite {
+      margin: 8px 0 0; color: var(--soft); font-size: 13.5px; line-height: 1.55;
+    }
+    .paper-head .cite .au { color: var(--muted); font-weight: 600; }
+
+    .meta-row {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin: 16px 0 4px;
+    }
+    .tag {
+      display: inline-block;
+      padding: 4px 11px;
+      border: 1px solid rgba(30, 79, 143, 0.22);
+      background: var(--accent-bg);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+    .file-link {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 8px 14px;
+      background: var(--accent);
+      color: #fff !important;
+      border-radius: 999px;
+      font-size: 13.5px; font-weight: 700;
+      box-shadow: var(--shadow);
+    }
+    .file-link:hover { background: var(--accent-2); text-decoration: none; }
 
     h3 {
-      margin: 0 0 10px;
-      font-size: 18px;
+      margin: 26px 0 10px;
+      font-size: 18.5px;
       color: var(--accent);
-      letter-spacing: 0;
+      letter-spacing: -0.01em;
     }
+    h3:first-of-type { margin-top: 18px; }
+    h4 { margin: 18px 0 6px; font-size: 15.5px; color: var(--ink); }
 
-    p { margin: 0 0 12px; color: var(--muted); }
+    p { margin: 0 0 13px; color: var(--muted); }
+    .paper p strong, li strong { color: var(--ink); }
 
-    ul, ol {
-      margin: 10px 0 0;
-      padding-left: 22px;
-      color: var(--muted);
+    ul, ol { margin: 8px 0 14px; padding-left: 22px; color: var(--muted); }
+    li { margin: 7px 0; }
+
+    .callout {
+      margin: 18px 0;
+      padding: 16px 20px;
+      background: var(--accent-bg);
+      border-left: 5px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      color: var(--ink);
     }
-
-    li { margin: 8px 0; }
+    .callout.green { background: #e9f6ef; border-left-color: var(--green); }
+    .callout.amber { background: #fdf3e3; border-left-color: var(--amber); }
+    .callout .ttl { font-weight: 800; display: block; margin-bottom: 4px; color: var(--accent); }
+    .callout.green .ttl { color: var(--green); }
+    .callout.amber .ttl { color: var(--amber); }
+    .callout p:last-child { margin-bottom: 0; }
 
     table {
       width: 100%;
       border-collapse: collapse;
       overflow: hidden;
-      border-radius: var(--radius);
+      border-radius: 10px;
       border: 1px solid var(--line);
-      background: rgba(15, 23, 42, 0.45);
+      margin: 16px 0;
+      font-size: 14px;
     }
-
     th, td {
-      padding: 13px 14px;
-      border-bottom: 1px solid var(--line);
+      padding: 11px 13px;
+      border-bottom: 1px solid var(--line-soft);
       vertical-align: top;
       text-align: left;
     }
-
-    th {
-      color: var(--ink);
-      background: rgba(125, 211, 252, 0.09);
-      font-size: 14px;
-      white-space: nowrap;
-    }
-
+    th { color: var(--ink); background: var(--accent-bg); font-weight: 700; }
     tr:last-child td { border-bottom: 0; }
     td { color: var(--muted); }
-    .tag {
-      display: inline-block;
-      padding: 3px 8px;
-      border: 1px solid rgba(125, 211, 252, 0.32);
-      border-radius: 999px;
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 800;
-      margin-right: 6px;
-    }
+    tbody tr:nth-child(even) td { background: var(--panel-2); }
 
-    .qa {
-      display: grid;
-      gap: 12px;
-    }
+    .ipa { font-style: normal; }
 
-    .qa-item {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 16px 18px;
-      background: rgba(15, 23, 42, 0.36);
-    }
+    /* ---- Synthesis ---- */
+    .synth { background: linear-gradient(180deg, #ffffff, var(--bg-2)); }
 
-    .q {
-      margin-bottom: 7px;
-      color: var(--ink);
-      font-weight: 800;
-    }
-
-    .a {
-      margin: 0;
+    /* ---- References ---- */
+    .refs { counter-reset: ref; }
+    .refs ol { list-style: none; padding-left: 0; }
+    .refs li {
+      position: relative;
+      padding: 14px 16px 14px 48px;
+      border: 1px solid var(--line-soft);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      background: var(--panel-2);
       color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
     }
+    .refs li::before {
+      counter-increment: ref;
+      content: counter(ref);
+      position: absolute; left: 14px; top: 14px;
+      width: 22px; height: 22px;
+      display: grid; place-items: center;
+      background: var(--accent); color: #fff;
+      border-radius: 6px; font-size: 12px; font-weight: 800;
+    }
+    .refs .doi { font-size: 12.5px; }
 
-    .reference-list {
-      columns: 2;
-      column-gap: 34px;
-    }
-
-    .reference-list li {
-      break-inside: avoid;
-      margin: 0 0 14px;
-    }
-
-    .small {
-      color: var(--soft);
-      font-size: 13px;
-    }
+    .footer-note { color: var(--soft); font-size: 13px; text-align: center; margin-top: 30px; }
 
     @media (max-width: 820px) {
       .topbar { align-items: flex-start; flex-direction: column; }
       .top-note { text-align: left; }
-      .grid { grid-template-columns: 1fr; }
-      .reference-list { columns: 1; }
+      .toc { grid-template-columns: 1fr; }
       th { white-space: normal; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <a class="back-link" href="index.html#18">← 발표로 돌아가기</a>
-    <div class="top-note">청중 질문 대응용 심화 자료 · 발표 중 일반 경로에는 포함되지 않음</div>
+    <a class="back-link" href="index.html#1">← 발표로 돌아가기</a>
+    <div class="top-note">심화 자료 · 참고 논문 정리</div>
   </header>
 
   <main>
     <section class="hero">
-      <div class="eyebrow">Deep Dive Appendix</div>
-      <h1>AI 음성 vs 인간 음성 분석의 근거 자료</h1>
+      <div class="eyebrow">Deep Dive · 참고 문헌</div>
+      <h1>한국어 음성의 음운 변화 — 파열음과 모음의 진행 중인 소리 변화</h1>
       <p class="lead">
-        질문이 들어왔을 때 바로 펼쳐볼 수 있도록, 발표에서 사용한 음향 지표와 관련 논문·도구·한계를 한 페이지에 모았다.
+        발표의 이론적 토대가 된 세 편의 음성학·음운론 논문을 정리한다. 첫 번째 논문은
+        한국어 파열음(평음·격음·경음)의 <strong>VOT 합병과 성조 발생(tonogenesis)</strong>을,
+        두 번째와 세 번째 논문은 한국어 모음 체계에서 진행 중인 <strong>/ㅗ–ㅜ/ 합병</strong>과
+        <strong>/ㅔ–ㅐ/ 합병</strong>을 다룬다. 세 연구 모두 "지금도 변하고 있는 한국어"라는
+        같은 주제를 음향 측정과 통계로 보여 준다.
       </p>
     </section>
 
-    <section class="panel">
-      <h2>발표 주장과 근거 연결</h2>
+    <nav class="toc">
+      <a href="#p1">
+        <span class="toc-num">PAPER 01</span>
+        <span class="toc-title">파열음의 VOT 합병과 성조 발생</span>
+        <span class="toc-sub">Kang (2014) · 서울말 코퍼스 117명</span>
+      </a>
+      <a href="#p2">
+        <span class="toc-num">PAPER 02</span>
+        <span class="toc-title">/ㅗ/와 /ㅜ/의 세대 간 합병</span>
+        <span class="toc-sub">한정임·강현숙 (2013)</span>
+      </a>
+      <a href="#p3">
+        <span class="toc-num">PAPER 03</span>
+        <span class="toc-title">/ㅔ/와 /ㅐ/ 중설 전설모음 합병</span>
+        <span class="toc-sub">Eychenne·장태엽 (2015)</span>
+      </a>
+      <a href="#synthesis" style="grid-column:1/-1;">
+        <span class="toc-num">SYNTHESIS</span>
+        <span class="toc-title">세 논문이 함께 말하는 것 — 그리고 AI 음성과의 연결</span>
+        <span class="toc-sub">진행 중인 음변화 · 단서 가중치 · TTS가 학습하는 대상</span>
+      </a>
+    </nav>
+
+    <!-- ============ PAPER 1 ============ -->
+    <section class="paper" id="p1">
+      <div class="paper-head">
+        <div class="paper-badge">1</div>
+        <div>
+          <h2>한국어 파열음의 VOT 합병과 성조 대립의 발달: 코퍼스 연구</h2>
+          <p class="cite">
+            <span class="au">Yoonjung Kang</span> (University of Toronto).
+            <em>Voice Onset Time merger and development of tonal contrast in Seoul Korean stops: a corpus study.</em>
+            <em>Journal of Phonetics</em>, 2014.
+          </p>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <span class="tag">VOT</span>
+        <span class="tag">기본주파수 f₀</span>
+        <span class="tag">성조 발생 Tonogenesis</span>
+        <span class="tag">실시간 음변화</span>
+        <a class="file-link" href="논문1.pdf" target="_blank">📄 논문1.pdf 열기</a>
+      </div>
+
+      <h3>한눈에 보기</h3>
+      <div class="callout">
+        <span class="ttl">핵심 주장</span>
+        <p>
+          서울 한국어의 세 갈래 파열음 대립(평음·격음·경음)은 지금
+          <strong>"성조 발생(tonogenesis)"과 유사한 소리 변화</strong>를 겪고 있다.
+          젊은 세대·여성일수록 평음과 격음을 가르던 <strong>VOT 차이가 사라지는 대신</strong>,
+          그 자리를 모음의 <strong>기본주파수(f₀, 음높이) 차이가 대신</strong>하고 있다.
+          즉 "숨을 얼마나 터뜨리는가(VOT)"에서 "음높이가 높은가 낮은가(f₀)"로
+          대립의 무게중심이 옮겨가는 중이다.
+        </p>
+      </div>
+
+      <h3>배경 — 왜 VOT와 f₀인가</h3>
+      <p>
+        한국어는 무성 파열음을 <strong>격음(/pʰ tʰ kʰ/), 평음(/p t k/), 경음(/p' t' k'/)</strong>
+        세 갈래로 구별하는, 유형론적으로 드문 언어다. 전통적으로 이 셋은 여러 음향 단서로 구별된다.
+      </p>
+      <ul>
+        <li><strong>VOT(성대 진동 개시 시간)</strong> — 자음을 터뜨린 순간부터 뒤따르는 모음의 성대 진동이 시작될 때까지의 시간. 격음이 가장 길고, 경음이 가장 짧으며, 평음은 중간이다.</li>
+        <li><strong>f₀(기본주파수)</strong> — 뒤따르는 모음의 음높이. 격음·경음 뒤에서는 높고, 평음 뒤에서는 낮다.</li>
+        <li><strong>H1–H2</strong> — 발성 유형(숨소리 섞인 정도)을 반영하는 배음 진폭 차이.</li>
+      </ul>
+      <p>
+        '성조 발생'이란, 원래 자음의 부수적 특성에 불과하던 음높이 차이가 점차 독립적인 대립 자질로
+        승격되고, 끝내 원래의 자음 대립을 대체하는 변화를 말한다(Maran 1973의 5단계 모형).
+        과거(1960–70년대) 연구는 서울말이 이 단계의 초기(2~3단계)에 있다고 보았으나, 1990년대 이후
+        연구들은 격음의 VOT가 짧아지고 평음의 VOT가 길어지면서 4단계(VOT 약화 + f₀ 강화)로
+        이동하고 있음을 보고했다.
+      </p>
+
+      <h3>연구 방법</h3>
+      <table>
+        <tbody>
+          <tr><th>자료</th><td>국립국어원(NIKL 2005)의 <em>낭독체 표준 한국어 음성 코퍼스</em></td></tr>
+          <tr><th>화자</th><td>서울 거주·서울 방언 화자 <strong>117명</strong>(남 58, 여 59), 출생연도 1932~1984년</td></tr>
+          <tr><th>분석 단위</th><td>9개 파열음으로 시작하는 문장 첫 단어, 총 1,250개 토큰</td></tr>
+          <tr><th>측정값</th><td>어두 파열음의 VOT, 첫 두 모음(V1·V2)의 f₀, 모음 길이. Praat로 측정 후 수동 검토</td></tr>
+          <tr><th>통계</th><td>혼합효과 모형(linear mixed-effects). 예측 변수: 출생연도(YOB), 성별, 후두 자질</td></tr>
+        </tbody>
+      </table>
+      <p class="cite" style="color:var(--soft);font-size:13px;">
+        ※ 같은 화자 집단이 나이를 먹는 것을 추적하는 대신, 여러 연령대를 한 시점에 비교해 변화를
+        추정하는 <strong>"외견상 시간(apparent-time)"</strong> 방법을 사용했다. 이런 규모(117명)로
+        성별·나이 효과를 함께 본 것은 이 연구가 처음이다.
+      </p>
+
+      <h3>주요 결과</h3>
+      <h4>① VOT — 격음이 짧아진다</h4>
+      <ul>
+        <li>젊은 화자일수록 <strong>격음의 VOT가 유의하게 짧아짐</strong>(출생연도 효과 p&lt;0.0001). 1932년생 남성 격음 평균 약 89ms → 1984년생 남성 약 55ms로 추정.</li>
+        <li>여성은 같은 나이의 남성보다 격음 VOT가 약 <strong>13ms 더 짧음</strong> → 평음과 격음의 VOT가 더 많이 겹침.</li>
+        <li>평음·경음의 VOT는 나이 효과가 작거나 일관되지 않음 → <strong>변화는 격음에 집중</strong>.</li>
+        <li>화자 말속도(모음 길이)로 보정해도 나이·성별 효과는 그대로 → 단순히 "젊은 사람이 빨리 말해서"가 아님.</li>
+        <li>여성 59명 중 7명은 <strong>평음 VOT가 격음보다 오히려 더 김</strong>(역전) — 합병이 상당히 진행됨.</li>
+      </ul>
+
+      <h4>② f₀ — 음높이 대립이 커지고 멀리 퍼진다</h4>
+      <ul>
+        <li>젊은 화자일수록 격음(높음)과 평음(낮음) 사이의 <strong>f₀ 차이가 커짐</strong>. 1932년생 약 1.88세미톤 → 1984년생 약 4.48세미톤.</li>
+        <li>이 음높이 대립이 첫 모음(V1)을 넘어 <strong>둘째 모음(V2), 즉 구의 뒷부분까지 확장</strong>됨. 특히 젊은 화자에게서 뚜렷.</li>
+        <li>여성이 격음–평음 f₀ 대립을 남성보다 더 크게 만듦 → 여성이 변화를 선도.</li>
+      </ul>
+
+      <h4>③ 단서 가중치(cue weighting) — 세대·성별에 따라 다른 전략</h4>
+      <div class="callout green">
+        <span class="ttl">평음 vs 격음을 구별하는 방식의 세대 차이</span>
+        <p>
+          <strong>나이 든 남성</strong> → 주로 <strong>VOT</strong>로 구별(가장 보수적).<br>
+          <strong>젊은 남성</strong> → <strong>VOT와 f₀를 함께</strong> 사용(중간 단계).<br>
+          <strong>젊은 여성</strong> → <strong>거의 f₀만으로</strong> 구별(가장 앞선 단계). 통계 모형에서 여성은 VOT가
+          유의한 단서가 아니었다.
+        </p>
+      </div>
+
+      <h4>④ f₀ 강화는 '구조적 자연부류'를 겨냥한다</h4>
+      <p>
+        흥미로운 발견은, f₀ 강화가 위협받는 평음–격음 대립만 좁게 겨냥하는 것이 아니라
+        <strong>[+긴장 성문(spread glottis)] 자질을 가진 소리 전체(격음 + /h/)</strong>라는
+        자연부류에 적용된다는 점이다. /h/의 f₀ 행동이 격음과 나란히 움직였다. 즉 이 변화는
+        "명료 발화에서 어려운 대조만 즉석에서 강화"하는 것과 달리, <strong>음운 구조의 범주에 의해
+        매개</strong>되는 체계적 변화다.
+      </p>
+
+      <h3>결론과 의의</h3>
+      <p>
+        VOT 합병과 성조 대립 발달은 "먼저 성조가 자리잡은 뒤 VOT가 사라진다"는 식의 분리된 단계가
+        아니라 <strong>동시에 진행</strong>된다. 변화는 <strong>여성·젊은 세대가 선도</strong>하며, 음높이 대립의
+        강화는 VOT 합병에 대한 <strong>보상적·적응적 성격</strong>을 띤다. 한국어가 장기적으로
+        성조 언어 비슷한 방향(평음·공명음 &gt; 저조, 경음 &gt; 중조, 격음 &gt; 고조)으로 갈 가능성을 시사한다.
+      </p>
+    </section>
+
+    <!-- ============ PAPER 2 ============ -->
+    <section class="paper" id="p2">
+      <div class="paper-head">
+        <div class="paper-badge">2</div>
+        <div>
+          <h2>서울 한국어 /ㅗ/와 /ㅜ/의 세대 간 변화 I: 모음공간에서의 근접성</h2>
+          <p class="cite">
+            <span class="au">한정임(건국대)·강현숙(한양대)</span>.
+            <em>Cross-generational Change of /o/ and /u/ in Seoul Korean I: Proximity in Vowel Space.</em>
+            <em>말소리와 음성과학</em> 제5권 2호 (2013), pp. 25–31.
+          </p>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <span class="tag">모음 합병</span>
+        <span class="tag">포먼트 F1·F2</span>
+        <span class="tag">유클리드 거리</span>
+        <span class="tag">세대 간 변화</span>
+        <a class="file-link" href="논문2.pdf" target="_blank">📄 논문2.pdf 열기</a>
+      </div>
+
+      <h3>한눈에 보기</h3>
+      <div class="callout">
+        <span class="ttl">핵심 주장</span>
+        <p>
+          서울 한국어에서 모음 <strong>/ㅗ/(o)와 /ㅜ/(u)가 점점 가까워지는 합병이 진행 중</strong>이다.
+          세대가 젊을수록 두 모음 사이의 거리가 줄어들며, 이 변화는 <strong>남성보다 여성이,
+          어두보다 비어두(둘째 음절) 위치에서</strong> 더 앞서 나타난다.
+        </p>
+      </div>
+
+      <h3>배경</h3>
+      <p>
+        채서영(1999)은 비어두 위치에서 /ㅗ/가 /ㅜ/로 상승하는 변화('하루 &lt; 하로', '모두 &lt; 모도')가
+        진행 중이며, 이것이 음운론적 조건보다 성별·사회계층·연령 같은 사회언어학적 요인의 영향을
+        받는다고 보았다. 여러 음향 연구도 과거에는 뚜렷이 구별되던 /ㅗ/와 /ㅜ/가 최근 들어 가까워졌음을
+        보고했다. 그러나 세대를 가로질러 변화 '과정'을 체계적으로 관찰한 연구는 없었다.
+      </p>
+
+      <h3>연구 방법</h3>
+      <table>
+        <tbody>
+          <tr><th>화자</th><td>서울 출생·성장 화자 <strong>36명</strong> — 3개 연령대(20대·30대·40/50대) × 각 12명(남 6, 여 6). 평균 연령 22.8 / 34.8 / 47.4세</td></tr>
+          <tr><th>자극</th><td>한국어 8개 단모음을 V₁CV₂ 구조의 2음절 무의미 단어에 넣어 측정(자음 /p t k/). 틀 문장 "천천히 ___ 하세요"에 삽입</td></tr>
+          <tr><th>측정</th><td>Praat로 각 모음 정상부의 <strong>F1·F2</strong> 추출. /ㅗ/와 /ㅜ/ 사이의 <strong>유클리드 거리</strong> = √[(F2차)²+(F1차)²]</td></tr>
+          <tr><th>분석</th><td>반복측정 분산분석(ANOVA): 연령대 × 음절위치 × 성별. 총 6,912 토큰</td></tr>
+        </tbody>
+      </table>
+      <p class="cite" style="color:var(--soft);font-size:13px;">
+        ※ 유클리드 거리가 <strong>작을수록</strong> 두 모음이 모음공간에서 가깝다(= 합병에 근접)는 뜻이다.
+      </p>
+
+      <h3>주요 결과</h3>
+      <ul>
+        <li><strong>여성</strong>: 세대가 젊어질수록 /ㅗ/–/ㅜ/ 거리가 단계적으로 줄어듦. 특히 20대 여성의 거리가 유의하게 짧아, <strong>합병이 가장 앞선 집단</strong>.</li>
+        <li><strong>남성</strong>: 첫 음절에서는 세대 간 차이가 유의하지 않았으나, <strong>둘째 음절(비어두)에서는 남녀 모두 젊을수록 거리가 줄어듦</strong>.</li>
+        <li>전체적으로 변화는 <strong>비어두(둘째 음절) 위치에서 먼저·뚜렷하게</strong> 진행 — 채서영(1999)의 음운론적 관찰과 일치(어두 음절은 강세를 받아 변화가 느림).</li>
+        <li>두 모음은 F1·F2 양쪽에서 가까워졌으며, /ㅗ/가 /ㅜ/ 쪽으로 상승하는지, /ㅜ/가 /ㅗ/ 쪽으로 내려오는지는 이 자료만으로 단정할 수 없음.</li>
+      </ul>
+
+      <div class="callout green">
+        <span class="ttl">왜 여성이 앞서는가</span>
+        <p>
+          사회언어학에서 여성은 일반적으로 체계적 음변화를 선도하는 경향이 있다(Labov). 아이가 모국어를
+          주로 어머니(주 양육자)에게서 배우므로, 여성이 앞선 형태를 먼저 전달한다는 설명과 부합한다.
+          이 점은 <a href="#p1">논문 1</a>에서 파열음 변화 역시 여성이 선도한 것과 같은 맥락이다.
+        </p>
+      </div>
+
+      <h3>결론</h3>
+      <p>
+        서울 한국어의 /ㅗ/–/ㅜ/ 합병은 <strong>아직 완료되지 않았으나 분명히 진행 중</strong>이며,
+        성별과 음절 위치의 영향을 받는다. 여성·비어두 위치에서 가장 두드러진다.
+      </p>
+    </section>
+
+    <!-- ============ PAPER 3 ============ -->
+    <section class="paper" id="p3">
+      <div class="paper-head">
+        <div class="paper-badge">3</div>
+        <div>
+          <h2>한국어 중설 전설모음 /ㅔ/–/ㅐ/ 합병에 관한 음성·음운론적 증거</h2>
+          <p class="cite">
+            <span class="au">Julien Eychenne·장태엽(한국외대)</span>.
+            <em>On the Merger of Korean Mid Front Vowels: Phonetic and Phonological Evidence.</em>
+            <em>말소리와 음성과학</em> 제7권 2호 (2015), pp. 119–129.
+          </p>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <span class="tag">/ㅔ/–/ㅐ/ 합병</span>
+        <span class="tag">산출 + 지각</span>
+        <span class="tag">기능부담량</span>
+        <span class="tag">방언 비교</span>
+        <a class="file-link" href="논문3.pdf" target="_blank">📄 논문3.pdf 열기</a>
+      </div>
+
+      <h3>한눈에 보기</h3>
+      <div class="callout">
+        <span class="ttl">핵심 주장</span>
+        <p>
+          중설 전설모음 <strong>/ㅔ/(e)와 /ㅐ/(ɛ)는 오늘날 젊은 한국어 화자에게서 거의 합병</strong>되었다.
+          산출(발음)에서는 성별 차이를 빼면 두 모음이 구별되지 않으며, 지각에서도 대체로 그렇다(단,
+          서울 여성은 약간의 구별 경향). 이 합병의 배경에는 두 모음의 <strong>음성적 유사성</strong>과
+          더불어 <strong>매우 낮은 기능부담량(functional load)</strong>이 있다.
+        </p>
+      </div>
+
+      <h3>배경</h3>
+      <p>
+        한국어 단모음의 수는 학자에 따라 7~10개로 다르게 본다. 한글이 /ㅔ/와 /ㅐ/에 서로 다른 글자를
+        주기 때문에 전통적으로 둘을 별개 음소로 다뤘지만, 실제로는 동일하게 발음되는 경우가 많다고
+        거듭 관찰되어 왔다. 이 논문은 두 가지 질문을 던진다. (i) 합병은 얼마나 완료되었는가?
+        (ii) 무엇이 합병을 촉발했는가?
+      </p>
+
+      <h3>연구 방법 — 세 갈래 접근</h3>
+      <table>
+        <tbody>
+          <tr><th>화자</th><td>세 방언권(<strong>서울·대구·광주</strong>) 각 10명(남 5, 여 5), 총 30명. 모두 40세 미만(평균 22.4세)의 단일어 화자</td></tr>
+          <tr><th>① 산출</th><td>[h__da] 환경에서 8개 단모음을 5회 반복 발음. Praat로 F1·F2 측정(300 토큰). 혼합효과 모형 분석</td></tr>
+          <tr><th>② 지각</th><td>Praat로 만든 <strong>합성 모음</strong>을 ERB 척도로 균등 배치해 들려주고, 8개 모음 중 하나로 분류시키는 강제 선택 과제</td></tr>
+          <tr><th>③ 기능부담량</th><td>세종 코퍼스(80만 토큰)에서 정보이론 기반으로 음소쌍의 기능부담량 계산(Hockett 1955; Surendran &amp; Niyogi 2006)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>주요 결과</h3>
+      <h4>① 산출 — 둘은 구별되지 않는다</h4>
+      <ul>
+        <li>/ㅔ/와 /ㅐ/의 F1·F2 분포가 크게 겹쳐 통계적으로 구별 안 됨(F1 p=0.381, F2 p=0.425).</li>
+        <li><strong>방언 차이 없음</strong> — 서울·대구·광주 모두 두 모음을 다르게 발음하지 않음.</li>
+        <li>유일하게 유의한 변수는 <strong>성별</strong>(여성의 포먼트가 전반적으로 높음) — 이는 성대 길이 등 생리적 차이일 뿐, 모음 대립과 무관.</li>
+      </ul>
+      <h4>② 지각 — 대체로 구별 못 하나, 서울 여성은 예외</h4>
+      <ul>
+        <li>대부분의 화자는 두 모음을 구별하기 매우 어려웠다고 보고. 그러나 통계상 <strong>F1(높이)에 따라 우연 이상으로 구별</strong>하는 경향이 있었다.</li>
+        <li>특히 <strong>서울 여성</strong>은 F1이 낮은(혀가 높은) 모음을 /ㅔ/로 더 잘 분류 — 다른 집단보다 두 모음을 더 또렷이 지각.</li>
+      </ul>
+      <h4>③ 기능부담량 — /ㅔ ɛ/ 쌍이 매우 낮다</h4>
+      <div class="callout amber">
+        <span class="ttl">기능부담량(functional load)이란</span>
+        <p>
+          두 음소가 단어를 구별하는 데 실제로 얼마나 '일을 많이 하는가'를 정보이론으로 수치화한 값.
+          이 쌍을 합쳐 버렸을 때 잃는 정보량으로 측정한다. /ㅔ–ㅐ/의 기능부담량은 <strong>0.0082로 매우 낮아</strong>,
+          모음쌍 중 거의 최하위였다(가장 대조적인 /ㅏ–ㅓ/의 약 <strong>1/4</strong> 수준). 즉 둘을 합쳐도
+          뜻이 헷갈리는 단어가 거의 없다.
+        </p>
+      </div>
+
+      <h3>결론</h3>
+      <p>
+        /ㅔ/와 /ㅐ/는 젊은 세대에서 사실상 합병되었다. 그 원인은 두 모음의 <strong>음성적 유사성</strong>과
+        <strong>낮은 기능부담량</strong>의 결합이다. 역사적으로 이 두 글자는 1446년 훈민정음 창제 당시
+        기본 모음에 없었고, 17세기까지 이중모음(/ʌj/, /aj/)이었다가 단모음화한 것으로, 모음공간의
+        중설 전설 영역에서 오랜 안정화 과정을 거쳐 합병에 이른 것으로 해석된다.
+      </p>
+    </section>
+
+    <!-- ============ SYNTHESIS ============ -->
+    <section class="paper synth" id="synthesis">
+      <div class="paper-head">
+        <div class="paper-badge" style="background:var(--green);">✦</div>
+        <div>
+          <h2>세 논문이 함께 말하는 것 — 그리고 AI 음성과의 연결</h2>
+          <p class="cite">발표 주제와의 접점 정리</p>
+        </div>
+      </div>
+
+      <h3>① 한국어는 지금도 변하고 있다</h3>
+      <p>
+        세 논문은 각각 <strong>자음(파열음)</strong>, <strong>후설모음(/ㅗ–ㅜ/)</strong>,
+        <strong>전설모음(/ㅔ–ㅐ/)</strong>이라는 서로 다른 영역에서 진행 중인 소리 변화를 보여 준다.
+        공통적으로 변화는 <strong>여성과 젊은 세대가 선도</strong>하며, 외견상 시간 방법(여러 연령대 비교)으로
+        포착된다.
+      </p>
+
+      <h3>② '단서의 재편'이라는 공통 메커니즘</h3>
+      <p>
+        논문 1이 가장 선명하게 보여 주듯, 음변화는 단순히 한 단서가 사라지는 것이 아니라
+        <strong>대립을 지탱하는 단서의 무게중심이 옮겨가는 과정</strong>이다. 평음–격음 대립이
+        VOT(시간 단서)에서 f₀(음높이 단서)로 재편되는 것처럼, 모음 합병도 포먼트 공간에서
+        두 점이 서서히 한 점으로 수렴한다.
+      </p>
+
+      <h3>③ AI 음성(TTS)과의 접점</h3>
+      <div class="callout green">
+        <span class="ttl">왜 이 논문들이 'AI 음성 vs 인간 음성' 발표에 필요한가</span>
+        <p>
+          TTS/음성 합성 모델은 대량의 인간 음성 데이터를 학습한다. 그런데 그 데이터에는
+          <strong>위 논문들이 측정한 바로 그 변이</strong>(세대·성별에 따른 VOT·f₀ 분포, 모음 합병 정도)가
+          담겨 있다. 따라서 AI 음성을 인간 음성과 비교·평가할 때는, 단순히 "자연스러운가"가 아니라
+          <strong>VOT·f₀ 같은 미세 음향 단서를 인간 화자의 분포만큼 재현하는가</strong>,
+          그리고 <strong>진행 중인 음변화(어느 세대의 발음인가)를 반영하는가</strong>를 함께 따져야 한다.
+          본 발표의 VOT·f₀ 측정 실험은 이 논문들이 제시한 측정 틀(Praat 기반 VOT·f₀ 측정,
+          포먼트 거리)을 그대로 차용한다.
+        </p>
+      </div>
+
       <table>
         <thead>
-          <tr><th>발표 내용</th><th>심화 근거</th><th>질문이 나오면 답할 말</th></tr>
+          <tr><th>논문</th><th>변하는 대상</th><th>핵심 음향 단서</th><th>변화를 선도하는 집단</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td><span class="tag">Source-filter</span>음성은 성대 진동과 성도 공명의 결합이다.</td>
-            <td>Fant의 acoustic theory와 source-filter model은 \(f_0\), 배음, 포먼트를 분리해서 설명하는 기본 틀이다.</td>
-            <td>그래서 목소리의 높이는 주로 성대 진동, 모음의 차이는 성도 공명 위치로 해석할 수 있다.</td>
-          </tr>
-          <tr>
-            <td><span class="tag">VOT</span>한국어 파열음은 시간 구조가 중요하다.</td>
-            <td>VOT는 파열 해제와 성대 진동 시작 사이의 시간이며, 한국어 평음·격음·경음 구별에서 핵심 단서로 다뤄진다.</td>
-            <td>단순히 소리가 크거나 세다는 문제가 아니라, 터진 뒤 성대가 언제 울리기 시작하는지가 구별 단서가 된다.</td>
-          </tr>
-          <tr>
-            <td><span class="tag">f0</span>현대 서울 한국어에서는 VOT만 보면 부족할 수 있다.</td>
-            <td>서울 한국어 파열음 연구는 VOT 차이가 약해지는 흐름과 함께 뒤따르는 모음의 \(f_0\) 차이가 커지는 현상을 보고한다.</td>
-            <td>그래서 이 발표에서 VOT와 모음 초반 \(f_0\)를 같이 본 것은 한국어 음성 변화와 맞는 분석 방향이다.</td>
-          </tr>
-          <tr>
-            <td><span class="tag">F1/F2</span>모음은 포먼트 좌표로 비교할 수 있다.</td>
-            <td>F1은 주로 혀의 높이·입 벌림, F2는 혀의 앞뒤 위치와 관련된다. F1/F2 산점도는 모음 공간을 보는 표준적 방법이다.</td>
-            <td>절대값만 비교하기보다 각 화자 안에서 모음들이 이루는 상대적 배치를 보는 것이 더 안전하다.</td>
-          </tr>
-          <tr>
-            <td><span class="tag">TTS</span>AI 음성도 최종적으로 파형을 만든다.</td>
-            <td>WaveNet, Tacotron 2 계열 연구는 텍스트에서 mel-spectrogram 같은 중간 표현을 만들고 vocoder로 파형을 합성하는 흐름을 보인다.</td>
-            <td>그래서 TTS도 결국 \(f_0\), 포먼트, 스펙트로그램, VOT 같은 물리적 기준으로 비교할 수 있다.</td>
-          </tr>
+          <tr><td>1 · Kang (2014)</td><td>평음·격음 파열음</td><td>VOT → f₀</td><td>젊은 여성</td></tr>
+          <tr><td>2 · 한·강 (2013)</td><td>/ㅗ/–/ㅜ/ 모음</td><td>F1·F2(포먼트 거리)</td><td>여성, 비어두 위치</td></tr>
+          <tr><td>3 · Eychenne·장 (2015)</td><td>/ㅔ/–/ㅐ/ 모음</td><td>F1(높이) + 기능부담량</td><td>젊은 세대 전반</td></tr>
         </tbody>
       </table>
     </section>
 
-    <div class="grid">
-      <section class="card">
-        <h3>측정값 해석에서 조심할 점</h3>
-        <ul>
-          <li>화자 수가 적으면 일반화보다 사례 분석으로 제시해야 한다.</li>
-          <li>마이크, 녹음 환경, 발화 속도, TTS 엔진 설정이 모두 결과에 영향을 줄 수 있다.</li>
-          <li>포먼트는 성별·성도 길이에 따라 절대값이 달라지므로, 같은 화자 내부의 상대 위치도 같이 봐야 한다.</li>
-          <li>스펙트로그램 차이를 보고 “AI는 항상 이런 특성을 가진다”고 단정하면 안 된다.</li>
-        </ul>
-      </section>
-
-      <section class="card">
-        <h3>추가 분석을 한다면</h3>
-        <ul>
-          <li>화자 수를 늘리고 남녀·연령대를 나누어 VOT와 \(f_0\) 평균을 비교한다.</li>
-          <li>각 단어를 여러 번 녹음해 평균과 표준편차를 같이 제시한다.</li>
-          <li>F1/F2는 Bark 또는 Lobanov 정규화를 적용해 화자 차이를 줄인다.</li>
-          <li>문장 단위에서는 억양 곡선, 휴지 길이, 강세 위치를 추가로 본다.</li>
-        </ul>
-      </section>
-    </div>
-
-    <section class="panel">
-      <h2>청중 질문 대비</h2>
-      <div class="qa">
-        <div class="qa-item">
-          <div class="q">Q. 왜 음성의 자연성을 사람 귀가 아니라 숫자로 분석하나요?</div>
-          <p class="a">사람 귀의 판단이 최종적으로 중요하지만, 왜 어색한지 설명하려면 \(f_0\), VOT, 포먼트, 스펙트럼처럼 반복 측정 가능한 물리량이 필요하다.</p>
-        </div>
-        <div class="qa-item">
-          <div class="q">Q. TTS 엔진이 다르면 결과도 달라지지 않나요?</div>
-          <p class="a">맞다. 그래서 이 발표의 결론은 “모든 AI 음성”에 대한 일반화가 아니라, 특정 TTS 출력과 인간 음성을 같은 음향 기준으로 비교한 사례 분석이다.</p>
-        </div>
-        <div class="qa-item">
-          <div class="q">Q. ㅐ/ㅔ는 왜 굳이 언급할 수 있나요?</div>
-          <p class="a">현대 서울 한국어에서 /ɛ/와 /e/의 합류는 연구된 주제이고, F1/F2 공간에서 두 모음이 얼마나 가까운지 보면 철자와 실제 발음의 차이를 논의할 수 있다.</p>
-        </div>
-        <div class="qa-item">
-          <div class="q">Q. Praat 측정은 믿을 수 있나요?</div>
-          <p class="a">Praat은 음성학 연구에서 널리 쓰이는 도구지만, 자동 측정값은 경계 표시와 파라미터 설정에 민감하다. 그래서 가능한 경우 파형·스펙트로그램을 눈으로 확인해 보정해야 한다.</p>
+    <!-- ============ REFERENCES ============ -->
+    <section class="paper refs" id="refs">
+      <div class="paper-head">
+        <div class="paper-badge" style="background:var(--ink);">§</div>
+        <div>
+          <h2>출처 (References)</h2>
+          <p class="cite">아래 항목을 클릭하면 해당 PDF 원문이 열린다.</p>
         </div>
       </div>
-    </section>
-
-    <section class="panel">
-      <h2>읽어볼 논문·자료</h2>
-      <ol class="reference-list">
+      <ol>
         <li>
-          Boersma, P. & Weenink, D. <a href="https://praat.org/praat" target="_blank" rel="noopener">Praat: doing phonetics by computer</a>.
-          <div class="small">발표의 측정 도구인 Praat 공식 페이지.</div>
+          Kang, Yoonjung. <em>Voice Onset Time merger and development of tonal contrast in Seoul Korean stops: a corpus study.</em>
+          <em>Journal of Phonetics</em>, 2014. University of Toronto Scarborough &amp; Department of Linguistics.
+          <br><a class="doi" href="논문1.pdf" target="_blank">▶ 논문1.pdf</a>
         </li>
         <li>
-          Fant, G. (1960). <a href="https://books.google.com/books/about/Acoustic_theory_of_speech_production.html?id=ESJgAAAAMAAJ" target="_blank" rel="noopener">Acoustic Theory of Speech Production</a>.
-          <div class="small">성대 진동과 성도 공명으로 음성을 설명하는 source-filter 관점의 고전.</div>
+          한정임(Han, Jeong-Im)·강현숙(Kang, Hyunsook). <em>Cross-generational Change of /o/ and /u/ in Seoul Korean I: Proximity in Vowel Space.</em>
+          <em>말소리와 음성과학(Journal of the Korean Society of Speech Sciences)</em> 제5권 2호 (2013), pp. 25–31. ISSN 2005-8063.
+          <br><span class="doi">DOI: 10.13064/KSSS.2013.5.2.025</span> · <a class="doi" href="논문2.pdf" target="_blank">▶ 논문2.pdf</a>
         </li>
         <li>
-          Lisker, L. & Abramson, A. S. (1964). <a href="https://www.tandfonline.com/doi/pdf/10.1080/00437956.1964.11659830" target="_blank" rel="noopener">A Cross-Language Study of Voicing in Initial Stops</a>.
-          <div class="small">VOT 개념을 폭넓게 사용하게 만든 고전적 연구.</div>
-        </li>
-        <li>
-          Cho, T. & Ladefoged, P. (1999). <a href="https://cir.nii.ac.jp/crid/1362262945896509184" target="_blank" rel="noopener">Variation and universals in VOT: evidence from 18 languages</a>.
-          <div class="small">언어별 VOT 차이와 보편성을 비교한 연구.</div>
-        </li>
-        <li>
-          Kang, Y. (2014). <a href="https://www.yoonjungkang.com/uploads/1/1/6/2/11625099/vot_merger_in_seoul_korean_revised_final.pdf" target="_blank" rel="noopener">Voice Onset Time merger and development of tonal contrast in Seoul Korean stops</a>.
-          <div class="small">서울 한국어 파열음에서 VOT와 \(f_0\) 단서의 변화에 관한 대규모 말뭉치 연구.</div>
-        </li>
-        <li>
-          Lee, Y.-C. (2023). <a href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002992684" target="_blank" rel="noopener">Revisiting the merger of mid front vowels in Seoul Korean</a>.
-          <div class="small">서울 한국어 ㅐ/ㅔ 합류를 F2, 성별, 위치 차이와 함께 다시 검토한 연구.</div>
-        </li>
-        <li>
-          van den Oord, A. et al. (2016). <a href="https://arxiv.org/abs/1609.03499" target="_blank" rel="noopener">WaveNet: A Generative Model for Raw Audio</a>.
-          <div class="small">raw waveform 생성을 다룬 대표적 신경망 음성 합성 연구.</div>
-        </li>
-        <li>
-          Shen, J. et al. (2018). <a href="https://arxiv.org/abs/1712.05884" target="_blank" rel="noopener">Natural TTS Synthesis by Conditioning WaveNet on Mel Spectrogram Predictions</a>.
-          <div class="small">Tacotron 2 구조와 mel-spectrogram 기반 TTS 흐름을 설명하는 연구.</div>
+          Eychenne, Julien·장태엽(Jang, Tae-Yeoub). <em>On the Merger of Korean Mid Front Vowels: Phonetic and Phonological Evidence.</em>
+          <em>말소리와 음성과학(Journal of the Korean Society of Speech Sciences)</em> 제7권 2호 (2015), pp. 119–129. ISSN 2005-8063. 한국외국어대학교.
+          <br><span class="doi">DOI: 10.13064/KSSS.2015.7.2.119</span> · <a class="doi" href="논문3.pdf" target="_blank">▶ 논문3.pdf</a>
         </li>
       </ol>
+      <p class="footer-note">언어와 생활 탐구 · 발표 심화 자료 · 본 페이지의 요약은 위 원문을 토대로 작성됨</p>
     </section>
   </main>
 </body>
