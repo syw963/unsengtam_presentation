@@ -285,12 +285,12 @@
       <div class="eyebrow">Deep Dive · 참고 문헌</div>
       <h1>한국어 음성의 음운 변화 — 파열음과 모음의 진행 중인 소리 변화</h1>
       <p class="lead">
-        발표의 이론적 토대가 된 네 편의 음성학·음운론 논문을 정리한다. 첫 번째 논문은
+        발표의 이론적 토대가 된 다섯 편의 음성학·음운론 논문을 정리한다. 첫 번째 논문은
         한국어 파열음(평음·격음·경음)의 <strong>VOT 합병과 성조 발생(tonogenesis)</strong>을,
-        두 번째와 세 번째 논문은 한국어 모음 체계에서 진행 중인 <strong>/ㅗ–ㅜ/ 합병</strong>과
-        <strong>/ㅔ–ㅐ/ 합병</strong>을 다룬다. 새로 추가한 네 번째 논문은 이 파열음 변화가
-        <strong>상업용 TTS 음성</strong>에도 반영되는지를 직접 비교한다. 네 연구 모두
-        "지금도 변하고 있는 한국어"라는 같은 주제를 음향 측정과 통계로 보여 준다.
+        두 번째 논문은 한국어 <strong>/ㅗ–ㅜ/ 구별의 숨은 음향 단서</strong>를,
+        세 번째 논문은 <strong>/ㅔ–ㅐ/ 합병</strong>을 다룬다. 네 번째 논문은 이 파열음 변화가
+        <strong>상업용 TTS 음성</strong>에도 반영되는지를 직접 비교하고, 다섯 번째 논문은 한국어 모음
+        포먼트와 말 명료도의 <strong>대규모 표준 기준선</strong>을 제공한다.
       </p>
     </section>
 
@@ -302,8 +302,8 @@
       </a>
       <a href="#p2">
         <span class="toc-num">PAPER 02</span>
-        <span class="toc-title">/ㅗ/와 /ㅜ/의 세대 간 합병</span>
-        <span class="toc-sub">한정임·강현숙 (2013)</span>
+        <span class="toc-title">/ㅗ/와 /ㅜ/를 구별하는 숨은 음향 단서</span>
+        <span class="toc-sub">변희경 (2018) · H1–H2와 발성 차이</span>
       </a>
       <a href="#p3">
         <span class="toc-num">PAPER 03</span>
@@ -315,9 +315,14 @@
         <span class="toc-title">AI 음성은 소리 변화를 반영하는가</span>
         <span class="toc-sub">Kang·Kim (2026) · 인간 vs TTS</span>
       </a>
+      <a href="#p5">
+        <span class="toc-num">PAPER 05</span>
+        <span class="toc-title">한국어 모음 포먼트의 표준 기준선</span>
+        <span class="toc-sub">김근효·이연우 (2026) · 4,235명</span>
+      </a>
       <a href="#synthesis" style="grid-column:1/-1;">
         <span class="toc-num">SYNTHESIS</span>
-        <span class="toc-title">네 논문이 함께 말하는 것 — 그리고 AI 음성과의 연결</span>
+        <span class="toc-title">다섯 논문이 함께 말하는 것 — 그리고 AI 음성과의 연결</span>
         <span class="toc-sub">진행 중인 음변화 · 단서 가중치 · TTS가 학습하는 대상</span>
       </a>
     </nav>
@@ -442,75 +447,94 @@
       <div class="paper-head">
         <div class="paper-badge">2</div>
         <div>
-          <h2>서울 한국어 /ㅗ/와 /ㅜ/의 세대 간 변화 I: 모음공간에서의 근접성</h2>
+          <h2>서울말 /ㅗ/와 /ㅜ/를 구별하는 음향변수</h2>
           <p class="cite">
-            <span class="au">한정임(건국대)·강현숙(한양대)</span>.
-            <em>Cross-generational Change of /o/ and /u/ in Seoul Korean I: Proximity in Vowel Space.</em>
-            <em>말소리와 음성과학</em> 제5권 2호 (2013), pp. 25–31.
+            <span class="au">변희경(Byun, Hi-Gyung)</span>.
+            <em>Acoustic parameters that differentiate /o/ from /u/ in Seoul Korean.</em>
+            <em>말소리와 음성과학</em> 제10권 2호 (2018), pp. 15–24.
           </p>
         </div>
       </div>
 
       <div class="meta-row">
-        <span class="tag">모음 합병</span>
+        <span class="tag">/ㅗ/–/ㅜ/ 구별</span>
         <span class="tag">포먼트 F1·F2</span>
-        <span class="tag">유클리드 거리</span>
-        <span class="tag">세대 간 변화</span>
-        <a class="file-link" href="논문2.pdf" target="_blank">📄 논문2.pdf 열기</a>
+        <span class="tag">H1–H2</span>
+        <span class="tag">음질 Voice quality</span>
+        <span class="tag">단서 재편</span>
+        <a class="file-link" href="논문6.pdf" target="_blank">📄 논문6.pdf 열기</a>
       </div>
 
       <h3>한눈에 보기</h3>
       <div class="callout">
         <span class="ttl">핵심 주장</span>
         <p>
-          서울 한국어에서 모음 <strong>/ㅗ/(o)와 /ㅜ/(u)가 점점 가까워지는 합병이 진행 중</strong>이다.
-          세대가 젊을수록 두 모음 사이의 거리가 줄어들며, 이 변화는 <strong>남성보다 여성이,
-          어두보다 비어두(둘째 음절) 위치에서</strong> 더 앞서 나타난다.
+          서울말 /ㅗ/(o)와 /ㅜ/(u)는 특히 여성 화자의 단독발화에서 <strong>F1/F2 포먼트 공간상 거의 겹쳐</strong>
+          보인다. 그런데 지각에서는 두 모음이 여전히 잘 구별된다. 이 논문은 그 이유가 포먼트가 아니라
+          <strong>H1–H2, 즉 제1배음과 제2배음의 진폭 차이로 드러나는 발성/음질 차이</strong>에 있음을
+          보여 준다. 남성은 주로 F1/F2로, 여성은 /ㅗ/–/ㅜ/ 구별에 H1–H2를 활용한다.
         </p>
       </div>
 
       <h3>배경</h3>
       <p>
-        채서영(1999)은 비어두 위치에서 /ㅗ/가 /ㅜ/로 상승하는 변화('하루 &lt; 하로', '모두 &lt; 모도')가
-        진행 중이며, 이것이 음운론적 조건보다 성별·사회계층·연령 같은 사회언어학적 요인의 영향을
-        받는다고 보았다. 여러 음향 연구도 과거에는 뚜렷이 구별되던 /ㅗ/와 /ㅜ/가 최근 들어 가까워졌음을
-        보고했다. 그러나 세대를 가로질러 변화 '과정'을 체계적으로 관찰한 연구는 없었다.
+        선행연구들은 서울말 /ㅗ/와 /ㅜ/가 F1/F2 평면에서 가까워지고, 특히 여성·젊은 화자에게서
+        두 모음이 거의 겹친다고 보고했다. 그러나 지각 실험에서는 두 모음의 정답률이 여전히 높게
+        나타났다. 그렇다면 <strong>포먼트 이외의 다른 음향 단서</strong>가 두 모음을 구별하고 있을
+        가능성이 있다. 이 논문은 그 후보로 기본주파수(f₀)와 H1–H2를 함께 검토한다.
       </p>
 
       <h3>연구 방법</h3>
       <table>
         <tbody>
-          <tr><th>화자</th><td>서울 출생·성장 화자 <strong>36명</strong> — 3개 연령대(20대·30대·40/50대) × 각 12명(남 6, 여 6). 평균 연령 22.8 / 34.8 / 47.4세</td></tr>
-          <tr><th>자극</th><td>한국어 8개 단모음을 V₁CV₂ 구조의 2음절 무의미 단어에 넣어 측정(자음 /p t k/). 틀 문장 "천천히 ___ 하세요"에 삽입</td></tr>
-          <tr><th>측정</th><td>Praat로 각 모음 정상부의 <strong>F1·F2</strong> 추출. /ㅗ/와 /ㅜ/ 사이의 <strong>유클리드 거리</strong> = √[(F2차)²+(F1차)²]</td></tr>
-          <tr><th>분석</th><td>반복측정 분산분석(ANOVA): 연령대 × 음절위치 × 성별. 총 6,912 토큰</td></tr>
+          <tr><th>화자</th><td>서울말 모어 화자 <strong>75명</strong>(1953–1999년생, 녹음 당시 15–61세). 남성 34명, 여성 41명</td></tr>
+          <tr><th>자극</th><td>한국어 8개 단모음 /ㅏ, ㅔ, ㅐ, ㅣ, ㅡ, ㅗ, ㅜ, ㅓ/를 단독발화로 3회씩 읽음. 총 1,800개 모음 토큰</td></tr>
+          <tr><th>측정</th><td>Praat로 모음 안정 구간의 <strong>F1·F2, f₀, H1, H2</strong> 측정. F1/F2/f₀는 화자별 z-score로 정규화</td></tr>
+          <tr><th>비교 대상</th><td>진행 중인 /ㅗ/–/ㅜ/와 이미 합류가 완료된 /ㅔ/–/ㅐ/를 함께 비교해, 진짜 합병과 단서 재편을 구분</td></tr>
         </tbody>
       </table>
       <p class="cite" style="color:var(--soft);font-size:13px;">
-        ※ 유클리드 거리가 <strong>작을수록</strong> 두 모음이 모음공간에서 가깝다(= 합병에 근접)는 뜻이다.
+        ※ H1–H2 값이 크면 상대적으로 breathy voice, 작으면 creaky voice와 관련된다. 즉 이 값은
+        모음의 높이·앞뒤 위치가 아니라 <strong>발성 방식과 음질</strong>을 반영한다.
       </p>
 
       <h3>주요 결과</h3>
+      <h4>① /ㅔ/–/ㅐ/는 어떤 단서로도 구별되지 않는다</h4>
       <ul>
-        <li><strong>여성</strong>: 세대가 젊어질수록 /ㅗ/–/ㅜ/ 거리가 단계적으로 줄어듦. 특히 20대 여성의 거리가 유의하게 짧아, <strong>합병이 가장 앞선 집단</strong>.</li>
-        <li><strong>남성</strong>: 첫 음절에서는 세대 간 차이가 유의하지 않았으나, <strong>둘째 음절(비어두)에서는 남녀 모두 젊을수록 거리가 줄어듦</strong>.</li>
-        <li>전체적으로 변화는 <strong>비어두(둘째 음절) 위치에서 먼저·뚜렷하게</strong> 진행 — 채서영(1999)의 음운론적 관찰과 일치(어두 음절은 강세를 받아 변화가 느림).</li>
-        <li>두 모음은 F1·F2 양쪽에서 가까워졌으며, /ㅗ/가 /ㅜ/ 쪽으로 상승하는지, /ㅜ/가 /ㅗ/ 쪽으로 내려오는지는 이 자료만으로 단정할 수 없음.</li>
+        <li>이미 합류가 완료된 /ㅔ/–/ㅐ/는 남녀 모두 F1/F2, f₀, H1–H2에서 뚜렷한 차이가 없었다.</li>
+        <li>따라서 /ㅔ/–/ㅐ/는 단순히 포먼트만 가까운 것이 아니라, 다른 음향 단서에서도 구별이 사라진 상태로 볼 수 있다.</li>
+      </ul>
+
+      <h4>② 남성의 /ㅗ/–/ㅜ/는 아직 F1/F2로 구별된다</h4>
+      <ul>
+        <li>남성 화자는 생년에 상관없이 /ㅗ/와 /ㅜ/가 F1/F2 공간에서 비교적 잘 분리됐다.</li>
+        <li>반면 H1–H2에서는 남성의 /ㅗ/–/ㅜ/ 차이가 거의 나타나지 않았다.</li>
+        <li>즉 남성은 전통적인 포먼트 단서만으로도 /ㅗ/와 /ㅜ/를 구별할 수 있는 상태다.</li>
+      </ul>
+
+      <h4>③ 여성의 /ㅗ/–/ㅜ/는 F1/F2 대신 H1–H2가 핵심 단서가 된다</h4>
+      <ul>
+        <li>여성 화자의 /ㅗ/–/ㅜ/는 F1/F2 공간에서 상당히 겹쳐, 포먼트만으로는 구별이 어렵다.</li>
+        <li>하지만 여성 화자에게서 /ㅜ/는 /ㅗ/보다 <strong>H1–H2 값이 유의하게 크게</strong> 나타났다.</li>
+        <li>f₀ 차이도 통계적으로는 유의했지만, 두 모음의 분포가 많이 겹쳐 독립적인 구별 단서로는 약했다.</li>
       </ul>
 
       <div class="callout green">
-        <span class="ttl">왜 여성이 앞서는가</span>
+        <span class="ttl">논문 1과 연결되는 지점</span>
         <p>
-          사회언어학에서 여성은 일반적으로 체계적 음변화를 선도하는 경향이 있다(Labov). 아이가 모국어를
-          주로 어머니(주 양육자)에게서 배우므로, 여성이 앞선 형태를 먼저 전달한다는 설명과 부합한다.
-          이 점은 <a href="#p1">논문 1</a>에서 파열음 변화 역시 여성이 선도한 것과 같은 맥락이다.
+          이 논문은 /ㅗ/–/ㅜ/가 단순히 "합쳐졌다/아니다"의 문제가 아니라,
+          <strong>구별을 담당하는 단서가 바뀔 수 있음</strong>을 보여 준다.
+          <a href="#p1">논문 1</a>에서 파열음 구별이 VOT에서 f₀로 재편되는 것처럼,
+          여기서는 여성 화자의 /ㅗ/–/ㅜ/ 구별이 F1/F2 포먼트에서 H1–H2 음질 단서로 보완된다.
         </p>
       </div>
 
       <h3>결론</h3>
       <p>
-        서울 한국어의 /ㅗ/–/ㅜ/ 합병은 <strong>아직 완료되지 않았으나 분명히 진행 중</strong>이며,
-        성별과 음절 위치의 영향을 받는다. 여성·비어두 위치에서 가장 두드러진다.
+        서울말 /ㅗ/–/ㅜ/는 여성 화자의 F1/F2 공간에서 거의 겹치지만, /ㅔ/–/ㅐ/처럼 완전히 합류한 것은
+        아니다. 여성 화자는 두 모음을 구별하기 위해 <strong>H1–H2로 나타나는 발성/음질 차이</strong>를
+        사용한다. 따라서 진행 중인 음변화를 볼 때는 포먼트 하나만 볼 것이 아니라, 어떤 음향 단서가
+        약해지고 어떤 단서가 새로 중요해지는지를 함께 봐야 한다.
       </p>
     </section>
 
@@ -699,12 +723,107 @@
       </p>
     </section>
 
+    <!-- ============ PAPER 5 ============ -->
+    <section class="paper" id="p5">
+      <div class="paper-head">
+        <div class="paper-badge">5</div>
+        <div>
+          <h2>한국어 모음의 표준 포먼트 데이터: 임상 및 교육적 적용을 위한 자료</h2>
+          <p class="cite">
+            <span class="au">김근효(부산대학교병원)·이연우(고신대학교)</span>.
+            <em>Normative Formant Data for Korean Vowels: A Resource for Clinical and Pedagogical Application.</em>
+            <em>Communication Sciences &amp; Disorders</em> 31(1) (2026), pp. 119–129.
+          </p>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <span class="tag">포먼트 F1·F2</span>
+        <span class="tag">VSA</span>
+        <span class="tag">말 명료도 SI</span>
+        <span class="tag">연령·성별 기준선</span>
+        <span class="tag">Praat</span>
+        <a class="file-link" href="논문7.pdf" target="_blank">📄 논문7.pdf 열기</a>
+      </div>
+
+      <h3>한눈에 보기</h3>
+      <div class="callout">
+        <span class="ttl">핵심 주장</span>
+        <p>
+          건강한 한국 성인 <strong>4,235명</strong>의 모음 포먼트와 말 명료도 데이터를 분석해,
+          한국어 모음 음향의 <strong>연령·성별별 표준 기준선</strong>을 제시한다. 나이가 많아질수록
+          모음공간(VSA)이 줄고 말 명료도도 낮아지며, 성별에 따라서도 대부분의 포먼트·VSA 지표가
+          유의하게 달라진다. 특히 다섯 모음 전체를 쓰는 <strong>VSA_5</strong>가 말 명료도와 가장 강하게
+          관련되어, 한국어 말소리 평가의 객관 지표로 유용하다고 주장한다.
+        </p>
+      </div>
+
+      <h3>배경 — 왜 표준 포먼트 자료가 필요한가</h3>
+      <p>
+        앞의 논문들이 특정 음변화나 단서 재편을 다룬다면, 이 논문은 그 변화를 해석할 때 비교할
+        <strong>기준선</strong>을 제공한다. F1과 F2는 혀의 높이·앞뒤 위치와 관련된 핵심 음향 변수이고,
+        VSA(vowel space area)는 여러 모음이 F1/F2 공간에서 얼마나 넓게 퍼져 있는지를 보여 준다.
+        임상에서는 주관적인 말 명료도 평가만으로는 한계가 있으므로, 포먼트와 VSA 같은 객관 지표가
+        보조 기준으로 필요하다.
+      </p>
+
+      <h3>연구 방법</h3>
+      <table>
+        <tbody>
+          <tr><th>대상</th><td>건강한 한국어 모어 화자 <strong>4,235명</strong>. 20–39세, 40–59세, 60세 이상 세 집단으로 구분</td></tr>
+          <tr><th>녹음</th><td>방음 부스에서 다섯 단모음 /a, e, i, o, u/와 문단 읽기 과제를 녹음</td></tr>
+          <tr><th>측정값</th><td>Praat 스크립트로 F1, F2, VSA_3, VSA_4, VSA_5, VAI, FCR, F2 ratio 측정</td></tr>
+          <tr><th>명료도</th><td>임상경력 7년 이상의 언어재활사 3명이 5점 척도로 말 명료도(SI)를 평가</td></tr>
+          <tr><th>분석</th><td>연령 집단 차이는 ANOVA, 성별 차이는 t-test, 음향 지표와 SI의 관계는 Spearman 상관으로 분석</td></tr>
+        </tbody>
+      </table>
+
+      <h3>주요 결과</h3>
+      <h4>① 연령이 높을수록 모음공간과 말 명료도가 감소한다</h4>
+      <ul>
+        <li>F2 ratio를 제외한 모든 변수에서 연령 집단 차이가 유의했다.</li>
+        <li>60세 이상 집단은 젊은 집단보다 VSA가 작고, VAI·FCR 변화도 모음 중앙화(vowel centralization)를 시사했다.</li>
+        <li>말 명료도 점수는 20–39세 평균 1.79에서 60세 이상 평균 2.78로 증가해, 나이가 들수록 명료도가 낮아지는 경향을 보였다.</li>
+      </ul>
+
+      <h4>② 성별 차이가 대부분의 포먼트 지표에서 나타난다</h4>
+      <ul>
+        <li>/o/의 F1을 제외한 모든 변수에서 성별 차이가 유의했다.</li>
+        <li>여성은 남성보다 전반적으로 포먼트 주파수와 VSA가 크게 나타났고, 남성은 상대적으로 모음공간이 좁았다.</li>
+        <li>이는 성도 길이 같은 생리적 차이와 관련되며, 발표 실험에서 인간 화자를 비교할 때 성별을 통제해야 함을 보여 준다.</li>
+      </ul>
+
+      <h4>③ VSA_5가 말 명료도와 가장 강하게 연결된다</h4>
+      <ul>
+        <li>모든 음향 지표가 말 명료도와 유의한 상관을 보였다.</li>
+        <li>세 가지 VSA 지표 중 <strong>VSA_5</strong>가 말 명료도와 가장 강한 상관을 보였다(r = -.56, p &lt; .01).</li>
+        <li>/a, e, i, o, u/ 다섯 모음을 모두 포함하기 때문에 한국어 모음 체계의 조음 범위를 더 넓게 반영한다.</li>
+      </ul>
+
+      <div class="callout green">
+        <span class="ttl">발표와의 연결</span>
+        <p>
+          이 논문은 본 발표에서 측정한 인간·TTS 모음 포먼트가 어느 정도 정상 범위에 가까운지 판단할
+          <strong>비교 기준</strong>을 제공한다. 특히 AI 음성의 자연성을 평가할 때, 단순히 듣기에 좋은지를
+          넘어서 인간 화자의 연령·성별별 F1/F2 분포와 VSA 범위를 얼마나 따르는지 확인할 수 있다.
+        </p>
+      </div>
+
+      <h3>결론</h3>
+      <p>
+        한국어 모음 포먼트와 말 명료도는 연령과 성별의 영향을 크게 받는다. 따라서 인간 음성과 AI 음성을
+        비교할 때는 하나의 평균값만 기준으로 삼기보다, <strong>연령·성별별 표준 분포</strong>를 고려해야 한다.
+        VSA_5는 한국어 말 명료도와 연결되는 유용한 객관 지표로, 발표 실험의 포먼트 분석을 해석하는
+        기준선 역할을 할 수 있다.
+      </p>
+    </section>
+
     <!-- ============ SYNTHESIS ============ -->
     <section class="paper synth" id="synthesis">
       <div class="paper-head">
         <div class="paper-badge" style="background:var(--green);">✦</div>
         <div>
-          <h2>네 논문이 함께 말하는 것 — 그리고 AI 음성과의 연결</h2>
+          <h2>다섯 논문이 함께 말하는 것 — 그리고 AI 음성과의 연결</h2>
           <p class="cite">발표 주제와의 접점 정리</p>
         </div>
       </div>
@@ -714,16 +833,16 @@
         앞의 세 논문은 각각 <strong>자음(파열음)</strong>, <strong>후설모음(/ㅗ–ㅜ/)</strong>,
         <strong>전설모음(/ㅔ–ㅐ/)</strong>이라는 서로 다른 영역에서 진행 중인 소리 변화를 보여 준다.
         네 번째 논문은 이 변화가 인간 발화에만 머무르지 않고, 인간 음성을 학습한
-        <strong>TTS 시스템의 출력</strong>에도 일부 반영되는지를 확인한다. 공통적으로 변화는
-        <strong>여성과 젊은 세대가 선도</strong>하며, 음향 단서의 분포 변화로 포착된다.
+        <strong>TTS 시스템의 출력</strong>에도 일부 반영되는지를 확인한다. 다섯 번째 논문은 이런 측정값을
+        해석할 때 필요한 <strong>대규모 한국어 모음 기준선</strong>을 제공한다.
       </p>
 
       <h3>② '단서의 재편'이라는 공통 메커니즘</h3>
       <p>
         논문 1이 가장 선명하게 보여 주듯, 음변화는 단순히 한 단서가 사라지는 것이 아니라
         <strong>대립을 지탱하는 단서의 무게중심이 옮겨가는 과정</strong>이다. 평음–격음 대립이
-        VOT(시간 단서)에서 f₀(음높이 단서)로 재편되는 것처럼, 모음 합병도 포먼트 공간에서
-        두 점이 서서히 한 점으로 수렴한다.
+        VOT(시간 단서)에서 f₀(음높이 단서)로 재편되는 것처럼, /ㅗ/–/ㅜ/ 구별도 F1/F2 포먼트가
+        약해진 자리에서 H1–H2 같은 음질 단서가 보완적으로 중요해질 수 있다.
       </p>
 
       <h3>③ AI 음성(TTS)과의 접점</h3>
@@ -731,26 +850,28 @@
         <span class="ttl">왜 이 논문들이 'AI 음성 vs 인간 음성' 발표에 필요한가</span>
         <p>
           TTS/음성 합성 모델은 대량의 인간 음성 데이터를 학습한다. 그런데 그 데이터에는
-          <strong>위 논문들이 측정한 바로 그 변이</strong>(세대·성별에 따른 VOT·f₀ 분포, 모음 합병 정도)가
+          <strong>위 논문들이 측정한 바로 그 변이</strong>(세대·성별에 따른 VOT·f₀ 분포, 모음의 단서 재편)가
           담겨 있다. 따라서 AI 음성을 인간 음성과 비교·평가할 때는, 단순히 "자연스러운가"가 아니라
           <strong>VOT·f₀ 같은 미세 음향 단서를 인간 화자의 분포만큼 재현하는가</strong>,
           그리고 <strong>진행 중인 음변화(어느 세대의 발음인가)를 반영하는가</strong>를 함께 따져야 한다.
           특히 Kang·Kim (2026)은 이 질문을 TTS 음성 자체에 적용해, AI가 VOT 합병과 f₀ 단서 재편을
           <strong>부분적으로는 반영하지만 인간 젊은 화자만큼 완전히 따라가지는 못한다</strong>는
           근거를 제공한다. 본 발표의 VOT·f₀ 측정 실험은 이 논문들이 제시한 측정 틀(Praat 기반
-          VOT·f₀ 측정, 포먼트 거리)을 그대로 차용한다.
+          VOT·f₀ 측정, 포먼트 거리)을 그대로 차용한다. 여기에 김근효·이연우 (2026)의 표준 포먼트 자료는
+          인간·AI 모음 측정값을 해석할 비교 기준선으로 쓰일 수 있다.
         </p>
       </div>
 
       <table>
         <thead>
-          <tr><th>논문</th><th>변하는 대상</th><th>핵심 음향 단서</th><th>변화를 선도하는 집단</th></tr>
+          <tr><th>논문</th><th>다루는 대상</th><th>핵심 음향 단서</th><th>발표에서의 역할</th></tr>
         </thead>
         <tbody>
-          <tr><td>1 · Kang (2014)</td><td>평음·격음 파열음</td><td>VOT → f₀</td><td>젊은 여성</td></tr>
-          <tr><td>2 · 한·강 (2013)</td><td>/ㅗ/–/ㅜ/ 모음</td><td>F1·F2(포먼트 거리)</td><td>여성, 비어두 위치</td></tr>
-          <tr><td>3 · Eychenne·장 (2015)</td><td>/ㅔ/–/ㅐ/ 모음</td><td>F1(높이) + 기능부담량</td><td>젊은 세대 전반</td></tr>
-          <tr><td>4 · Kang·Kim (2026)</td><td>인간 vs TTS 파열음</td><td>VOT 합병 + f₀ 단서 재편</td><td>젊은 인간 화자, 부분적으로 젊은 TTS</td></tr>
+          <tr><td>1 · Kang (2014)</td><td>평음·격음 파열음</td><td>VOT → f₀</td><td>파열음 음변화의 이론적 기준</td></tr>
+          <tr><td>2 · 변희경 (2018)</td><td>/ㅗ/–/ㅜ/ 모음</td><td>F1·F2 → H1–H2</td><td>모음 구별의 단서 재편 사례</td></tr>
+          <tr><td>3 · Eychenne·장 (2015)</td><td>/ㅔ/–/ㅐ/ 모음</td><td>F1(높이) + 기능부담량</td><td>완료된 모음 합병 사례</td></tr>
+          <tr><td>4 · Kang·Kim (2026)</td><td>인간 vs TTS 파열음</td><td>VOT 합병 + f₀ 단서 재편</td><td>AI 음성 비교의 직접 근거</td></tr>
+          <tr><td>5 · 김·이 (2026)</td><td>한국어 모음 기준선</td><td>F1·F2, VSA_5, SI</td><td>포먼트 분석의 표준 비교값</td></tr>
         </tbody>
       </table>
     </section>
@@ -771,9 +892,9 @@
           <br><a class="doi" href="논문1.pdf" target="_blank">▶ 논문1.pdf</a>
         </li>
         <li>
-          한정임(Han, Jeong-Im)·강현숙(Kang, Hyunsook). <em>Cross-generational Change of /o/ and /u/ in Seoul Korean I: Proximity in Vowel Space.</em>
-          <em>말소리와 음성과학(Journal of the Korean Society of Speech Sciences)</em> 제5권 2호 (2013), pp. 25–31. ISSN 2005-8063.
-          <br><span class="doi">DOI: 10.13064/KSSS.2013.5.2.025</span> · <a class="doi" href="논문2.pdf" target="_blank">▶ 논문2.pdf</a>
+          변희경(Byun, Hi-Gyung). <em>Acoustic parameters that differentiate /o/ from /u/ in Seoul Korean.</em>
+          <em>말소리와 음성과학(Phonetics and Speech Sciences)</em> 제10권 2호 (2018), pp. 15–24. ISSN 2005-8063.
+          <br><span class="doi">DOI: 10.13064/KSSS.2018.10.2.015</span> · <a class="doi" href="논문6.pdf" target="_blank">▶ 논문6.pdf</a>
         </li>
         <li>
           Eychenne, Julien·장태엽(Jang, Tae-Yeoub). <em>On the Merger of Korean Mid Front Vowels: Phonetic and Phonological Evidence.</em>
@@ -784,6 +905,11 @@
           Kang, Yein·Kim, Jonny Jungyun. <em>Does AI reflect sound change? A comparison of human and TTS production of Korean stops.</em>
           <em>Linguistic Research</em> 43(1) (2026), pp. 105–140. Pusan National University.
           <br><span class="doi">DOI: 10.17250/khisli.43.1.202603.004</span> · <a class="doi" href="논문5.pdf" target="_blank">▶ 논문5.pdf</a>
+        </li>
+        <li>
+          Kim, Geun-Hyo·Lee, Yeon-Woo. <em>Normative Formant Data for Korean Vowels: A Resource for Clinical and Pedagogical Application.</em>
+          <em>Communication Sciences &amp; Disorders</em> 31(1) (2026), pp. 119–129.
+          <br><span class="doi">DOI: 10.12963/csd.260197</span> · <a class="doi" href="논문7.pdf" target="_blank">▶ 논문7.pdf</a>
         </li>
       </ol>
       <p class="footer-note">언어와 생활 탐구 · 발표 심화 자료 · 본 페이지의 요약은 위 원문을 토대로 작성됨</p>

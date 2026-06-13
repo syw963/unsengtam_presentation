@@ -31,74 +31,58 @@
   <div class="slide" id="slide-2">
     <div class="slide-header">
       <span class="chapter-label">발표 개요</span>
-      <span class="page-num">2 / 22</span>
+      <span class="page-num">2 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">목차</h1>
     </div>
-    <div class="content-zone top-210">
-      <div class="cols grow" style="gap:24px 48px;align-items:stretch;">
-        <div class="col" style="display:flex;flex-direction:column;gap:14px;">
-          <div style="display:flex;align-items:baseline;gap:25px;">
-            <span style="font-size:36px;font-weight:800;color:var(--c-accent);min-width:36px;">01</span>
-            <div>
-              <div style="font-size:35px;font-weight:700;color:var(--c-ink);">발표 개요</div>
-              <div style="font-size:21px;color:var(--c-muted);margin-top:2px; margin-bottom:30px;">연구 질문 · 측정 항목 소개</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:baseline;gap:25px;">
-            <span style="font-size:36px;font-weight:800;color:var(--c-accent);min-width:36px;">02</span>
-            <div>
-              <div style="font-size:35px;font-weight:700;color:var(--c-ink);">음성학 기초</div>
-              <div style="font-size:21px;color:var(--c-muted);margin-top:2px; margin-bottom:30px;">소리 · f₀ · 포먼트 · 스펙트로그램</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:baseline;gap:25px;">
-            <span style="font-size:36px;font-weight:800;color:var(--c-accent);min-width:36px;">03</span>
-            <div>
-              <div style="font-size:35px;font-weight:700;color:var(--c-ink);">한국어 파열음</div>
-              <div style="font-size:21px;color:var(--c-muted);margin-top:2px; margin-bottom:30px;">자음 시간 구조 · VOT</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:baseline;gap:25px;">
-            <span style="font-size:36px;font-weight:800;color:var(--c-accent);min-width:36px;">04</span>
-            <div>
-              <div style="font-size:35px;font-weight:700;color:var(--c-ink);">TTS 음성 합성</div>
-              <div style="font-size:21px;color:var(--c-muted);margin-top:2px; margin-bottom:30px;">신경망 합성 방식과 특성</div>
-            </div>
-          </div>
+    <div class="content-zone top-210" style="gap:16px;">
+      <div class="note" style="font-size:30px;line-height:1.4;">
+        왜 어떤 AI 음성은 발음이 정확해도 <strong>어색하게</strong> 들릴까? — 이 발표는 그 차이를 <strong class="txt-accent">음향 신호</strong>로 추적한다.
+      </div>
+
+      <!-- STEP 1 -->
+      <div style="flex:1;display:flex;align-items:center;gap:28px;">
+        <div style="flex:0 0 320px;">
+          <div style="font-size:25px;font-weight:600;letter-spacing:0.05em;color:var(--c-accent);">STEP 1 · 배경 · 이론</div>
+          <div style="font-size:37px;font-weight:700;color:var(--c-ink);margin-top:5px;">음성 분석 방법</div>
         </div>
-        <div class="col" style="display:flex;flex-direction:column;gap:14px;">
-          <div style="display:flex;align-items:baseline;gap:25px;">
-            <span style="font-size:36px;font-weight:800;color:var(--c-accent);min-width:36px;">05</span>
-            <div>
-              <div style="font-size:35px;font-weight:700;color:var(--c-ink);">실험 설계</div>
-              <div style="font-size:21px;color:var(--c-muted);margin-top:2px; margin-bottom:30px;">녹음 · Praat 분석 방법</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:baseline;gap:25px;">
-            <span style="font-size:36px;font-weight:800;color:var(--c-accent);min-width:36px;">06</span>
-            <div>
-              <div style="font-size:35px;font-weight:700;color:var(--c-ink);">비교 분석</div>
-              <div style="font-size:21px;color:var(--c-muted);margin-top:2px; margin-bottom:30px;">VOT · f₀ · 모음 포먼트 · 스펙트로그램</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:baseline;gap:25px;">
-            <span style="font-size:36px;font-weight:800;color:var(--c-accent);min-width:36px;">07</span>
-            <div>
-              <div style="font-size:35px;font-weight:700;color:var(--c-ink);">확장</div>
-              <div style="font-size:21px;color:var(--c-muted);margin-top:2px; margin-bottom:30px;">문장 단위 자연성의 문제</div>
-            </div>
-          </div>
-          <div style="display:flex;align-items:baseline;gap:25px;">
-            <span style="font-size:36px;font-weight:800;color:var(--c-accent);min-width:36px;">08</span>
-            <div>
-              <div style="font-size:35px;font-weight:700;color:var(--c-ink);">결론</div>
-              <div style="font-size:21px;color:var(--c-muted);margin-top:2px; margin-bottom:30px;">AI 음성 자연성의 의미</div>
-            </div>
-          </div>
+        <div style="flex:1;display:flex;gap:14px;">
+          <div style="flex:1;border:1px solid var(--c-border);border-radius:14px;padding:16px 20px;background:var(--c-white);"><div style="font-size:23px;font-weight:800;color:var(--c-accent);">01</div><div style="font-size:31px;font-weight:700;color:var(--c-ink);margin-top:3px;">개요</div><div style="font-size:22px;color:var(--c-muted);margin-top:3px;">연구 질문</div></div>
+          <div style="flex:1;border:1px solid var(--c-border);border-radius:14px;padding:16px 20px;background:var(--c-white);"><div style="font-size:23px;font-weight:800;color:var(--c-accent);">02</div><div style="font-size:31px;font-weight:700;color:var(--c-ink);margin-top:3px;">음성학 기초</div><div style="font-size:22px;color:var(--c-muted);margin-top:3px;">소리·f₀·포먼트·스펙트로그램</div></div>
+          <div style="flex:1;border:1px solid var(--c-border);border-radius:14px;padding:16px 20px;background:var(--c-white);"><div style="font-size:23px;font-weight:800;color:var(--c-accent);">03</div><div style="font-size:31px;font-weight:700;color:var(--c-ink);margin-top:3px;">한국어 파열음</div><div style="font-size:22px;color:var(--c-muted);margin-top:3px;">VOT · f₀</div></div>
+          <div style="flex:1;border:1px solid var(--c-border);border-radius:14px;padding:16px 20px;background:var(--c-white);"><div style="font-size:23px;font-weight:800;color:var(--c-accent);">04</div><div style="font-size:31px;font-weight:700;color:var(--c-ink);margin-top:3px;">TTS 음성 합성</div><div style="font-size:22px;color:var(--c-muted);margin-top:3px;">신경망 합성 방식</div></div>
         </div>
       </div>
+
+      <div style="text-align:center;font-size:30px;color:var(--c-accent);line-height:0.6;">↓</div>
+
+      <!-- STEP 2 -->
+      <div style="flex:1;display:flex;align-items:center;gap:28px;">
+        <div style="flex:0 0 320px;">
+          <div style="font-size:25px;font-weight:600;letter-spacing:0.05em;color:var(--c-accent);">STEP 2 · 실험 · 비교 <span style="color:var(--c-ink)">★</span></div>
+          <div style="font-size:37px;font-weight:700;color:var(--c-ink);margin-top:5px;">공통점과 차이점</div>
+        </div>
+        <div style="flex:1;display:flex;gap:14px;">
+          <div style="flex:1;border:1px solid var(--c-border);border-radius:14px;padding:16px 20px;background:var(--c-white);"><div style="font-size:23px;font-weight:800;color:var(--c-accent);">05</div><div style="font-size:31px;font-weight:700;color:var(--c-ink);margin-top:3px;">실험 설계</div><div style="font-size:22px;color:var(--c-muted);margin-top:3px;">녹음 · Praat 측정</div></div>
+          <div style="flex:2.2;border:1.5px solid var(--c-accent);border-radius:14px;padding:16px 20px;background:var(--c-white);"><div style="font-size:23px;font-weight:800;color:var(--c-accent);">06 <span style="font-weight:600;">· 발표의 핵심</span></div><div style="font-size:31px;font-weight:700;color:var(--c-ink);margin-top:3px;">비교 분석</div><div style="font-size:22px;color:var(--c-muted);margin-top:3px;">VOT · f₀ · 모음 공간 · 스펙트로그램 — 각 항목을 선행연구와 대조</div></div>
+        </div>
+      </div>
+
+      <div style="text-align:center;font-size:30px;color:var(--c-accent);line-height:0.6;">↓</div>
+
+      <!-- STEP 3 -->
+      <div style="flex:1;display:flex;align-items:center;gap:28px;">
+        <div style="flex:0 0 320px;">
+          <div style="font-size:25px;font-weight:600;letter-spacing:0.05em;color:var(--c-accent);">STEP 3 · 해석 · 결론</div>
+          <div style="font-size:37px;font-weight:700;color:var(--c-ink);margin-top:5px;">결과의 의미</div>
+        </div>
+        <div style="flex:1;display:flex;gap:14px;">
+          <div style="flex:1;border:1px solid var(--c-border);border-radius:14px;padding:16px 20px;background:var(--c-white);"><div style="font-size:23px;font-weight:800;color:var(--c-accent);">07</div><div style="font-size:31px;font-weight:700;color:var(--c-ink);margin-top:3px;">확장</div><div style="font-size:22px;color:var(--c-muted);margin-top:3px;">문장 단위 자연성의 문제</div></div>
+          <div style="flex:1;border:1px solid var(--c-border);border-radius:14px;padding:16px 20px;background:var(--c-white);"><div style="font-size:23px;font-weight:800;color:var(--c-accent);">08</div><div style="font-size:31px;font-weight:700;color:var(--c-ink);margin-top:3px;">결론</div><div style="font-size:22px;color:var(--c-muted);margin-top:3px;">AI 음성 자연성의 의미</div></div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -106,7 +90,7 @@
   <div class="slide" id="slide-3">
     <div class="slide-header">
       <span class="chapter-label">발표 개요</span>
-      <span class="page-num">3 / 22</span>
+      <span class="page-num">3 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">개요</h1>
@@ -148,7 +132,7 @@
   <div class="slide" id="slide-4">
     <div class="slide-header">
       <span class="chapter-label">음성학 기초</span>
-      <span class="page-num">4 / 22</span>
+      <span class="page-num">4 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">소리 = 공기의 진동</h1>
@@ -190,7 +174,7 @@
   <div class="slide" id="slide-5">
     <div class="slide-header">
       <span class="chapter-label">음성학 기초</span>
-      <span class="page-num">5 / 22</span>
+      <span class="page-num">5 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">인간 음성 = 성대 진동 + 성도 공명</h1>
@@ -238,7 +222,7 @@
   <div class="slide" id="slide-6">
     <div class="slide-header">
       <span class="chapter-label">음성학 기초</span>
-      <span class="page-num">6 / 22</span>
+      <span class="page-num">6 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">\(f_0\)와 배음: 목소리의 높이와 음색</h1>
@@ -277,7 +261,7 @@
   <div class="slide" id="slide-7">
     <div class="slide-header">
       <span class="chapter-label">음성학 기초</span>
-      <span class="page-num">7 / 22</span>
+      <span class="page-num">7 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">포먼트: 모음을 구별하게 하는 공명 주파수</h1>
@@ -335,7 +319,7 @@
   <div class="slide" id="slide-8">
     <div class="slide-header">
       <span class="chapter-label">음성학 기초</span>
-      <span class="page-num">8 / 22</span>
+      <span class="page-num">8 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">스펙트로그램: 소리를 그림으로 보는 방법</h1>
@@ -383,7 +367,7 @@
   <div class="slide" id="slide-9">
     <div class="slide-header">
       <span class="chapter-label">한국어 파열음</span>
-      <span class="page-num">9 / 22</span>
+      <span class="page-num">9 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">한국어 파열음에서 시간 구조와 기본 주파수</h1>
@@ -421,7 +405,7 @@
   <div class="slide" id="slide-10">
     <div class="slide-header">
       <span class="chapter-label">한국어 파열음</span>
-      <span class="page-num">10 / 22</span>
+      <span class="page-num">10 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">VOT: 자음이 터지고 성대가 울리기까지의 시간</h1>
@@ -469,7 +453,7 @@
   <div class="slide" id="slide-11">
     <div class="slide-header">
       <span class="chapter-label">TTS 음성 합성</span>
-      <span class="page-num">11 / 22</span>
+      <span class="page-num">11 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">TTS의 음성 합성 방식과 특성</h1>
@@ -532,25 +516,26 @@
   <div class="slide" id="slide-12">
     <div class="slide-header">
       <span class="chapter-label">실험 설계</span>
-      <span class="page-num">12 / 22</span>
+      <span class="page-num">12 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">인간 음성과 TTS 음성 비교 실험</h1>
     </div>
     <div class="content-zone top-210" style="gap:20px;">
       <div class="cols grow">
-        <div class="col" style="flex: 0 0 40%;">
-          <table class="class-table">
+        <div class="col" style="flex: 0 0 50%;">
+          <table class="class-table sm">
             <thead><tr><th style="width:30%">구분</th><th>내용</th></tr></thead>
             <tbody>
               <tr><td class="row-label col-human">인간1</td><td>직접 녹음 (화자 A)</td></tr>
               <tr><td class="row-label col-human2">인간2</td><td>직접 녹음 (화자 B)</td></tr>
               <tr><td class="row-label col-tts">TTS</td><td>1개 TTS 엔진(NAVER CLOVA)</td></tr>
+              <tr><td class="row-label">화자 성별</td><td>모두 남성으로 한정</tr>
               <tr><td class="row-label">분석 도구</td><td>Praat</td></tr>
               <tr><td class="row-label">반복 측정</td><td>2명이 각 단어 3회 측정</td></tr>
             </tbody>
           </table>
-          <table class="class-table">
+          <table class="class-table sm">
             <thead><tr><th style="width:40%">분석 항목</th><th>단어</th></tr></thead>
             <tbody>
               <tr><td class="row-label">파열음 — VOT · \(f_0\)</td><td>바, 파, 빠</td></tr>
@@ -592,7 +577,7 @@
   <div class="slide" id="slide-13">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">13 / 22</span>
+      <span class="page-num">13 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">VOT 측정</h1>
@@ -649,7 +634,7 @@
   <div class="slide" id="slide-14">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">14 / 22</span>
+      <span class="page-num">14 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">\(f_0\) 측정</h1>
@@ -706,7 +691,7 @@
   <div class="slide" id="slide-15">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">15 / 22</span>
+      <span class="page-num">15 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">인간 음성과 TTS의 VOT 비교</h1>
@@ -770,7 +755,7 @@
   <div class="slide" id="slide-16">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">16 / 22</span>
+      <span class="page-num">16 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">인간 음성과 TTS의 \(f_0\) 비교</h1>
@@ -825,7 +810,7 @@
   <div class="slide" id="slide-17">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">17 / 22</span>
+      <span class="page-num">17 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">선행연구와의 비교: 발음 방식과 위치 효과</h1>
@@ -869,7 +854,7 @@
   <div class="slide" id="slide-18">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">18 / 22</span>
+      <span class="page-num">18 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">모음 공간 비교: TTS vs 인간</h1>
@@ -898,6 +883,7 @@
             • 두 인간과 TTS 모두 ㅔ,ㅐ를 거의 구분하지 않고 발음함.<br>
             • 인간이 TTS보다 비교적 더 넓은 F1, F2 범위를 사용해서 발음함.<br>
             • ㅗ,ㅜ 발음이 거의 동일하게 나타남.
+            <div class="txt-muted" style="font-size:23px;margin-top:8px;line-height:1.35;">※ 화자마다 성도 길이가 달라, 절대 포먼트값이 아닌 <strong>모음 공간의 상대적 배치(모양)</strong>로 비교함.</div>
           </div>
         </div>
         <div style="flex:1;min-width:0">
@@ -937,11 +923,48 @@
     </div>
   </div>
 
-  <!-- ===================== 슬라이드 17 — 비교 4: 스펙트로그램 ===================== -->
+  <!-- ===================== 슬라이드 19 — 모음 선행연구 비교 ===================== -->
   <div class="slide" id="slide-19">
     <div class="slide-header">
       <span class="chapter-label">비교 분석</span>
-      <span class="page-num">19 / 22</span>
+      <span class="page-num">19 / 23</span>
+    </div>
+    <div class="title-zone">
+      <h1 class="slide-title">모음 분석과 선행연구: 합류와 모음 공간</h1>
+    </div>
+    <div class="content-zone top-210" style="gap:18px;">
+      <div class="note">
+        본 발표의 모음 결과(슬라이드 18)는 한국어 모음 변화를 다룬 <strong class="txt-accent">선행연구 3편</strong>과 그대로 맞물린다.
+      </div>
+      <table class="class-table">
+        <thead><tr><th style="width:34%">본 발표 관찰</th><th>선행연구 근거</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="row-label">ㅔ·ㅐ를 거의 구분하지 않음</td>
+            <td>현대 서울말에서 <strong>/ㅔ-ㅐ/ 합류</strong>가 (특히 젊은 세대에서) 완료 단계 <span class="txt-muted">(Eychenne·장태엽 2015)</span></td>
+          </tr>
+          <tr>
+            <td class="row-label">ㅗ·ㅜ가 거의 동일</td>
+            <td>F1/F2가 겹쳐도 <strong>H1–H2</strong>(제1·2배음 진폭차 = 음질)로 구별 가능 → <strong>포먼트 합류 ≠ 발음 합류</strong> <span class="txt-muted">(변희경 2018)</span></td>
+          </tr>
+          <tr>
+            <td class="row-label">TTS 모음 공간이 인간보다 좁음</td>
+            <td><strong>모음 공간(VSA) 축소·중앙화</strong>는 발화 명료도(SI) 저하와 연결됨 <span class="txt-muted">(김근효·이연우 2026, 화자 4,235명)</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="box box-blue">
+        <div class="box-title">종합 — 한국어는 단서를 재배치한다</div>
+        <div class="box-body sm">파열음은 <strong>VOT→\(f_0\)</strong>(슬라이드 17), 모음은 <strong>F1/F2→H1–H2</strong>로 대립을 옮겨 유지함. TTS가 이 <strong>숨은 보상 단서</strong>까지 재현하는지가 자연성의 관건.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== 슬라이드 20 — 비교 4: 스펙트로그램 ===================== -->
+  <div class="slide" id="slide-20">
+    <div class="slide-header">
+      <span class="chapter-label">비교 분석</span>
+      <span class="page-num">20 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">스펙트로그램에서 보이는 인간 음성과 TTS의 차이</h1>
@@ -957,22 +980,16 @@
               <tr><td class="row-label">포먼트</td><td>어두운 에너지 띠</td></tr>
             </tbody>
           </table>
-          <div class="box box-red">
-            <div class="box-title">유의</div>
-            <div class="box-body sm">
-              차이는 TTS엔진·설정·압축에 따라 달라질 수 있음.
-              "AI 음성은 무조건 고주파가 부족하다"고 단정 못함.
-            </div>
-          </div>
           <div class="box box-gray">
-            <div class="box-title">추가 지표</div>
+            <div class="box-title">추가로 측정·비교할 수 있는 항목 (후속)</div>
             <table class="class-table sm" style="margin-top:4px;">
               <tbody>
                 <tr><td class="row-label">Jitter</td><td>주기 간 \(f_0\) 변동률</td></tr>
                 <tr><td class="row-label">Shimmer</td><td>주기 간 진폭 변동률</td></tr>
+                <tr><td class="row-label">Spectral tilt</td><td>고주파로 갈수록 에너지가 줄어드는 정도</td></tr>
               </tbody>
             </table>
-            <div class="box-body sm" style="margin-top:4px;">인간 목소리는 미세한 불규칙성이 있으며, TTS는 이를 재현하지 못할 수 있음.</div>
+            <div class="box-body sm" style="margin-top:4px;">인간 목소리의 미세한 불규칙성을 TTS가 재현하는지는 <strong>본 발표에서 정량 측정하지 않았으며, 후속 측정으로 비교 가능</strong>.</div>
           </div>
         </div>
         <div class="col">
@@ -1000,10 +1017,10 @@
   </div>
 
   <!-- ===================== 슬라이드 18 — 문장 단위 확장 ===================== -->
-  <div class="slide" id="slide-20">
+  <div class="slide" id="slide-21">
     <div class="slide-header">
       <span class="chapter-label">확장</span>
-      <span class="page-num">20 / 22</span>
+      <span class="page-num">21 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">문장 자연성의 문제</h1>
@@ -1017,11 +1034,11 @@
             <li>한국어 TTS 연구에서는 휴지 오류가 발화 해석과 품질에 영향을 준다고 보고됨.</li>
           </ul>
           <div class="box box-blue">
-            <div class="box-title">확장 방향</div>
+            <div class="box-title">추가로 측정·비교할 수 있는 영역</div>
             <ul class="bullet-list sm" style="margin-top:4px;">
-              <li>문장 단위 pitch contour 비교</li>
+              <li>문장 단위 pitch contour 비교 (휴지·억양)</li>
               <li>운율 경계·휴지 위치 분석</li>
-              <li>MOS(Mean Opinion Score) 청취 평가와 음향 지표 상관 분석</li>
+              <li>MOS 청취 평가 ↔ 음향 지표 상관 분석 <span class="txt-muted">(어색함의 직접 측정)</span></li>
             </ul>
           </div>
         </div>
@@ -1050,17 +1067,17 @@
   </div>
 
   <!-- ===================== 슬라이드 19 — 결론 ===================== -->
-  <div class="slide" id="slide-21">
+  <div class="slide" id="slide-22">
     <div class="slide-header">
       <span class="chapter-label">결론</span>
-      <span class="page-num">21 / 22</span>
+      <span class="page-num">22 / 23</span>
     </div>
     <div class="title-zone">
       <h1 class="slide-title">AI 음성의 자연성은 물리적 신호 재현의 문제</h1>
     </div>
     <div class="content-zone top-210">
       <div class="cols grow">
-        <div class="col" style="flex: 0 0 75%;">
+        <div class="col" style="flex: 0 0 100%;">
           <div class="box box-green">
             <div class="box-title">결과 요약</div>
             <ul class="bullet-list sm" style="margin-top:6px;">
@@ -1071,38 +1088,23 @@
           <div class="box box-green">
             <div class="box-title">결론</div>
             <ul class="bullet-list sm" style="margin-top:6px;">
-              <li>TTS는 한국어의 음향 단서를 인간과 <strong>다른 비중으로 재현</strong>. 어색함의 원인일 수 있음.</li>
-              <li>TTS 발음에서 나타나는 특성(VOT보다 \(f_0\)에 의존, ㅐ/ㅔ 발음 합류)는 TTS가 현대 한국어의 변화를 학습한 것으로 보임.</li>
+              <li>TTS는 한국어의 음향 단서를 인간과 <strong>다른 비중으로 재현</strong>. 이 음향 차이가 <strong>어색함과 관련될 수 있음</strong> — 단, 본 발표는 음향 차이를 <strong>기술</strong>한 것이며 어색함 유발 여부는 청취 평가로 검증해야 함.</li>
+              <li>VOT보다 \(f_0\)에 의존, ㅐ/ㅔ 합류 같은 특성은 <strong>학습 데이터의 현대 한국어 발음 경향이 반영된 결과</strong>로 해석됨.</li>
             </ul>
           </div>
           <div class="box box-red">
             <div class="box-title">한계</div>
             <ul class="bullet-list sm" style="margin-top:6px;">
-              <li>실험에 사용된 표본이 매우 적기 때문에 하나의 사례로 보는 것이 적절함.</li>
+              <li>인간 2명 · TTS 1개 목소리(<strong>모두 남성</strong>)의 소규모 <strong>사례 분석(case study)</strong>이며, 통계 검정 없이 경향만 제시 — 다른 성별·화자로의 일반화에는 한계.</li>
               <li>spectral tilt, jitter·shimmer 같은 미세 음향 특성의 정량 분석, 문장 단위 운율(휴지·억양) 비교는 후속 과제임.</li>
             </ul>
-          </div>
-        </div>
-        <div class="col">
-          <div class="flow-col grow" style="justify-content:center;">
-            <div class="flow-node">소리는 파동</div>
-            <div class="flow-arrow-v">↓</div>
-            <div class="flow-node">소스-필터 이론으로 음성 생성</div>
-            <div class="flow-arrow-v">↓</div>
-            <div class="flow-node">\(f_0\) · 배음 · 포먼트 · VOT로 측정</div>
-            <div class="flow-arrow-v">↓</div>
-            <div class="flow-node">TTS도 최종적으로 음성 파형을 만듦</div>
-            <div class="flow-arrow-v">↓</div>
-            <div class="flow-node accent">같은 물리적 기준으로 비교 가능</div>
-            <div class="flow-arrow-v">↓</div>
-            <div class="flow-node dark">바/파/빠, ㅐ/ㅔ가 좋은 분석 대상</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="slide slide-outro" id="slide-22">
+  <div class="slide slide-outro" id="slide-23">
     <div class="outro-inner">
       <div class="outro-main" aria-label="감사합니다">
         <span>감</span><span class="secret-syllable">사<a class="secret-deep-dive-link" href="deep-dive.html" aria-label="심화 자료 페이지로 이동"></a></span><span>합니다</span>
@@ -1119,7 +1121,7 @@
 <!-- Navigation Bar -->
 <div id="nav-bar">
   <button id="btn-prev">◀</button>
-  <span id="slide-counter">1 / 22</span>
+  <span id="slide-counter">1 / 23</span>
   <button id="btn-next">▶</button>
 </div>
 
