@@ -953,9 +953,48 @@
           </tr>
         </tbody>
       </table>
-      <div class="box box-blue">
-        <div class="box-title">종합 — 한국어는 단서를 재배치한다</div>
-        <div class="box-body sm">파열음은 <strong>VOT→\(f_0\)</strong>(슬라이드 17), 모음은 <strong>F1/F2→H1–H2</strong>로 대립을 옮겨 유지함. TTS가 이 <strong>숨은 보상 단서</strong>까지 재현하는지가 자연성의 관건.</div>
+      <div class="cols" style="gap:30px;align-items:center;margin-top:4px;">
+        <div style="flex:0 0 45%;">
+          <svg viewBox="0 0 745 290" style="width:100%;height:auto;" role="img" aria-label="H1, H2 배음 진폭 차이 모식도">
+            <!-- Panel A: breathy (H1 ≫ H2) -->
+            <g>
+              <text x="172" y="24" text-anchor="middle" font-size="22" font-weight="700" fill="var(--c-accent)">H1 ≫ H2</text>
+              <line x1="24" y1="235" x2="322" y2="235" stroke="#b8c4d2" stroke-width="1.5"/>
+              <rect x="44"  y="85"  width="26" height="150" fill="var(--c-accent)"/>
+              <rect x="92"  y="137" width="26" height="98"  fill="var(--c-accent)"/>
+              <rect x="140" y="161" width="26" height="74"  fill="#cad7e7"/>
+              <rect x="188" y="179" width="26" height="56"  fill="#cad7e7"/>
+              <rect x="236" y="194" width="26" height="41"  fill="#cad7e7"/>
+              <rect x="284" y="205" width="26" height="30"  fill="#cad7e7"/>
+              <text x="57"  y="257" text-anchor="middle" font-size="18" fill="var(--c-muted)">H1</text>
+              <text x="105" y="257" text-anchor="middle" font-size="18" fill="var(--c-muted)">H2</text>
+              <text x="172" y="281" text-anchor="middle" font-size="18" fill="var(--c-muted)">숨 섞인 소리 (breathy)</text>
+            </g>
+            <!-- Panel B: tense (H1 ≈ H2) -->
+            <g transform="translate(400,0)">
+              <text x="172" y="24" text-anchor="middle" font-size="22" font-weight="700" fill="var(--c-accent)">H1 ≈ H2</text>
+              <line x1="24" y1="235" x2="322" y2="235" stroke="#b8c4d2" stroke-width="1.5"/>
+              <rect x="44"  y="113" width="26" height="122" fill="var(--c-accent)"/>
+              <rect x="92"  y="121" width="26" height="114" fill="var(--c-accent)"/>
+              <rect x="140" y="163" width="26" height="72"  fill="#cad7e7"/>
+              <rect x="188" y="181" width="26" height="54"  fill="#cad7e7"/>
+              <rect x="236" y="195" width="26" height="40"  fill="#cad7e7"/>
+              <rect x="284" y="206" width="26" height="29"  fill="#cad7e7"/>
+              <text x="57"  y="257" text-anchor="middle" font-size="18" fill="var(--c-muted)">H1</text>
+              <text x="105" y="257" text-anchor="middle" font-size="18" fill="var(--c-muted)">H2</text>
+              <text x="172" y="281" text-anchor="middle" font-size="18" fill="var(--c-muted)">팽팽한 소리 (tense)</text>
+            </g>
+          </svg>
+          <div class="txt-muted txt-center" style="font-size:21px;margin-top:2px;">스펙트럼의 가장 낮은 두 배음(H1·H2)과 그 진폭 차이</div>
+        </div>
+        <div style="flex:1;">
+          <div class="section-label" style="margin-bottom:14px;">개념 정리</div>
+          <div style="display:flex;flex-direction:column;gap:16px;font-size:25px;line-height:1.42;">
+            <div><span class="txt-accent txt-bold" style="font-size:28px;">H1−H2</span> — 가장 낮은 두 배음의 <strong>진폭 차이</strong>(음질). 클수록 숨 섞인, 작을수록 팽팽한 소리. <span class="txt-accent">혀 위치가 같아도 음질로 ㅗ·ㅜ 구별 가능.</span></div>
+            <div><span class="txt-accent txt-bold" style="font-size:28px;">VSA</span> — 모음들이 F1·F2 평면에서 차지하는 <strong>넓이</strong>. 좁아지면(중앙화) 발음이 뭉개짐.</div>
+            <div><span class="txt-accent txt-bold" style="font-size:28px;">SI</span> — 발화 <strong>명료도</strong>. 말이 얼마나 또렷이 들리는가.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
