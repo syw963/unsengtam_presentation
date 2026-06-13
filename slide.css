@@ -618,3 +618,7 @@ html, body {
   min-width: 44px;
   text-align: center;
 }
+
+/* 슬라이드 20 — 결론 흐름도 세로 공간 축소 (오버플로 방지) */
+#slide-20 .flow-col .flow-node { padding: 12px 24px; font-size: 26px; }
+#slide-20 .flow-col .flow-arrow-v { font-size: 24px; }
