@@ -145,6 +145,8 @@ function makeSlidePreview(slide) {
   const preview = document.createElement('div');
   preview.className = 'overview-preview';
   const clone = slide.cloneNode(true);
+  const slideMatch = slide.id.match(/^slide-(\d+)$/);
+  if (slideMatch) clone.dataset.previewSlide = slideMatch[1];
   clone.querySelectorAll('canvas[id]').forEach(canvas => {
     canvas.dataset.sourceCanvasId = canvas.id;
   });
