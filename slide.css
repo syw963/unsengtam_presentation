@@ -736,3 +736,13 @@ html, body {
 .overview-preview-slide[data-preview-slide="20"] .flow-col .flow-node { padding: 12px 24px; font-size: 26px; }
 #slide-20 .flow-col .flow-arrow-v,
 .overview-preview-slide[data-preview-slide="20"] .flow-col .flow-arrow-v { font-size: 24px; }
+
+/* 슬라이드 13 — 측정 흐름도 크게 */
+#slide-13 .flow-row,
+.overview-preview-slide[data-preview-slide="13"] .flow-row { gap: 22px; margin-top: 12px; }
+#slide-13 .flow-node,
+.overview-preview-slide[data-preview-slide="13"] .flow-node { font-size: 37px; padding: 30px 38px; min-width: 210px; }
+#slide-13 .flow-arrow,
+.overview-preview-slide[data-preview-slide="13"] .flow-arrow { font-size: 50px; }
+#slide-13 .pipe-inputs,
+.overview-preview-slide[data-preview-slide="13"] .pipe-inputs { gap: 30px; }
