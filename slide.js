@@ -37,6 +37,95 @@ document.addEventListener('keydown', e => {
 document.getElementById('btn-prev').addEventListener('click', () => navigate(-1));
 document.getElementById('btn-next').addEventListener('click', () => navigate(1));
 
+/* ---------- 터치/트랙패드 스와이프 내비게이션 ---------- */
+function setupSwipeNavigation() {
+  const ignoreSelector = [
+    'a',
+    'button',
+    'input',
+    'textarea',
+    'select',
+    'summary',
+    '[role="button"]',
+    '#nav-bar',
+    '#nav-bar *',
+    '#img-overlay.active',
+    '#img-overlay.active *',
+  ].join(',');
+  const minDistance = 90;
+  const axisRatio = 1.35;
+  const wheelDistance = 70;
+  const wheelCooldownMs = 650;
+  let activePointer = null;
+  let startX = 0;
+  let startY = 0;
+  let suppressClick = false;
+  let lastWheelAt = 0;
+  let wheelAccumX = 0;
+  let wheelAccumY = 0;
+  let wheelResetTimer = null;
+
+  function shouldIgnore(target) {
+    return target && target.closest && target.closest(ignoreSelector);
+  }
+
+  function isHorizontalSwipe(dx, dy, threshold = minDistance) {
+    return Math.abs(dx) >= threshold && Math.abs(dx) > Math.abs(dy) * axisRatio;
+  }
+
+  function finishSwipe(dx, dy) {
+    if (!isHorizontalSwipe(dx, dy)) return false;
+    navigate(dx < 0 ? 1 : -1);
+    suppressClick = true;
+    window.setTimeout(() => { suppressClick = false; }, 120);
+    return true;
+  }
+
+  document.addEventListener('pointerdown', e => {
+    if (!e.isPrimary || e.pointerType === 'mouse' || shouldIgnore(e.target)) return;
+    activePointer = e.pointerId;
+    startX = e.clientX;
+    startY = e.clientY;
+  });
+
+  document.addEventListener('pointerup', e => {
+    if (e.pointerId !== activePointer) return;
+    const handled = finishSwipe(e.clientX - startX, e.clientY - startY);
+    if (handled) e.preventDefault();
+    activePointer = null;
+  });
+
+  document.addEventListener('pointercancel', e => {
+    if (e.pointerId === activePointer) activePointer = null;
+  });
+
+  document.addEventListener('click', e => {
+    if (!suppressClick) return;
+    e.preventDefault();
+    e.stopPropagation();
+  }, true);
+
+  document.addEventListener('wheel', e => {
+    if (shouldIgnore(e.target)) return;
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    e.preventDefault();
+    wheelAccumX += e.deltaX;
+    wheelAccumY += e.deltaY;
+    clearTimeout(wheelResetTimer);
+    wheelResetTimer = window.setTimeout(() => {
+      wheelAccumX = 0;
+      wheelAccumY = 0;
+    }, 180);
+    if (!isHorizontalSwipe(wheelAccumX, wheelAccumY, wheelDistance)) return;
+    const now = Date.now();
+    if (now - lastWheelAt < wheelCooldownMs) return;
+    lastWheelAt = now;
+    navigate(wheelAccumX > 0 ? 1 : -1);
+    wheelAccumX = 0;
+    wheelAccumY = 0;
+  }, { passive: false });
+}
+
 /* 길게 눌러 드래그하면 내비게이션 바 위치를 임시로 이동한다. */
 function setupDraggableNav() {
   const nav = document.getElementById('nav-bar');
@@ -583,14 +672,17 @@ function drawVowelScatterSingle(canvasId, data, speakerKey, color, labelOverride
    초기화
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
-  renderMathInElement(document.body, {
-    delimiters: [
-      { left: '\\(', right: '\\)', display: false },
-      { left: '\\[', right: '\\]', display: true },
-    ],
-    throwOnError: false,
-    strict: false,
-  });
+  setupSwipeNavigation();
+  if (typeof renderMathInElement === 'function') {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true },
+      ],
+      throwOnError: false,
+      strict: false,
+    });
+  }
   setupImagePlaceholders();
   setupImageLightbox();
   setupRecordingAudio();
