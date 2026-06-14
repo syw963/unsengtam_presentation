@@ -26,16 +26,22 @@ function showSlide(n) {
   document.getElementById('slide-counter').textContent = `${current} / ${TOTAL}`;
   document.getElementById('btn-prev').disabled = current === 1;
   document.getElementById('btn-next').disabled = current === TOTAL;
+  updateOverviewCurrent();
   if (history.replaceState) history.replaceState(null, '', `#${current}`);
 }
 function navigate(dir) { showSlide(current + dir); }
 
 document.addEventListener('keydown', e => {
+  if (isOverviewOpen()) {
+    if (e.key === 'Escape') closeOverview();
+    return;
+  }
   if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') navigate(1);
   if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                    navigate(-1);
 });
 document.getElementById('btn-prev').addEventListener('click', () => navigate(-1));
 document.getElementById('btn-next').addEventListener('click', () => navigate(1));
+document.getElementById('btn-overview').addEventListener('click', openOverview);
 
 /* ---------- 터치/트랙패드 스와이프 내비게이션 ---------- */
 function setupSwipeNavigation() {
@@ -49,6 +55,8 @@ function setupSwipeNavigation() {
     '[role="button"]',
     '#nav-bar',
     '#nav-bar *',
+    '#slide-overview.active',
+    '#slide-overview.active *',
     '#img-overlay.active',
     '#img-overlay.active *',
   ].join(',');
@@ -124,6 +132,124 @@ function setupSwipeNavigation() {
     wheelAccumX = 0;
     wheelAccumY = 0;
   }, { passive: false });
+}
+
+/* ---------- 전체 슬라이드 목록 ---------- */
+function getSlideTitle(slide, index) {
+  const title = slide.querySelector('.slide-title, .cover-title, .outro-main');
+  const text = title ? title.textContent.replace(/\s+/g, ' ').trim() : '';
+  return text || `슬라이드 ${index}`;
+}
+
+function makeSlidePreview(slide) {
+  const preview = document.createElement('div');
+  preview.className = 'overview-preview';
+  const clone = slide.cloneNode(true);
+  clone.querySelectorAll('canvas[id]').forEach(canvas => {
+    canvas.dataset.sourceCanvasId = canvas.id;
+  });
+  clone.classList.add('overview-preview-slide');
+  clone.removeAttribute('id');
+  clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+  clone.querySelectorAll('button, a, input, textarea, select').forEach(el => {
+    el.setAttribute('tabindex', '-1');
+  });
+  clone.style.transform = 'scale(0.11875)';
+  clone.style.transformOrigin = 'top left';
+  preview.appendChild(clone);
+  return preview;
+}
+
+function syncOverviewCanvasPreviews() {
+  document.querySelectorAll('.overview-preview canvas[data-source-canvas-id]').forEach(canvas => {
+    const source = document.getElementById(canvas.dataset.sourceCanvasId);
+    if (!source) return;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(source, 0, 0);
+  });
+}
+
+function isOverviewOpen() {
+  const overview = document.getElementById('slide-overview');
+  return Boolean(overview && overview.classList.contains('active'));
+}
+
+function updateOverviewCurrent() {
+  document.querySelectorAll('.overview-item').forEach(item => {
+    item.classList.toggle('is-current', Number(item.dataset.slide) === current);
+  });
+}
+
+function closeOverview() {
+  const overview = document.getElementById('slide-overview');
+  if (!overview) return;
+  overview.classList.remove('active');
+  document.getElementById('btn-overview').setAttribute('aria-expanded', 'false');
+}
+
+function openOverview() {
+  const overview = document.getElementById('slide-overview');
+  if (!overview) return;
+  updateOverviewCurrent();
+  overview.classList.add('active');
+  document.getElementById('btn-overview').setAttribute('aria-expanded', 'true');
+}
+
+function setupSlideOverview() {
+  const trigger = document.getElementById('btn-overview');
+  if (!trigger) return;
+  trigger.setAttribute('aria-expanded', 'false');
+
+  const overview = document.createElement('div');
+  overview.id = 'slide-overview';
+  overview.setAttribute('role', 'dialog');
+  overview.setAttribute('aria-modal', 'true');
+  overview.setAttribute('aria-label', '전체 슬라이드 목록');
+
+  const panel = document.createElement('div');
+  panel.className = 'overview-panel';
+  const head = document.createElement('div');
+  head.className = 'overview-head';
+  const title = document.createElement('div');
+  title.className = 'overview-title';
+  title.textContent = '전체 슬라이드 목록';
+  const closeButton = document.createElement('button');
+  closeButton.className = 'overview-close';
+  closeButton.type = 'button';
+  closeButton.setAttribute('aria-label', '전체 슬라이드 목록 닫기');
+  closeButton.textContent = '×';
+
+  const list = document.createElement('div');
+  list.className = 'overview-list';
+  document.querySelectorAll('.slide').forEach((slide, i) => {
+    const slideNumber = i + 1;
+    const item = document.createElement('button');
+    item.className = 'overview-item';
+    item.type = 'button';
+    item.dataset.slide = String(slideNumber);
+    item.setAttribute('aria-label', `${slideNumber}번 슬라이드: ${getSlideTitle(slide, slideNumber)}`);
+    const number = document.createElement('span');
+    number.className = 'overview-num';
+    number.textContent = String(slideNumber);
+    item.append(makeSlidePreview(slide), number);
+    item.addEventListener('click', () => {
+      showSlide(slideNumber);
+      closeOverview();
+    });
+    list.appendChild(item);
+  });
+
+  closeButton.addEventListener('click', closeOverview);
+  overview.addEventListener('click', e => {
+    if (e.target === overview) closeOverview();
+  });
+
+  head.append(title, closeButton);
+  panel.append(head, list);
+  overview.appendChild(panel);
+  document.body.appendChild(overview);
+  updateOverviewCurrent();
 }
 
 /* 길게 눌러 드래그하면 내비게이션 바 위치를 임시로 이동한다. */
@@ -683,6 +809,7 @@ document.addEventListener('DOMContentLoaded', () => {
       strict: false,
     });
   }
+  setupSlideOverview();
   setupImagePlaceholders();
   setupImageLightbox();
   setupRecordingAudio();
@@ -708,5 +835,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const aeData = Object.fromEntries(['에', '애'].map(k => [k, vowels[k]]));
     drawVowelScatter('cv-aee', aeData);
+    syncOverviewCanvasPreviews();
   });
 });

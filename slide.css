@@ -610,6 +610,7 @@ html, body {
   padding: 4px 9px;
   border-radius: 8px;
 }
+#btn-overview { margin-left: 4px; }
 #nav-bar button:hover    { background: rgba(255,255,255,0.12); }
 #nav-bar button:disabled { opacity: 0.3; cursor: default; }
 #slide-counter {
@@ -618,6 +619,114 @@ html, body {
   color: rgba(255,255,255,0.7);
   min-width: 44px;
   text-align: center;
+}
+
+/* ---------- Slide overview ---------- */
+#slide-overview {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 52px;
+  background: rgba(11,14,20,0.68);
+  backdrop-filter: blur(10px);
+}
+#slide-overview.active { display: flex; }
+.overview-panel {
+  width: min(1320px, calc(100vw - 72px));
+  max-height: min(790px, calc(100vh - 72px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #f8fafc;
+  border: 1px solid rgba(255,255,255,0.32);
+  border-radius: 8px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.32);
+}
+.overview-head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--c-border);
+}
+.overview-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--c-ink);
+}
+.overview-close {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--c-ink);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+.overview-list {
+  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+  padding: 18px;
+}
+.overview-item {
+  position: relative;
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: 1px solid var(--c-border);
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+.overview-item:hover { border-color: var(--c-accent); }
+.overview-item.is-current {
+  border-color: var(--c-accent);
+  background: #edf5ff;
+}
+.overview-num {
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  z-index: 2;
+  min-width: 34px;
+  height: 28px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(30,79,143,0.95);
+  color: #fff;
+  font-family: var(--f-sans);
+  font-size: 14px;
+  font-weight: 700;
+}
+.overview-preview {
+  position: relative;
+  width: 228px;
+  height: 128.25px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--c-bg);
+  box-shadow: inset 0 0 0 1px rgba(17,24,39,0.12);
+}
+.overview-preview-slide {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 auto auto 0 !important;
+  pointer-events: none;
 }
 
 /* 슬라이드 20 — 결론 흐름도 세로 공간 축소 (오버플로 방지) */
