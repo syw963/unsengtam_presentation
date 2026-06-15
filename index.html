@@ -38,7 +38,7 @@
     </div>
     <div class="content-zone top-210" style="gap:16px;">
       <div class="note" style="font-size:30px;line-height:1.4;">
-        왜 어떤 AI 음성은 발음이 정확해도 <strong>어색하게</strong> 들릴까? — 이 발표는 그 차이를 <strong class="txt-accent">음향 신호</strong>로 추적한다.
+        왜 어떤 AI 음성은 발음이 정확해도 <strong>어색하게</strong> 들릴까? — <strong class="txt-accent">물리적 음향 신호</strong> 관점에서의 분석
       </div>
 
       <!-- STEP 1 -->
@@ -60,12 +60,12 @@
       <!-- STEP 2 -->
       <div style="flex:1;display:flex;align-items:center;gap:28px;">
         <div style="flex:0 0 320px;">
-          <div style="font-size:25px;font-weight:600;letter-spacing:0.05em;color:var(--c-accent);">STEP 2 · 실험 · 비교 <span style="color:var(--c-ink)">★</span></div>
+          <div style="font-size:25px;font-weight:600;letter-spacing:0.05em;color:var(--c-accent);">STEP 2 · 실험 · 비교 </div>
           <div style="font-size:37px;font-weight:700;color:var(--c-ink);margin-top:5px;">공통점과 차이점</div>
         </div>
         <div style="flex:1;display:flex;gap:14px;">
           <div style="flex:1;border:1px solid var(--c-border);border-radius:14px;padding:16px 20px;background:var(--c-white);"><div style="font-size:23px;font-weight:800;color:var(--c-accent);">05</div><div style="font-size:31px;font-weight:700;color:var(--c-ink);margin-top:3px;">실험 설계</div><div style="font-size:22px;color:var(--c-muted);margin-top:3px;">녹음 · Praat 측정</div></div>
-          <div style="flex:2.2;border:1.5px solid var(--c-accent);border-radius:14px;padding:16px 20px;background:var(--c-white);"><div style="font-size:23px;font-weight:800;color:var(--c-accent);">06 <span style="font-weight:600;">· 발표의 핵심</span></div><div style="font-size:31px;font-weight:700;color:var(--c-ink);margin-top:3px;">비교 분석</div><div style="font-size:22px;color:var(--c-muted);margin-top:3px;">VOT · f₀ · 모음 공간 · 스펙트로그램 — 각 항목을 선행연구와 대조</div></div>
+          <div style="flex:2.2;border:1.5px solid var(--c-accent);border-radius:14px;padding:16px 20px;background:var(--c-white);"><div style="font-size:23px;font-weight:800;color:var(--c-accent);">06 </div><div style="font-size:31px;font-weight:700;color:var(--c-ink);margin-top:3px;">비교 분석</div><div style="font-size:22px;color:var(--c-muted);margin-top:3px;">VOT · f₀ · 모음 공간 · 스펙트로그램 — 각 항목을 선행연구와 대조</div></div>
         </div>
       </div>
 
@@ -107,10 +107,10 @@
           <tr><th style="width:20%">항목</th><th style="width:20%">단위</th><th>의미</th></tr>
         </thead>
         <tbody>
-          <tr><td class="row-label">VOT</td><td>ms</td><td>자음이 터진 뒤 성대 진동이 시작되기까지의 시간</td></tr>
           <tr><td class="row-label">\(f_0\)</td><td>Hz</td><td>성대 진동의 기본주파수, 목소리 높낮이</td></tr>
           <tr><td class="row-label">포먼트 F1/F2</td><td>Hz</td><td>성도 공명으로 생기는 모음의 음향적 위치</td></tr>
           <tr><td class="row-label">스펙트로그램</td><td>시간 × 주파수</td><td>주파수 성분이 시간에 따라 변하는 모습</td></tr>
+          <tr><td class="row-label">VOT</td><td>ms</td><td>자음이 터진 뒤 성대 진동이 시작되기까지의 시간</td></tr>
         </tbody>
       </table>
       <div class="note">
@@ -373,7 +373,7 @@
       <h1 class="slide-title">한국어 파열음에서 시간 구조와 기본 주파수</h1>
     </div>
     <div class="content-zone top-210" style="gap:25px;">
-      <div class="note">한국어에는 <strong class="txt-accent">평음 · 격음 · 경음</strong>의 3중 대립이 있다.</div>
+      <div class="note">한국어에서 <strong class="txt-accent">평음 · 격음 · 경음</strong>의 3중 대립</div>
       <div class="cols grow">
         <div class="col col-5">
           <table class="class-table">
@@ -386,8 +386,8 @@
           </table>
           <div class="box box-gray">
             <div class="box-body">
-              VOT와 \(f_0\)가 함께 단서로 작용하며, 현대 한국어에서는 <br>평음·격음 구별에서
-              <strong>\(f_0\)의 중요성</strong>이 커졌다는 논의가 있음.
+              VOT와 \(f_0\)가 함께 음성 구분의 단서로 작용하며,<br> 현대 한국어에서는 평음·격음 구별에서
+              <strong>\(f_0\)의 중요성</strong>이<br> 커졌다는 논의가 있음.
             </div>
           </div>
         </div>
@@ -578,7 +578,7 @@
           </div>
         </div>
       </div>
-      <div class="flow-row" style="justify-content:center;margin-top:20px;">
+      <div class="flow-row" style="justify-content:center;margin-top:50px;">
         <div class="pipe-inputs">
           <div class="flow-node" style="min-width:300px;">인간1 · 인간2 녹음</div>
           <div class="flow-node" style="min-width:300px;">TTS 생성</div>
