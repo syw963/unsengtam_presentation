@@ -513,8 +513,13 @@ function drawSine() {
   // x축 (y=0)
   g.ctx.strokeStyle = C.axis; g.ctx.lineWidth = 1.5;
   g.ctx.beginPath(); g.ctx.moveTo(g.pad.l, g.wy(0)); g.ctx.lineTo(g.pad.l + g.PW, g.wy(0)); g.ctx.stroke();
-  // 사인 곡선
-  g.curve(x => Math.sin(x), C.accent, 3.5);
+  // 복합 주기파(모음형): 한 주기마다 성문 펄스 + 포먼트 울림이 감쇠 — 순수 사인보다 음성에 가까움 (주기는 2π 유지)
+  const speech = x => {
+    const p = ((x % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+    const t = p / (2 * Math.PI);
+    return 1.12 * Math.exp(-2.4 * t) * Math.sin(2 * Math.PI * 4.5 * t);
+  };
+  g.curve(speech, C.accent, 3.5);
   // 한 주기 (0 ~ 2π) 표시: 양쪽 화살표
   const y0 = g.wy(0), markY = g.wy(-1.18);
   const x0 = g.wx(0), x1 = g.wx(2 * Math.PI);
