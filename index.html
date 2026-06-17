@@ -1164,21 +1164,21 @@
     <div class="content-zone top-210" style="gap:20px;">
       <div class="box box-blue">
         <div class="box-title">핵심 결론</div>
-        <div class="box-body">TTS는 한국어의 음향 단서를 인간과 <strong>다른 비중으로 재현</strong>한다.</div>
+        <div class="box-body">TTS는 한국어의 음향 단서를 인간과 <strong>다른 비중으로 재현</strong>한다. 일부 단서(\(f_0\)·합류)는 인간과 거의 같게, 일부(VOT·모음 공간)는 <strong>축소하여</strong> 구현한다.</div>
       </div>
       <div class="cols" style="gap:20px;align-items:stretch;">
         <div class="box box-gray" style="flex:1;">
           <div class="box-title">파열음 — VOT · \(f_0\)</div>
           <ul class="bullet-list sm" style="margin-top:6px;">
-            <li><span class="txt-green txt-bold">일치</span> · \(f_0\) 대립은 인간과 유사</li>
-            <li><span class="txt-red txt-bold">차이</span> · VOT는 TTS가 덜 사용 (격음이 짧음)</li>
+            <li><span class="txt-green txt-bold">일치</span> · 평·경·격음의 \(f_0\)(고저) 대립을 인간과 유사하게 재현</li>
+            <li><span class="txt-red txt-bold">차이</span> · VOT(기식 구간)를 TTS가 더 짧게 — 특히 <strong>격음의 길이가 압축</strong>됨</li>
           </ul>
         </div>
         <div class="box box-gray" style="flex:1;">
           <div class="box-title">모음 — 포먼트</div>
           <ul class="bullet-list sm" style="margin-top:6px;">
-            <li><span class="txt-red txt-bold">차이</span> · 모음 공간이 인간보다 좁음</li>
-            <li><span class="txt-green txt-bold">공통</span> · ㅐ/ㅔ · ㅗ/ㅜ 합류는 현대 한국어와 같음</li>
+            <li><span class="txt-red txt-bold">차이</span> · 모음 공간(VSA)이 인간보다 <strong>좁고 중앙화</strong> → 명료도 저하와 연결</li>
+            <li><span class="txt-green txt-bold">공통</span> · ㅐ/ㅔ · ㅗ/ㅜ 합류 경향은 현대 한국어 화자와 동일 (TTS만의 결함 아님)</li>
           </ul>
         </div>
       </div>
@@ -1198,17 +1198,14 @@
         <div class="box-title">의미</div>
         <div class="box-body sm">\(f_0\) 의존 · 합류 경향 = 학습 데이터의 <strong>현대 한국어 발음 경향</strong>이 반영된 결과. 어색함과 관련될 수 있음(인과는 청취 평가 필요).</div>
       </div>
-      <div class="box box-gray">
-        <div class="box-title">예상 반론과 답변</div>
-        <ul class="bullet-list sm" style="margin-top:6px;display:flex;flex-direction:column;gap:8px;">
-          <li><strong class="txt-red">"표본이 2명인데 일반화할 수 있나?"</strong><br>→ 일반화가 목적이 아닌 <strong>탐색적 사례 분석</strong>. 대규모 검증은 후속 과제로 명시.</li>
-          <li><strong class="txt-red">"어색함의 원인을 밝혔나?"</strong><br>→ 음향적 <strong>후보를 좁힌</strong> 단계. 인과 확정은 청취(MOS) 평가가 다음 단계.</li>
-          <li><strong class="txt-red">"VOT 압축은 결함이 아니라 현대 발음 반영 아닌가?"</strong><br>→ 정확한 지적이며, 이를 <strong>핵심 발견으로 흡수</strong> — 결함이 아닌 '경향 재현'으로 해석.</li>
-        </ul>
-      </div>
       <div class="box box-red">
-        <div class="box-title">한계</div>
-        <div class="box-body sm">남성 2명·TTS 1개의 <strong>소규모 사례 분석</strong> · 통계 미검정. 미세 음향·문장 운율은 후속 과제.</div>
+        <div class="box-title">한계점</div>
+        <ul class="bullet-list sm" style="margin-top:6px;display:flex;flex-direction:column;gap:9px;">
+          <li><strong>표본</strong> · 남성 2명 · TTS 1종의 <strong>소규모 사례 분석</strong> — 성별·연령·화자 다양성을 포괄하지 못함</li>
+          <li><strong>통계</strong> · 표본 수가 작아 <strong>통계적 유의성 검정 미실시</strong> (관찰된 경향 수준)</li>
+          <li><strong>인과</strong> · 음향 차이와 '어색함' 사이의 <strong>인과관계는 미검증</strong> — 청취(MOS) 평가 필요</li>
+          <li><strong>범위</strong> · 미세 음향 단서 · 문장 단위 운율(억양 · 리듬)은 분석 범위 밖 → 후속 과제</li>
+        </ul>
       </div>
     </div>
   </div>
