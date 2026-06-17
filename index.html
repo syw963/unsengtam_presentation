@@ -18,7 +18,7 @@
       <div class="cover-tag">언어 생활 탐구 발표 · 손영우</div>
       <h1 class="cover-title">AI 음성은 사람 목소리와<br>어떤 차이를 보일까?</h1>
       <p class="cover-sub">
-        어떤 AI 음성은 발음이 정확해도 어색하게 들린다. 그 이유는 무엇일까?
+        어떤 AI 음성은 왜 발음이 어색하게 느껴질까?
       </p>
       <div class="cover-meta">
         <div>한국어 파열음 · 모음 포먼트 분석</div>
@@ -39,7 +39,7 @@
     </div>
     <div class="content-zone top-210" style="gap:16px;">
       <div class="note" style="font-size:30px;line-height:1.4;">
-        왜 어떤 AI 음성은 발음이 정확해도 <strong>어색하게</strong> 들릴까? — <strong class="txt-accent">물리적 음향 신호</strong> 관점에서의 분석
+        AI 음성이 어색하게 느껴지는 이유 — <strong class="txt-accent">물리적 음향 신호</strong> 관점에서의 분석
       </div>
 
       <!-- STEP 1 -->
@@ -589,7 +589,7 @@
         <div class="flow-arrow">→</div>
         <div class="flow-node dark">비교 / 분석</div>
       </div>
-      <div class="note">각 단어를 인간·TTS에서 동일하게 녹음·추출한 뒤 <strong class="txt-accent">VOT · \(f_0\) · 포먼트</strong>를 수치로 비교한다.</div>
+      <div class="note">각 단어를 인간·TTS에서 동일하게 녹음·추출한 뒤 <strong class="txt-accent">VOT · \(f_0\) · 포먼트</strong>를 수치로 비교함.</div>
     </div>
   </div>
 
@@ -759,7 +759,7 @@
           </div>
         </div>
       </div>
-      <div class="box box-blue" style="width:90%">
+      <div class="box box-blue" style="width:90%;margin-top: 5px;">
         <div class="box-title">결과 해석</div>
         <div class="box-body sm">
           • 순서(경음 &lt; 평음 &lt; 격음)는 TTS도 유지 (9 &lt; 29 &lt; 47 ms)<br>
@@ -837,7 +837,7 @@
     </div>
     <div class="content-zone top-210" style="gap:22px;">
       <div class="note">
-        <strong class="txt-accent">Kang &amp; Kim (2026)</strong> — 상용 TTS와 인간의 한국어 파열음을 비교한 연구. 운율 위치를 4개로 나눠 측정했으므로, 본 발표와 <strong>같은 위치끼리</strong> 비교한다.
+        <strong class="txt-accent">Kang &amp; Kim (2026)</strong> — 상용 TTS와 인간의 한국어 파열음을 비교한 연구. 운율 위치를 4개로 나눠 측정했으므로, 본 발표와 <strong>같은 위치끼리</strong> 비교.
       </div>
       <table class="class-table">
         <thead><tr><th style="width:18%">항목</th><th>본 발표</th><th>Kang &amp; Kim (2026)</th></tr></thead>
@@ -865,7 +865,7 @@
       <h1 class="slide-title">선행연구와의 비교 ② 결과 해석</h1>
     </div>
     <div class="content-zone top-210" style="gap:22px;">
-      <div class="note">같은 위치(AP 첫머리·P3)에서 본 발표 결과를 <strong class="txt-accent">Kang &amp; Kim (2026)</strong>과 대조한다.</div>
+      <div class="note">같은 위치(AP 첫머리·P3)에서 본 발표 결과를 <strong class="txt-accent">Kang &amp; Kim (2026)</strong>과 비교.</div>
       <div class="cols" style="gap:22px;align-items:stretch;">
         <div class="box box-blue" style="flex:1;">
           <div class="box-title">① 위치 효과 — VOT 구별은 정상</div>
@@ -1159,7 +1159,7 @@
       <span class="page-num">24 / 26</span>
     </div>
     <div class="title-zone">
-      <h1 class="slide-title">무엇이 같고, 무엇이 달랐는가</h1>
+      <h1 class="slide-title">인간과 TTS의 공통점과 차이점</h1>
     </div>
     <div class="content-zone top-210" style="gap:20px;">
       <div class="box box-blue">
@@ -1170,15 +1170,15 @@
         <div class="box box-gray" style="flex:1;">
           <div class="box-title">파열음 — VOT · \(f_0\)</div>
           <ul class="bullet-list sm" style="margin-top:6px;">
-            <li><span class="txt-green txt-bold">일치</span> · 평·경·격음의 \(f_0\)(고저) 대립을 인간과 유사하게 재현</li>
-            <li><span class="txt-red txt-bold">차이</span> · VOT(기식 구간)를 TTS가 더 짧게 — 특히 <strong>격음의 길이가 압축</strong>됨</li>
+            <li><span class="txt-green txt-bold">공통</span> <br> 평음·경음·격음의 \(f_0\) 대립을 인간과 유사하게 재현</li>
+            <li><span class="txt-red txt-bold">차이</span> <br> VOT를 TTS가 더 짧게 — 특히 <strong>격음의 길이가 압축</strong>됨<br> → 자연스러움과 연결될 가능성</li>
           </ul>
         </div>
         <div class="box box-gray" style="flex:1;">
           <div class="box-title">모음 — 포먼트</div>
           <ul class="bullet-list sm" style="margin-top:6px;">
-            <li><span class="txt-red txt-bold">차이</span> · 모음 공간(VSA)이 인간보다 <strong>좁고 중앙화</strong> → 명료도 저하와 연결</li>
-            <li><span class="txt-green txt-bold">공통</span> · ㅐ/ㅔ · ㅗ/ㅜ 합류 경향은 현대 한국어 화자와 동일 (TTS만의 결함 아님)</li>
+            <li><span class="txt-green txt-bold">공통</span> <br> ㅐ/ㅔ · ㅗ/ㅜ 의 F1, F2 합류 경향은 인간 화자와 동일</li>
+            <li><span class="txt-red txt-bold">차이</span> <br> 모음 공간(VSA)이 인간보다 <strong>좁은 편</strong><br> → 명료도 저하와 연결될 가능성</li>
           </ul>
         </div>
       </div>
@@ -1191,20 +1191,19 @@
       <span class="page-num">25 / 26</span>
     </div>
     <div class="title-zone">
-      <h1 class="slide-title">연구의 의미와 한계</h1>
+      <h1 class="slide-title">의미와 한계점</h1>
     </div>
-    <div class="content-zone top-210" style="gap:18px;">
-      <div class="box box-blue">
-        <div class="box-title">의미</div>
-        <div class="box-body sm">\(f_0\) 의존 · 합류 경향 = 학습 데이터의 <strong>현대 한국어 발음 경향</strong>이 반영된 결과. 어색함과 관련될 수 있음(인과는 청취 평가 필요).</div>
+    <div class="content-zone top-210" style="gap:20px;">
+      <div class="box box-blue" style="padding:30px 30px;">
+        <div class="box-title" style="font-size:29px;margin-bottom:16px;">의미</div>
+        <div class="box-body" style="font-size:34px;line-height:1.4;">파열음 발음 \(f_0\) 의존, 모음 합류 경향 → TTS 학습 데이터에 <strong>현대 한국어 발음 경향</strong>이 반영된 결과로 추정 가능. <br>TTS 음성이 어색한 것과 관련될 가능성.</div>
       </div>
-      <div class="box box-red">
-        <div class="box-title">한계점</div>
-        <ul class="bullet-list sm" style="margin-top:6px;display:flex;flex-direction:column;gap:9px;">
-          <li><strong>표본</strong> · 남성 2명 · TTS 1종의 <strong>소규모 사례 분석</strong> — 성별·연령·화자 다양성을 포괄하지 못함</li>
-          <li><strong>통계</strong> · 표본 수가 작아 <strong>통계적 유의성 검정 미실시</strong> (관찰된 경향 수준)</li>
-          <li><strong>인과</strong> · 음향 차이와 '어색함' 사이의 <strong>인과관계는 미검증</strong> — 청취(MOS) 평가 필요</li>
-          <li><strong>범위</strong> · 미세 음향 단서 · 문장 단위 운율(억양 · 리듬)은 분석 범위 밖 → 후속 과제</li>
+      <div class="box box-red" style="padding:30px 30px;">
+        <div class="box-title" style="font-size:29px;margin-bottom:18px;">한계점</div>
+        <ul class="bullet-list" style="margin-top:0;display:flex;flex-direction:column;gap:24px;">
+          <li style="font-size:34px;line-height:1.4;"><strong>표본의 수</strong>  <br>남성 2명 · TTS 1종의 <strong>소규모 사례 분석</strong> — 인간 및 TTS의 특성으로 일반적 적용 불가 → 경향성의 관찰 정도로 봐야함.</li>
+          <li style="font-size:34px;line-height:1.4;"><strong>인과관계 검증</strong>  <br> 음향 차이와 '어색함' 사이의 <strong>인과관계는 검증 못함.</strong> — 실제 청취(MOS) 평가 필요</li>
+          <li style="font-size:34px;line-height:1.4;"><strong>범위</strong> <br> 추가적인 음향 단서 · 문장 단위 운율(억양, 리듬)은 분석하지 못함.</li>
         </ul>
       </div>
     </div>
